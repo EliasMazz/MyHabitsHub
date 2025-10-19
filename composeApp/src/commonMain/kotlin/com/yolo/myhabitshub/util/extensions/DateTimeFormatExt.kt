@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
+@OptIn(kotlin.time.ExperimentalTime::class)
 fun Long.asFormattedDate(
     timeZone: TimeZone = TimeZone.currentSystemDefault(),
     format: String = "dd.MM.yyyy"

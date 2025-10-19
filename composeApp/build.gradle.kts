@@ -7,18 +7,15 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose)
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.buildConfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.hot.reload)
 }
-
-//Custom scripts
-apply(from = rootProject.file("gradle/scripts/generateNewScreen.gradle.kts"))
-
 
 kotlin {
     task("testClasses")
@@ -62,15 +59,12 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
-            implementation(libs.lifecyle.runtime)
             implementation(libs.uuid)
             implementation(libs.multiplatformSettings.noargs)
             implementation(libs.android.inappreview)
             implementation(libs.coil.compose)
             implementation(libs.coil.ktor)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.navigation.compose)
 
         }
