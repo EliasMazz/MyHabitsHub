@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- remove it server after deploy, this is used for the emulator understand server running on 8080-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">10.0.2.2</domain> <!-- Or your specific local IP -->
+    </domain-config>
+</network-security-config>

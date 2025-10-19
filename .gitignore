@@ -1,0 +1,22 @@
+
+*.iml
+.gradle
+.idea
+.kotlin
+.DS_Store
+build
+*/build
+captures
+.externalNativeBuild
+.cxx
+local.properties
+xcuserdata/
+Pods/
+*.jks
+*yarn.lock
+distribution/android
+distribution/ios
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+GoogleService-Info.plist

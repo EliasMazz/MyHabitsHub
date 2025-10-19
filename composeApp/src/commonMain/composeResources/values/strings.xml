@@ -1,0 +1,41 @@
+<resources>
+    <string name="theme">Theme</string>
+    <string name="bottom_nav_label_tracking">Tracking</string>
+    <string name="bottom_nav_label_settings">Settings</string>
+    <string name="bottom_nav_label_progress">Progress</string>
+    <string name="title_error_dialog">Error</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_logout">Log Out</string>
+    <string name="btn_delete_account">Delete Account</string>
+    <string name="title_delete_user_dialog">Delete Account?</string>
+    <string name="subtitle_delete_user_dialog">Are you sure you want to delete your account?</string>
+    <string name="description_delete_user_dialog">This irreversible action will permanently delete the user and associated data. For security, you will need to log in or reauthenticate to proceed. Are you sure?</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="and">and</string>
+    <string name="txt_agree_privacy_policy_and_terms">By continuing, I agree to the </string>
+    <string name="title_screen_sign_in">Sign in</string>
+    <string name="sign_in_to">Sign in to </string>
+    <string name="txt_main_action_to_sign_in">Your account</string>
+    <string name="title_info">Info</string>
+    <string name="title_onboarding_page_1">Amazing Title</string>
+    <string name="desc_onboarding_page_1">Amazing Description Text will be here</string>
+    <string name="btn_get_started">Get Started</string>
+    <string name="btn_skip">Skip</string>
+    <string name="btn_next">Next</string>
+    <string name="title_screen_tracking">Tracking</string>
+    <string name="title_screen_progress">Progress</string>
+    <string name="title_screen_account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="title_screen_help_and_support">Help &amp; Support</string>
+    <string name="btn_logout_confirm">Yes, Logout</string>
+    <string name="text_logout_confirmation">Are you sure you want to logout?</string>
+    <string name="item_contact_support">Contact Support</string>
+    <string name="item_app_theme">Theme</string>
+    <string name="item_app_language">Language</string>
+    <string name="title_screen_profile">Profile</string>
+    <string name="text_here">here</string>
+
+</resources>
