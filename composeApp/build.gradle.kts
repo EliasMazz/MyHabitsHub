@@ -77,6 +77,7 @@ kotlin {
         }
 
         androidMain.dependencies {
+            implementation(compose.preview)
             implementation(compose.uiTooling)
             implementation(libs.androidx.activityCompose)
             implementation(project.dependencies.platform(libs.firebase.bom))
@@ -143,8 +144,6 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName(if (isSigningKeyExists) "release" else "debug")
-
-            resValue("string", "admobAppId", getRequiredProperty("ADMOB_APP_ID_ANDROID","ca-app-pub-3940256099942544~3347511713"))
         }
     }
     buildFeatures {
