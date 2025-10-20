@@ -67,6 +67,17 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.navigation.compose)
 
+            implementation(projects.core.data)
+            implementation(projects.core.domain)
+            implementation(projects.core.presentation)
+            implementation(projects.core.designsystem)
+
+            implementation(projects.feature.auth.domain)
+            implementation(projects.feature.auth.presentation)
+
+            implementation(projects.feature.coach.domain)
+            implementation(projects.feature.coach.domain)
+            implementation(projects.feature.coach.presentation)
         }
 
         commonTest.dependencies {
