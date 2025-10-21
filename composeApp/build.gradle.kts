@@ -1,13 +1,11 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import com.github.gmazzo.buildconfig.BuildConfigExtension
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import java.util.Properties
 
 plugins {
+    alias(libs.plugins.yolo.convention.android.aplication)
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.android.application)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.buildConfig)
@@ -109,58 +107,6 @@ kotlin {
 
 compose.resources {
     packageOfResClass = "com.yolo.myhabitshub.generated.resources"
-}
-
-android {
-    namespace = "com.yolo.myhabitshub"
-    compileSdk = 36
-
-    defaultConfig {
-        minSdk = 24
-        targetSdk = 36
-
-        applicationId = "com.yolo.myhabitshub"
-        versionCode = 1
-        versionName = "1.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    val keystorePropertiesFile = rootProject.file("distribution/android/keystore/keystore.properties")
-    val isSigningKeyExists = keystorePropertiesFile.exists()
-    val keystoreProperties = Properties()
-    if (isSigningKeyExists) keystorePropertiesFile.inputStream().use { keystoreProperties.load(it) }
-
-    signingConfigs {
-        if (isSigningKeyExists)
-            create("release") {
-                storeFile = file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["keystorePassword"] as String?
-                keyAlias = keystoreProperties["keyAlias"] as String?
-                keyPassword = keystoreProperties["keyPassword"] as String?
-            }
-    }
-
-    buildTypes {
-        val debug by getting {
-            isMinifyEnabled = false
-            isDebuggable = true
-        }
-
-        val release by getting {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android.txt"),
-                "proguard-rules.pro"
-            )
-            signingConfig = signingConfigs.getByName(if (isSigningKeyExists) "release" else "debug")
-        }
-    }
-    buildFeatures {
-        buildConfig = true
-    }
-
 }
 
 //https://developer.android.com/develop/ui/compose/testing#setup
