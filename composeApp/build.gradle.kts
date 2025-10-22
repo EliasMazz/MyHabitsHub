@@ -3,7 +3,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
-    alias(libs.plugins.yolo.convention.android.aplication.compose)
+    alias(libs.plugins.yolo.convention.cmp.application)
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.services)
@@ -11,29 +11,10 @@ plugins {
     alias(libs.plugins.buildConfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.hot.reload)
 }
 
 kotlin {
-    task("testClasses")
-    jvmToolchain(17)
-    androidTarget {
-        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-    }
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-            export(libs.kmpnotifier)
-        }
-    }
 
     sourceSets {
         commonMain.dependencies {

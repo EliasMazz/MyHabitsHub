@@ -16,7 +16,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
            extensions.configure<ApplicationExtension>(){
                namespace = "com.yolo.myhabitshub"
 
-
                defaultConfig {
                    applicationId = libs.findVersion("projectApplicationId").get().toString()
                    targetSdk = libs.findVersion("projectTargetSdkVersion").get().toString().toInt()

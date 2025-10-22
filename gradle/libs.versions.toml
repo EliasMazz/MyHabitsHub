@@ -151,8 +151,9 @@ androidx-runner = { group = "androidx.test", name = "runner", version.ref = "run
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 
 [plugins]
-yolo-convention-android-aplication = { id = "com.yolo.convention.android.application", version = "unspecified" }
-yolo-convention-android-aplication-compose = { id = "com.yolo.convention.android.application.compose", version = "unspecified" }
+yolo-convention-android-application = { id = "com.yolo.convention.android.application", version = "unspecified" }
+yolo-convention-android-application-compose = { id = "com.yolo.convention.android.application.compose", version = "unspecified" }
+yolo-convention-cmp-application = { id = "com.yolo.convention.cmp.application", version = "unspecified" }
 
 # Build tools
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
