@@ -45,5 +45,12 @@ gradlePlugin {
             id = "com.yolo.convention.cmp.application"
             implementationClass = "CmpApplicationConventionPlugin"
         }
+
+        register("kmpLibrary") {
+            id = "com.yolo.convention.kmp.library"
+            implementationClass = "KmpLibraryConventionPlugin"
+        }
+
+
     }
 }

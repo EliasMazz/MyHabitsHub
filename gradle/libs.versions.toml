@@ -154,6 +154,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 yolo-convention-android-application = { id = "com.yolo.convention.android.application", version = "unspecified" }
 yolo-convention-android-application-compose = { id = "com.yolo.convention.android.application.compose", version = "unspecified" }
 yolo-convention-cmp-application = { id = "com.yolo.convention.cmp.application", version = "unspecified" }
+yolo-convention-kmp-library = { id = "com.yolo.convention.kmp.library", version = "unspecified" }
 
 # Build tools
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
