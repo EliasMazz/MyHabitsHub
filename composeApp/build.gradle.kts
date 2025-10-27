@@ -1,7 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-
 plugins {
     alias(libs.plugins.yolo.convention.cmp.application)
     alias(libs.plugins.multiplatform)
@@ -18,9 +16,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
+            implementation(libs.jetbrains.compose.material.icons.core)
+            implementation(libs.jetbrains.compose.material.icons.extended)
+            implementation(libs.jetbrains.compose.runtime)
+            implementation(libs.jetbrains.compose.foundation)
+            implementation(libs.jetbrains.compose.ui)
+            implementation(libs.jetbrains.compose.material3)
+            implementation(libs.jetbrains.navigation.compose)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.koin.core)
@@ -44,7 +46,6 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.ktor)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.navigation.compose)
 
             implementation(projects.core.data)
             implementation(projects.core.domain)
@@ -54,7 +55,6 @@ kotlin {
             implementation(projects.feature.auth.domain)
             implementation(projects.feature.auth.presentation)
 
-            implementation(projects.feature.coach.domain)
             implementation(projects.feature.coach.domain)
             implementation(projects.feature.coach.presentation)
         }

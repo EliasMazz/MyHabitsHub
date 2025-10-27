@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.yolo.convention.kmp.library)
+    alias(libs.plugins.yolo.convention.cmp.presentation)
 }
 
 kotlin {
