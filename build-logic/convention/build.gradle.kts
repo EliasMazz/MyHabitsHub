@@ -11,6 +11,8 @@ dependencies {
     compileOnly(libs.android.tools.common)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.compose.gradlePlugin)
+    implementation(libs.buildkonfig.gradlePlugin)
+    implementation(libs.buildkonfig.compiler)
 }
 
 java {
@@ -56,6 +58,10 @@ gradlePlugin {
         register("cmpPresentation") {
             id = "com.yolo.convention.cmp.presentation"
             implementationClass = "CmpPresentationConventionPlugin"
+        }
+        register("buildkonfig") {
+            id = "com.yolo.convention.buildkonfig"
+            implementationClass = "BuildKonfigConventionPlugin"
         }
     }
 }

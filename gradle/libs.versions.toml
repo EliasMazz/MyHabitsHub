@@ -5,7 +5,7 @@ agp = "8.11.2"
 kotlin = "2.2.20"
 ksp = "2.2.20-2.0.4"
 googleServices = "4.4.2"
-
+buildkonfig = "0.17.1"
 androidDesugarJdkLibs = "2.1.5"
 androidTools = "31.12.0"
 
@@ -166,6 +166,9 @@ kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", versio
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+buildkonfig-gradlePlugin = { group = "com.codingfeline.buildkonfig", name = "buildkonfig-gradle-plugin", version.ref = "buildkonfig" }
+buildkonfig-compiler = { group = "com.codingfeline.buildkonfig", name = "buildkonfig-compiler", version.ref = "buildkonfig" }
+
 
 [plugins]
 yolo-convention-android-application = { id = "com.yolo.convention.android.application", version = "unspecified" }
@@ -174,11 +177,13 @@ yolo-convention-cmp-application = { id = "com.yolo.convention.cmp.application", 
 yolo-convention-kmp-library = { id = "com.yolo.convention.kmp.library", version = "unspecified" }
 yolo-convention-cmp-library = { id = "com.yolo.convention.cmp.library", version = "unspecified" }
 yolo-convention-cmp-presentation = { id = "com.yolo.convention.cmp.presentation", version = "unspecified" }
+yolo-convention-buildkonfig = { id = "com.yolo.convention.buildkonfig", version = "unspecified" }
 
 # Build tools
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
 
 # Compose
 compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose-hot-reload" }
