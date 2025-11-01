@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
-data class SettingsItemUiState(
+data class SettingsItemViewData(
     val textRes: StringResource,
     val startIcon: DrawableResource? = null,
     val helperTextRes: StringResource? = null,
@@ -37,16 +37,16 @@ data class SettingsItemUiState(
 @Composable
 fun SettingsItem(
     modifier: Modifier = Modifier,
-    settingsItemUiState: SettingsItemUiState,
+    settingsItemViewData: SettingsItemViewData,
     textStyle: TextStyle = AppTheme.typography.h6,
 ) {
-    val textIconColor = settingsItemUiState.textIconColor ?: AppTheme.colors.text.primary
+    val textIconColor = settingsItemViewData.textIconColor ?: AppTheme.colors.text.primary
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.horizontalItemSpacing)
     ) {
-        settingsItemUiState.startIcon?.let {
+        settingsItemViewData.startIcon?.let {
             Icon(
                 modifier = Modifier.size(24.dp),
                 imageVector = vectorResource(it),
@@ -57,13 +57,13 @@ fun SettingsItem(
 
         Text(
             modifier = Modifier.weight(1f),
-            text = stringResource(settingsItemUiState.textRes),
+            text = stringResource(settingsItemViewData.textRes),
             style = textStyle,
             color = textIconColor,
         )
 
         Row {
-            settingsItemUiState.helperTextRes?.let {
+            settingsItemViewData.helperTextRes?.let {
                 Text(
                     text = stringResource(it),
                     style = AppTheme.typography.bodyLarge,
@@ -72,7 +72,7 @@ fun SettingsItem(
                 Spacer(modifier = Modifier.width(AppTheme.spacing.inputIconTextSpacing))
             }
 
-            if (settingsItemUiState.showEndIcon) {
+            if (settingsItemViewData.showEndIcon) {
                 Icon(
                     modifier = Modifier.size(24.dp),
                     imageVector = vectorResource(Res.drawable.ic_arrow_right),
@@ -88,15 +88,15 @@ fun SettingsItem(
 
 @Composable
 fun SettingItemListContainer(
-    itemList: List<SettingsItemUiState>,
+    itemList: List<SettingsItemViewData>,
     itemTextStyle: TextStyle = AppTheme.typography.h6,
-    onClick: (SettingsItemUiState) -> Unit = {}
+    onClick: (SettingsItemViewData) -> Unit = {}
 ) {
     AppCardContainer(contentPaddingValues = PaddingValues(0.dp)) {
         Column {
             itemList.forEach {
                 SettingsItem(
-                    settingsItemUiState = it,
+                    settingsItemViewData = it,
                     textStyle = itemTextStyle,
                     modifier = Modifier
                         .fillMaxWidth()

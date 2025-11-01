@@ -7,16 +7,16 @@ import com.yolo.myhabitshub.generated.resources.title_screen_help_and_support
 import com.yolo.myhabitshub.generated.resources.ic_settings_item_logout
 import com.yolo.myhabitshub.generated.resources.ic_settings_item_support_legal
 import com.yolo.myhabitshub.generated.resources.logout
-import com.yolo.myhabitshub.presentation.components.SettingsItemUiState
+import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 
 data class AccountViewState(
-    val settingsItemList: List<SettingsItemUiState> = listOf(
-        SettingsItemUiState(
+    val settingsItemList: List<SettingsItemViewData> = listOf(
+        SettingsItemViewData(
             startIcon = Res.drawable.ic_settings_item_support_legal,
             textRes = Res.string.title_screen_help_and_support
         ),
 
-        SettingsItemUiState(
+        SettingsItemViewData(
             startIcon = Res.drawable.ic_settings_item_logout,
             textRes = Res.string.logout,
             showEndIcon = false,

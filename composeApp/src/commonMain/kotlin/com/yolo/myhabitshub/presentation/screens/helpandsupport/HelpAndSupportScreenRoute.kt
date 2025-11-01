@@ -13,20 +13,20 @@ import org.koin.compose.koinInject
 
 @Serializable
 class HelpAndSupportScreenRoute() :
-    ScreenRoute<HelpAndSupportViewModel, HelpAndSupportViewIntent, HelpAndSupportState, HelpAndSupportEvent> {
+    ScreenRoute<HelpAndSupportViewModel, HelpAndSupportViewIntent, HelpAndSupportViewState, HelpAndSupportEvent> {
 
     @Composable
-    override fun provideScreenContract(viewModel: HelpAndSupportViewModel): ScreenContract<HelpAndSupportState, HelpAndSupportEvent> {
+    override fun provideScreenContract(viewModel: HelpAndSupportViewModel): ScreenContract<HelpAndSupportViewState, HelpAndSupportEvent> {
         val localUriHandler = LocalUriHandler.current
         val appUtil = koinInject<AppUtil>()
 
-       return object : ScreenContract<HelpAndSupportState, HelpAndSupportEvent> {
+       return object : ScreenContract<HelpAndSupportViewState, HelpAndSupportEvent> {
 
            @Composable
-           override fun Screen(viewState: HelpAndSupportState) {
+           override fun Screen(viewState: HelpAndSupportViewState) {
                HelpAndSupportScreen(
                    modifier = Modifier.fillMaxSize(),
-                   itemList = viewState.settingsItemUiState,
+                   itemList = viewState.settingsItemViewData,
                    onContactSupportClicked = { viewModel.handleIntent(HelpAndSupportViewIntent.OnContactSupportClicked) },
                    onTermsAndConditionsClicked = { viewModel.handleIntent(HelpAndSupportViewIntent.OnTermsAndConditionsClicked) },
                    onPrivacyPolicyClicked = { viewModel.handleIntent(HelpAndSupportViewIntent.OnPrivacyPolicyClicked) }

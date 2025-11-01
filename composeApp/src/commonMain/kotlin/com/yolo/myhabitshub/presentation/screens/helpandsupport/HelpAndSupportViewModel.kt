@@ -5,15 +5,15 @@ import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.item_contact_support
 import com.yolo.myhabitshub.generated.resources.privacy_policy
 import com.yolo.myhabitshub.generated.resources.terms_conditions
-import com.yolo.myhabitshub.presentation.components.SettingsItemUiState
+import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 
 class HelpAndSupportViewModel :
-    BaseViewModel<HelpAndSupportViewIntent, HelpAndSupportState, HelpAndSupportEvent>(
-        initialState = HelpAndSupportState(
-            settingsItemUiState = listOf(
-                SettingsItemUiState(textRes = Res.string.item_contact_support),
-                SettingsItemUiState(textRes = Res.string.privacy_policy),
-                SettingsItemUiState(textRes = Res.string.terms_conditions),
+    BaseViewModel<HelpAndSupportViewIntent, HelpAndSupportViewState, HelpAndSupportEvent>(
+        initialState = HelpAndSupportViewState(
+            settingsItemViewData = listOf(
+                SettingsItemViewData(textRes = Res.string.item_contact_support),
+                SettingsItemViewData(textRes = Res.string.privacy_policy),
+                SettingsItemViewData(textRes = Res.string.terms_conditions),
             )
         )
     ) {

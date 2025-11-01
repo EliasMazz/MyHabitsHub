@@ -13,13 +13,13 @@ import com.yolo.myhabitshub.generated.resources.item_contact_support
 import com.yolo.myhabitshub.generated.resources.privacy_policy
 import com.yolo.myhabitshub.generated.resources.terms_conditions
 import com.yolo.myhabitshub.presentation.components.SettingItemListContainer
-import com.yolo.myhabitshub.presentation.components.SettingsItemUiState
+import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 
 @Composable
 fun HelpAndSupportScreen(
     modifier: Modifier = Modifier,
-    itemList: List<SettingsItemUiState>,
+    itemList: List<SettingsItemViewData>,
     onContactSupportClicked : () -> Unit,
     onPrivacyPolicyClicked : () -> Unit,
     onTermsAndConditionsClicked : () -> Unit,

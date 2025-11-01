@@ -30,7 +30,7 @@ import com.yolo.myhabitshub.generated.resources.ic_profile_img_placeholder
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
 import com.yolo.myhabitshub.presentation.components.LoadingProgressMode
 import com.yolo.myhabitshub.presentation.components.SettingItemListContainer
-import com.yolo.myhabitshub.presentation.components.SettingsItemUiState
+import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import com.yolo.myhabitshub.presentation.components.UserInput
 import com.yolo.myhabitshub.presentation.components.modals.AppDialog
 import com.yolo.myhabitshub.presentation.components.modals.DeleteUserConfirmation
@@ -45,7 +45,7 @@ fun SettingsScreen(
     onDeleteAccountDialogConfirmed: () -> Unit,
     onDeleteAccountDialogDismissed: () -> Unit,
     onErrorDialogConfirmed: () -> Unit,
-    onDeleteAccountClicked: (SettingsItemUiState) -> Unit,
+    onDeleteAccountClicked: (SettingsItemViewData) -> Unit,
 ) {
     if (viewState.deleteUserDialogShown) {
         DeleteUserConfirmation(
@@ -79,7 +79,7 @@ fun SettingsScreen(
 fun SettingsScreenContent(
     modifier: Modifier = Modifier,
     currentUserResponse: UserResponse,
-    onClickDeleteAccount: (SettingsItemUiState) -> Unit,
+    onClickDeleteAccount: (SettingsItemViewData) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -119,7 +119,7 @@ fun SettingsScreenContent(
             onClick = onClickDeleteAccount,
             itemTextStyle = AppTheme.typography.h5.copy(fontWeight = FontWeight.SemiBold),
             itemList = listOf(
-                SettingsItemUiState(
+                SettingsItemViewData(
                     textRes = Res.string.btn_delete_account,
                     startIcon = Res.drawable.ic_delete,
                     showEndIcon = false,

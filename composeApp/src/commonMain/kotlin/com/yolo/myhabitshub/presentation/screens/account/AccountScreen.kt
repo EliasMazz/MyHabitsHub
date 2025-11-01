@@ -40,7 +40,7 @@ import com.yolo.myhabitshub.presentation.components.SettingItemListContainer
 import com.yolo.myhabitshub.presentation.components.SmallTitle
 import com.yolo.myhabitshub.presentation.components.modals.AppModalBottomSheet
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
-import com.yolo.myhabitshub.presentation.components.SettingsItemUiState
+import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -54,7 +54,7 @@ fun AccountScreen(
     onSignInClicked: () -> Unit,
     onProfileClicked: () -> Unit,
     onHelpAndSupportClicked: () -> Unit,
-    onSettingsItemClicked: (SettingsItemUiState) -> Unit
+    onSettingsItemClicked: (SettingsItemViewData) -> Unit
 ) {
     if (viewState.isLogoutDialogVisible) {
         LogoutModalBottomSheet(
@@ -81,7 +81,7 @@ fun AccountContent(
     onClickSignIn: () -> Unit,
     onClickProfile: () -> Unit,
     onHelpAndSupportClick: () -> Unit,
-    onSettingsItemClick: (SettingsItemUiState) -> Unit
+    onSettingsItemClick: (SettingsItemViewData) -> Unit
 ) {
     Column(
         modifier = modifier
