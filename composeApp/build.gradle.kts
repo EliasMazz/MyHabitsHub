@@ -52,6 +52,7 @@ kotlin {
             implementation(projects.core.presentation)
             implementation(projects.core.designsystem)
 
+
             implementation(projects.feature.auth.domain)
             implementation(projects.feature.auth.presentation)
 

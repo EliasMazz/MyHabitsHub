@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.core.presentation.theme
+package com.yolo.core.designsystem
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -8,15 +8,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.yolo.myhabitshub.generated.resources.Res
-import com.yolo.myhabitshub.generated.resources.manrope_bold
-import com.yolo.myhabitshub.generated.resources.manrope_extralight
-import com.yolo.myhabitshub.generated.resources.manrope_light
-import com.yolo.myhabitshub.generated.resources.manrope_medium
-import com.yolo.myhabitshub.generated.resources.manrope_regular
-import com.yolo.myhabitshub.generated.resources.manrope_semi_bold
-import org.jetbrains.compose.resources.Font
 
+import myhabitshub.core.designsystem.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.manrope_bold
+import myhabitshub.core.designsystem.generated.resources.manrope_extralight
+import myhabitshub.core.designsystem.generated.resources.manrope_light
+import myhabitshub.core.designsystem.generated.resources.manrope_medium
+import myhabitshub.core.designsystem.generated.resources.manrope_regular
+import myhabitshub.core.designsystem.generated.resources.manrope_semi_bold
+import org.jetbrains.compose.resources.Font
 
 private val fontFamily
     @Composable get() = FontFamily(
@@ -52,6 +52,68 @@ private val fontFamily
         )
     )
 
+val Typography @Composable get() = Typography(
+    titleLarge = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 30.sp,
+        lineHeight = 36.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp,
+        lineHeight = 28.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp,
+        lineHeight = 26.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        lineHeight = 18.sp
+    ),
+    displaySmall = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 11.sp,
+        lineHeight = 14.sp
+    ),
+)
 
 /**
  * App typography values
@@ -63,7 +125,7 @@ private val fontFamily
  * @param h5: Mostly used in section titles
  */
 @Immutable
-class AppTypography(
+class AppTypographyLegacy(
     val h1: TextStyle,
     val h2: TextStyle,
     val h3: TextStyle,
@@ -103,8 +165,8 @@ val MaterialThemAppTypography
         labelSmall = baseline.labelSmall.copy(fontFamily = fontFamily),
     )
 
-val appTypography
-    @Composable get() = AppTypography(
+val appTypographyLegacy
+    @Composable get() = AppTypographyLegacy(
         h1 = TextStyle(
             fontFamily = fontFamily,
             letterSpacing = 0.sp,

@@ -8,12 +8,15 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
+import com.yolo.core.designsystem.AppTypographyLegacy
+import com.yolo.core.designsystem.MaterialThemAppTypography
+import com.yolo.core.designsystem.appTypographyLegacy
 
 
 internal val LocalThemeIsDark = compositionLocalOf { true }
 internal val LocalAppColors = staticCompositionLocalOf { lightModeAppColors }
-internal val LocalAppTypography =
-    staticCompositionLocalOf<AppTypography> { error("Typography not provided") }
+internal val LocalAppTypographyLegacy =
+    staticCompositionLocalOf<AppTypographyLegacy> { error("Typography not provided") }
 internal val LocalAppSpacing = staticCompositionLocalOf { AppSpacing() }
 
 @Composable
@@ -24,7 +27,7 @@ internal fun AppTheme(
     CompositionLocalProvider(
         LocalThemeIsDark provides isDarkMode,
         LocalAppColors provides if (isDarkMode) darkModeAppColors else lightModeAppColors,
-        LocalAppTypography provides appTypography,
+        LocalAppTypographyLegacy provides appTypographyLegacy,
         LocalAppSpacing provides appSpacing
     ) {
 
@@ -50,8 +53,8 @@ object AppTheme {
     val colors: AppColors
         @Composable @ReadOnlyComposable get() = LocalAppColors.current
 
-    val typography: AppTypography
-        @Composable @ReadOnlyComposable get() = LocalAppTypography.current
+    val typography: AppTypographyLegacy
+        @Composable @ReadOnlyComposable get() = LocalAppTypographyLegacy.current
 
     val spacing: AppSpacing
         @Composable @ReadOnlyComposable get() = LocalAppSpacing.current
