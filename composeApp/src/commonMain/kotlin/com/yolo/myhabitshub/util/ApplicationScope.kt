@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.util
 
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

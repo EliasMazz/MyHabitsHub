@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.sp
 import com.yolo.myhabitshub.domain.model.AuthProvider
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.core.presentation.theme.LocalThemeIsDark
-import com.yolo.myhabitshub.util.logging.AppLogger
 import com.mmk.kmpauth.firebase.apple.AppleButtonUiContainer
 import com.mmk.kmpauth.firebase.google.GoogleButtonUiContainerFirebase
 import com.mmk.kmpauth.uihelper.apple.AppleButtonMode
 import com.mmk.kmpauth.uihelper.apple.AppleSignInButton
 import com.mmk.kmpauth.uihelper.google.GoogleButtonMode
 import com.mmk.kmpauth.uihelper.google.GoogleSignInButton
+import com.yolo.core.data.logging.AppLogger
 import dev.gitlive.firebase.auth.FirebaseUser
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

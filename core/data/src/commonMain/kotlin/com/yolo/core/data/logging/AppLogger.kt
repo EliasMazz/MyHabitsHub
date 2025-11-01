@@ -1,9 +1,12 @@
-package com.yolo.myhabitshub.util.logging
+package com.yolo.core.data.logging
 
+import com.yolo.core.domain.logging.Logger
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 
-class NapierLogger : Logger {
+object AppLogger : Logger by NapierLogger()
+
+internal class NapierLogger : Logger {
 
     override fun initialize(isDebug: Boolean) {
         if (isDebug) Napier.base(DebugAntilog())

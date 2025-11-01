@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.data.source.remote
 
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import io.ktor.client.HttpClient
@@ -61,7 +61,5 @@ object HttpClientFactory {
             execute(request)
         }
     }
-
-
 }
 

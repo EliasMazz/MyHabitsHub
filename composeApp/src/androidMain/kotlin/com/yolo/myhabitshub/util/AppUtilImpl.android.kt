@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.pm.PackageInfoCompat
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 
 class AppUtilImpl(private val context: Context) : AppUtil {
 

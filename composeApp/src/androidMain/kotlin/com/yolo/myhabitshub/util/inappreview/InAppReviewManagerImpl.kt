@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 
 class InAppReviewManagerImpl : InAppReviewManager {
 

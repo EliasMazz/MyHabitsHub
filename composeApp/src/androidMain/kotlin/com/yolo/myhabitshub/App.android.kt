@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.yolo.myhabitshub.root.App
 import com.yolo.myhabitshub.root.AppInitializer
-import com.yolo.myhabitshub.util.logging.AppLogger
 import com.mmk.kmpnotifier.extensions.onCreateOrOnNewIntent
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.permission.permissionUtil
+import com.yolo.core.data.logging.AppLogger
 import org.koin.android.ext.koin.androidContext
 
 

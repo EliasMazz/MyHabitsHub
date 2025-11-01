@@ -33,7 +33,7 @@ import com.yolo.myhabitshub.presentation.components.AgreePrivacyPolicyTermsCondi
 import com.yolo.myhabitshub.presentation.components.AuthUIHelperButtons
 import com.yolo.myhabitshub.presentation.components.LogoImage
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 

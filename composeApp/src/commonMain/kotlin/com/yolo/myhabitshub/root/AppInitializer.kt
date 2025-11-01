@@ -12,7 +12,6 @@ import com.yolo.myhabitshub.presentation.screens.settings.SettingsViewModel
 import com.yolo.myhabitshub.util.ApplicationScope
 import com.yolo.myhabitshub.util.analytics.Analytics
 import com.yolo.myhabitshub.util.isDebug
-import com.yolo.myhabitshub.util.logging.AppLogger
 import com.yolo.myhabitshub.util.onApplicationStartPlatformSpecific
 import com.yolo.myhabitshub.util.platformModule
 import com.mmk.kmpauth.google.GoogleAuthCredentials
@@ -31,6 +30,7 @@ import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
 import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
 import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
 import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
+import com.yolo.core.data.logging.AppLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.KoinApplication

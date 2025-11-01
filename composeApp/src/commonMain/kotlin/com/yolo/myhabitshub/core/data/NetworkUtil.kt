@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.core.data
 
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.io.IOException
 import kotlinx.serialization.SerialName

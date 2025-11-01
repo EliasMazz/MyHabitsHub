@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.util.logging
+package com.yolo.core.domain.logging
 
 interface Logger {
     // Should be called on Application start
@@ -7,6 +7,3 @@ interface Logger {
     fun d(message: String, throwable: Throwable? = null, tag: String? = null)
     fun i(message: String, throwable: Throwable? = null, tag: String? = null)
 }
-
-object AppLogger : Logger by NapierLogger()
-

@@ -1,7 +1,7 @@
 package com.yolo.myhabitshub.data.source.featureflag
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.yolo.myhabitshub.util.logging.AppLogger
+import com.yolo.core.data.logging.AppLogger
 
 class FeatureFlagManagerImpl(private val remoteConfig: FirebaseRemoteConfig) : FeatureFlagManager {
 
