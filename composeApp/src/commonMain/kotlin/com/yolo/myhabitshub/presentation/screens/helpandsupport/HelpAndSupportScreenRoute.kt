@@ -37,9 +37,7 @@ class HelpAndSupportScreenRoute() :
                when (event) {
                    HelpAndSupportEvent.OpenFeedbackMail -> appUtil.openFeedbackMail()
                    HelpAndSupportEvent.OpenPrivacyPoliceUri -> localUriHandler.openUri(Constants.URL_PRIVACY_POLICY)
-                   HelpAndSupportEvent.OpenTermsAndConditionsUri -> localUriHandler.openUri(
-                       Constants.URL_TERMS_CONDITIONS
-                   )
+                   HelpAndSupportEvent.OpenTermsAndConditionsUri -> localUriHandler.openUri(Constants.URL_TERMS_CONDITIONS)
                }
            }
        }
