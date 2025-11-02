@@ -1,4 +1,4 @@
-package com.yolo.core.designsystem
+package com.yolo.core.designsystem.theme
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme

@@ -8,9 +8,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.yolo.core.designsystem.AppTypographyLegacy
-import com.yolo.core.designsystem.MaterialThemAppTypography
-import com.yolo.core.designsystem.appTypographyLegacy
+import com.yolo.core.designsystem.theme.AppTypographyLegacy
+import com.yolo.core.designsystem.theme.MaterialThemAppTypography
+import com.yolo.core.designsystem.theme.appTypographyLegacy
 
 
 internal val LocalThemeIsDark = compositionLocalOf { true }
