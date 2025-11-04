@@ -30,9 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.btn_ok
-import com.yolo.myhabitshub.generated.resources.ic_close
 import com.yolo.myhabitshub.generated.resources.title_error_dialog
 import com.yolo.myhabitshub.generated.resources.title_info
 import com.yolo.myhabitshub.presentation.components.AppButton
@@ -40,7 +38,10 @@ import com.yolo.myhabitshub.presentation.components.ButtonStyle
 import com.yolo.myhabitshub.presentation.components.DialogOrBottomSheetTitle
 import com.yolo.myhabitshub.presentation.components.PreviewHelper
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
-import com.yolo.myhabitshub.generated.resources.ic_check
+import com.yolo.myhabitshub.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_check
+import myhabitshub.core.designsystem.generated.resources.ic_close
+import myhabitshub.core.designsystem.generated.resources.Res as R
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -164,8 +165,8 @@ fun AppDialog(
 fun AppDialogImage(
     dialogType: DialogType,
     icon: DrawableResource = when (dialogType) {
-        DialogType.INFO -> Res.drawable.ic_check
-        DialogType.ERROR -> Res.drawable.ic_close
+        DialogType.INFO -> R.drawable.ic_check
+        DialogType.ERROR -> R.drawable.ic_close
     }
 ) {
     val iconTint = when (dialogType) {

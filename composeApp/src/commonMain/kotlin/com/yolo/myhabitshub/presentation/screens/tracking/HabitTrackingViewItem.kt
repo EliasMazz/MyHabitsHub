@@ -18,10 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.yolo.myhabitshub.domain.model.HabitTracking
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
-import com.yolo.myhabitshub.generated.resources.Res
-import com.yolo.myhabitshub.generated.resources.ic_check_habit
-import com.yolo.myhabitshub.generated.resources.ic_habit_icon_test
-import com.yolo.myhabitshub.generated.resources.ic_uncheck_habit
+import myhabitshub.core.designsystem.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_check_habit
+import myhabitshub.core.designsystem.generated.resources.ic_habit_icon_test
+import myhabitshub.core.designsystem.generated.resources.ic_uncheck_habit
 import org.jetbrains.compose.resources.vectorResource
 
 data class HabitTrackingItemViewState(

@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.yolo.myhabitshub.generated.resources.Res
-import com.yolo.myhabitshub.generated.resources.ic_logo
+import myhabitshub.core.designsystem.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_logo
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

@@ -6,10 +6,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.yolo.myhabitshub.generated.resources.Res
-import com.yolo.myhabitshub.generated.resources.ic_logo
 import com.yolo.myhabitshub.presentation.components.AppButton
 import com.yolo.myhabitshub.presentation.components.PreviewHelper
+import myhabitshub.core.designsystem.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_logo
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

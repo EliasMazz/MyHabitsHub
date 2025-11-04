@@ -10,16 +10,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextAlign
-import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.btn_cancel
 import com.yolo.myhabitshub.generated.resources.btn_delete
 import com.yolo.myhabitshub.generated.resources.description_delete_user_dialog
-import com.yolo.myhabitshub.generated.resources.ic_delete
 import com.yolo.myhabitshub.generated.resources.subtitle_delete_user_dialog
 import com.yolo.myhabitshub.generated.resources.title_delete_user_dialog
 import com.yolo.myhabitshub.presentation.components.AppButton
 import com.yolo.myhabitshub.presentation.components.PreviewHelper
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import myhabitshub.core.designsystem.generated.resources.Res as R
+import com.yolo.myhabitshub.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_delete
 import org.jetbrains.compose.resources.stringResource
 
 enum class DeleteUserConfirmationStyle {
@@ -94,7 +95,7 @@ private fun DeleteUserConfirmationDialog(
         btnDismissText = stringResource(Res.string.btn_cancel),
         btnConfirmText = stringResource(Res.string.btn_delete),
         image = {
-            AppDialogImage(dialogType = dialogType, icon = Res.drawable.ic_delete)
+            AppDialogImage(dialogType = dialogType, icon = R.drawable.ic_delete)
         },
         onConfirm = onConfirm,
         onDismiss = onDismiss

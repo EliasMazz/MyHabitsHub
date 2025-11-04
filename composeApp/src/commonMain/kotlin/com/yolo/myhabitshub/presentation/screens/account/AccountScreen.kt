@@ -26,12 +26,9 @@ import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.yolo.myhabitshub.data.model.UserResponse
-import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.btn_cancel
 import com.yolo.myhabitshub.generated.resources.btn_logout_confirm
 import com.yolo.myhabitshub.generated.resources.title_screen_help_and_support
-import com.yolo.myhabitshub.generated.resources.ic_arrow_right
-import com.yolo.myhabitshub.generated.resources.ic_profile_img_placeholder
 import com.yolo.myhabitshub.generated.resources.logout
 import com.yolo.myhabitshub.generated.resources.text_logout_confirmation
 import com.yolo.myhabitshub.generated.resources.title_screen_sign_in
@@ -41,6 +38,10 @@ import com.yolo.myhabitshub.presentation.components.SmallTitle
 import com.yolo.myhabitshub.presentation.components.modals.AppModalBottomSheet
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
+import myhabitshub.core.designsystem.generated.resources.Res as R
+import com.yolo.myhabitshub.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_arrow_right
+import myhabitshub.core.designsystem.generated.resources.ic_profile_img_placeholder
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -122,8 +123,8 @@ private fun ProfileInfoBox(userResponse: UserResponse?, onClick: () -> Unit) {
                     .data(userResponse?.photoUrl)
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(Res.drawable.ic_profile_img_placeholder),
-                error = painterResource(Res.drawable.ic_profile_img_placeholder),
+                placeholder = painterResource(R.drawable.ic_profile_img_placeholder),
+                error = painterResource(R.drawable.ic_profile_img_placeholder),
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(60.dp).clip(CircleShape),
@@ -149,7 +150,7 @@ private fun ProfileInfoBox(userResponse: UserResponse?, onClick: () -> Unit) {
 
             Icon(
                 modifier = Modifier.size(24.dp),
-                imageVector = vectorResource(Res.drawable.ic_arrow_right),
+                imageVector = vectorResource(R.drawable.ic_arrow_right),
                 contentDescription = null,
                 tint = AppTheme.colors.text.primary
             )

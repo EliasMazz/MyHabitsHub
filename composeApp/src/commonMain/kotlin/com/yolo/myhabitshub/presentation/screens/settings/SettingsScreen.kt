@@ -23,10 +23,7 @@ import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.yolo.myhabitshub.data.model.UserResponse
-import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.btn_delete_account
-import com.yolo.myhabitshub.generated.resources.ic_delete
-import com.yolo.myhabitshub.generated.resources.ic_profile_img_placeholder
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
 import com.yolo.myhabitshub.presentation.components.LoadingProgressMode
 import com.yolo.myhabitshub.presentation.components.SettingItemListContainer
@@ -36,6 +33,10 @@ import com.yolo.myhabitshub.presentation.components.modals.AppDialog
 import com.yolo.myhabitshub.presentation.components.modals.DeleteUserConfirmation
 import com.yolo.myhabitshub.presentation.components.modals.DialogType
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import myhabitshub.core.designsystem.generated.resources.Res as R
+import com.yolo.myhabitshub.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_delete
+import myhabitshub.core.designsystem.generated.resources.ic_profile_img_placeholder
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -94,8 +95,8 @@ fun SettingsScreenContent(
                 .data(currentUserResponse.photoUrl)
                 .crossfade(true)
                 .build(),
-            placeholder = painterResource(Res.drawable.ic_profile_img_placeholder),
-            error = painterResource(Res.drawable.ic_profile_img_placeholder),
+            placeholder = painterResource(R.drawable.ic_profile_img_placeholder),
+            error = painterResource(R.drawable.ic_profile_img_placeholder),
             contentDescription = null,
             contentScale = ContentScale.Fit,
             modifier = Modifier.size(100.dp).clip(CircleShape),
@@ -121,7 +122,7 @@ fun SettingsScreenContent(
             itemList = listOf(
                 SettingsItemViewData(
                     textRes = Res.string.btn_delete_account,
-                    startIcon = Res.drawable.ic_delete,
+                    startIcon = R.drawable.ic_delete,
                     showEndIcon = false,
                     textIconColor = AppTheme.colors.status.error
                 )

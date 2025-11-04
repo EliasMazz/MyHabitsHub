@@ -33,9 +33,9 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.yolo.myhabitshub.generated.resources.Res
-import com.yolo.myhabitshub.generated.resources.ic_crown
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import myhabitshub.core.designsystem.generated.resources.Res
+import myhabitshub.core.designsystem.generated.resources.ic_crown
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
