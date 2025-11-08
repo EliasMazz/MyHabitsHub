@@ -24,7 +24,7 @@ class HelpAndSupportScreenRoot() :
        return object : ScreenContract<HelpAndSupportViewState, HelpAndSupportEvent> {
 
            @Composable
-           override fun ScreenView(viewState: HelpAndSupportViewState) {
+           override fun Screen(viewState: HelpAndSupportViewState) {
                HelpAndSupportScreen(
                    modifier = Modifier.fillMaxSize(),
                    itemList = viewState.settingsItemViewData,

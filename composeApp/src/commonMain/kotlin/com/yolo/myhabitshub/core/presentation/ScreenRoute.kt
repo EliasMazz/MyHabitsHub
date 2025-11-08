@@ -52,7 +52,7 @@ interface ScreenRoot<
             onConsumeEvent = { viewModel.consumeEvent() },
         )
 
-        screenContract.ScreenView(viewState = viewState.value)
+        screenContract.Screen(viewState = viewState.value)
     }
 
     /**

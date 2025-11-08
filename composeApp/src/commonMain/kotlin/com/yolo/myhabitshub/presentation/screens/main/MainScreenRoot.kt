@@ -1,7 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.main
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -9,7 +8,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.root.LocalNavigator
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import kotlinx.serialization.Serializable
 
@@ -36,8 +34,8 @@ class MainScreenRoot :
         return object : ScreenContract<MainScreenViewState, MainViewEvent> {
 
             @Composable
-            override fun ScreenView(viewState: MainScreenViewState) {
-                    MainScreenView(
+            override fun Screen(viewState: MainScreenViewState) {
+                    MainScreen(
                         viewState = viewState,
                         onToolbarNavItemClicked = { viewModel.handleIntent(MainViewIntent.OnToolbarNavItemClicked) },
                         onBottomNavItemClicked = { viewModel.handleIntent(MainViewIntent.OnBottomNavItemClicked(bottomNavItem = it)) },

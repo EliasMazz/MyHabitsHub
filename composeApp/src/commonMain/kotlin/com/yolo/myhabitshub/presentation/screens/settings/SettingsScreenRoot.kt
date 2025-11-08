@@ -7,7 +7,6 @@ import androidx.navigation.NavHostController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
-import com.yolo.myhabitshub.root.LocalNavigator
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -19,8 +18,8 @@ class SettingsScreenRoot :
         return object : ScreenContract<SettingsViewState, SettingsViewEvent> {
 
             @Composable
-            override fun ScreenView(viewState: SettingsViewState) {
-                SettingsScreenView(
+            override fun Screen(viewState: SettingsViewState) {
+                SettingsScreen(
                     modifier = Modifier.fillMaxSize(),
                     viewState = viewState,
                     onDeleteAccountDialogConfirmed = { viewModel.handleIntent(SettingsViewIntent.OnDeleteAccountDialogConfirmed) },

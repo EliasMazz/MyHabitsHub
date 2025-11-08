@@ -19,8 +19,8 @@ class AccountScreenRoot : ScreenRoot<AccountViewModel, AccountViewIntent, Accoun
         return object : ScreenContract<AccountViewState, AccountViewEvent> {
 
             @Composable
-            override fun ScreenView(viewState: AccountViewState) {
-                AccountScreenView(
+            override fun Screen(viewState: AccountViewState) {
+                AccountScreen(
                     modifier = Modifier.fillMaxSize(),
                     viewState = viewState,
                     onLogoutDialogConfirmed = { viewModel.handleIntent(AccountViewIntent.OnLogoutDialogConfirmed) },

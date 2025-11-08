@@ -16,7 +16,7 @@ interface ScreenContract<STATE : ViewState<EVENT>, EVENT : ViewEvent> {
      * @param viewState The current UI state to render.
      */
     @Composable
-    fun ScreenView(viewState: STATE)
+    fun Screen(viewState: STATE)
 
     /**
      * Processes one-time [ViewEvent]s emitted by the ViewModel, such as navigation.
