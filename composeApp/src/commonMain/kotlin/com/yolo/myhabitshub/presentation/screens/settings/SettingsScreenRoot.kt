@@ -20,7 +20,7 @@ class SettingsScreenRoot :
         return object : ScreenContract<SettingsViewState, SettingsViewEvent> {
 
             @Composable
-            override fun Screen(viewState: SettingsViewState) {
+            override fun ScreenView(viewState: SettingsViewState) {
                 SettingsScreen(
                     modifier = Modifier.fillMaxSize(),
                     viewState = viewState,

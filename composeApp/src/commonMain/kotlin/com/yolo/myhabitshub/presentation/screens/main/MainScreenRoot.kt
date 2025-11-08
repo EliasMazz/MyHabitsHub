@@ -34,7 +34,7 @@ class MainScreenRoot :
 
         return object : ScreenContract<MainScreenViewState, MainScreenViewEvent> {
             @Composable
-            override fun Screen(viewState: MainScreenViewState) {
+            override fun ScreenView(viewState: MainScreenViewState) {
                 CompositionLocalProvider(LocalNavigator provides navController) {
                     MainScreen(
                         viewState = viewState,

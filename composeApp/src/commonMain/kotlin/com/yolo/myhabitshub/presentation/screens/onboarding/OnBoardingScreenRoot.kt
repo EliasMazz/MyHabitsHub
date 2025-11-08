@@ -17,7 +17,7 @@ class OnBoardingScreenRoot :
         return object : ScreenContract<OnBoardingViewState, OnBoardingViewEvent> {
 
             @Composable
-            override fun Screen(viewState: OnBoardingViewState) {
+            override fun ScreenView(viewState: OnBoardingViewState) {
                 OnBoardingScreen(
                     style = OnBoardingScreenStyle.STYLE2,
                     viewState = viewState,

@@ -15,8 +15,8 @@ class HabitProgressScreenRoot : ScreenRoot<HabitProgressViewModel, HabitProgress
         return object : ScreenContract<HabitProgressViewState, HabitProgressViewEvent>{
 
             @Composable
-            override fun Screen(viewState: HabitProgressViewState) {
-                HabitProgressScreen(Modifier.fillMaxSize())
+            override fun ScreenView(viewState: HabitProgressViewState) {
+                HabitProgressScreenView(Modifier.fillMaxSize())
             }
 
             override fun handleEvent(event: HabitProgressViewEvent) {

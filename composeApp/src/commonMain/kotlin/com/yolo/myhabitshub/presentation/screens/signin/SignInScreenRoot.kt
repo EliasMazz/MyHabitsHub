@@ -18,7 +18,7 @@ class SignInScreenRoot :
 
         return object : ScreenContract<SignInViewState, SignInViewEvent> {
             @Composable
-            override fun Screen(viewState: SignInViewState) {
+            override fun ScreenView(viewState: SignInViewState) {
                 SignInScreen(
                     modifier = Modifier.fillMaxSize(),
                     viewState = viewState,

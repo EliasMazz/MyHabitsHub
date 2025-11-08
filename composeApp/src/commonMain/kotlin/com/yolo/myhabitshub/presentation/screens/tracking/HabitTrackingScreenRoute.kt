@@ -16,7 +16,7 @@ class HabitTrackingScreenRoot :
         return object : ScreenContract<HabitTrackingViewState, HabitTrackingViewEvent> {
 
             @Composable
-            override fun Screen(viewState: HabitTrackingViewState) {
+            override fun ScreenView(viewState: HabitTrackingViewState) {
                 HabitTrackingScreen(
                     viewState = viewState,
                     onToggleHabitClicked = {

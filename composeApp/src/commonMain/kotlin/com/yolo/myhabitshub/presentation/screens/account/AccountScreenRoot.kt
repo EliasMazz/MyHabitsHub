@@ -21,7 +21,7 @@ class AccountScreenRoot : ScreenRoot<AccountViewModel, AccountViewIntent, Accoun
         return object : ScreenContract<AccountViewState, AccountViewEvent> {
 
             @Composable
-            override fun Screen(viewState: AccountViewState) {
+            override fun ScreenView(viewState: AccountViewState) {
                 AccountScreen(
                     modifier = Modifier.fillMaxSize(),
                     viewState = viewState,
