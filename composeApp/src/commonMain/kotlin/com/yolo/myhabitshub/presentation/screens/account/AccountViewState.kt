@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.account
 
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
+import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 import com.yolo.myhabitshub.data.model.UserResponse
 import com.yolo.myhabitshub.generated.resources.title_screen_help_and_support
 import com.yolo.myhabitshub.generated.resources.logout

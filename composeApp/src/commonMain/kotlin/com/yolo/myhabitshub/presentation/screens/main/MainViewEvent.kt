@@ -1,7 +1,7 @@
 package com.yolo.myhabitshub.presentation.screens.main
 
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
+import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 
 sealed interface MainViewEvent: ViewEvent {
 

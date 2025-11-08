@@ -1,7 +1,7 @@
-package com.yolo.myhabitshub.core.presentation.viewmodel
+package com.yolo.core.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
+import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

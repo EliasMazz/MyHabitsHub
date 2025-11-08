@@ -1,7 +1,7 @@
 package com.yolo.myhabitshub.presentation.screens.main
 
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewIntent
-import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavItem
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewIntent
+import com.yolo.myhabitshub.presentation.BottomNavItem
 
 sealed interface MainViewIntent : ViewIntent {
     data class OnBottomNavItemClicked(

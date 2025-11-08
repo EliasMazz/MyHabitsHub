@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.helpandsupport
 
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel
+import com.yolo.core.presentation.viewmodel.BaseViewModel
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.item_contact_support
 import com.yolo.myhabitshub.generated.resources.privacy_policy

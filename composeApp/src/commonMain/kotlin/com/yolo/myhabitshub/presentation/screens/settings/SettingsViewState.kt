@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.settings
 
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewState
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewState
 import com.yolo.myhabitshub.data.model.UserResponse
 
 data class SettingsViewState(

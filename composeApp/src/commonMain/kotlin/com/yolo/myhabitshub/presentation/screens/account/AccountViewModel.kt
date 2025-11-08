@@ -6,7 +6,7 @@ import com.yolo.myhabitshub.domain.usecase.GetUserStream
 import com.yolo.myhabitshub.domain.usecase.LogOutUseCase
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.logout
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel
+import com.yolo.core.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class AccountViewModel(

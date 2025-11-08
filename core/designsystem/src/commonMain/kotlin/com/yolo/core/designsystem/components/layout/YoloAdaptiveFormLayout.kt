@@ -30,6 +30,7 @@ import com.yolo.core.designsystem.components.brand.YoloBrandLogo
 import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.core.designsystem.theme.extended
 import com.yolo.core.presentation.util.DeviceConfiguration
+import com.yolo.core.presentation.util.clearFocusOnTap
 import com.yolo.core.presentation.util.currentDeviceConfiguration
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -38,8 +39,8 @@ fun YoloAdaptiveFormLayout(
     headerText: String,
     errorText: String? = null,
     logo: @Composable () -> Unit,
-    formContent: @Composable ColumnScope.() -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    formContent: @Composable ColumnScope.() -> Unit
 ) {
     val configuration = currentDeviceConfiguration()
     val headerColor = if(configuration == DeviceConfiguration.MOBILE_LANDSCAPE) {
@@ -52,6 +53,7 @@ fun YoloAdaptiveFormLayout(
         DeviceConfiguration.MOBILE_PORTRAIT -> {
             YoloSurface(
                 modifier = modifier
+                    .clearFocusOnTap()
                     .consumeWindowInsets(WindowInsets.navigationBars)
                     .consumeWindowInsets(WindowInsets.displayCutout),
                 header = {
@@ -76,6 +78,7 @@ fun YoloAdaptiveFormLayout(
                 modifier = modifier
                     .fillMaxSize()
                     .consumeWindowInsets(WindowInsets.displayCutout)
+                    .consumeWindowInsets(WindowInsets.navigationBars)
             ) {
                 Column(
                     modifier = Modifier
@@ -87,14 +90,17 @@ fun YoloAdaptiveFormLayout(
                     AuthHeaderSection(
                         headerText = headerText,
                         headerColor = headerColor,
-                        errorText = errorText
+                        errorText = errorText,
+                        headerTextAlignment = TextAlign.Start
                     )
                 }
                 YoloSurface(
                     modifier = Modifier
                         .weight(1f)
                 ) {
+                    Spacer(modifier = Modifier.height(16.dp))
                     formContent()
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
@@ -117,7 +123,6 @@ fun YoloAdaptiveFormLayout(
                         .clip(RoundedCornerShape(32.dp))
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(horizontal = 24.dp, vertical = 32.dp),
-                    verticalArrangement = Arrangement.spacedBy(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     AuthHeaderSection(
@@ -137,12 +142,13 @@ fun ColumnScope.AuthHeaderSection(
     headerText: String,
     headerColor: Color,
     errorText: String? = null,
+    headerTextAlignment: TextAlign = TextAlign.Center
 ) {
     Text(
         text = headerText,
         style = MaterialTheme.typography.titleLarge,
         color = headerColor,
-        textAlign = TextAlign.Center,
+        textAlign = headerTextAlignment,
         modifier = Modifier.fillMaxWidth()
     )
     AnimatedVisibility(
@@ -155,7 +161,7 @@ fun ColumnScope.AuthHeaderSection(
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = headerTextAlignment
             )
         }
     }

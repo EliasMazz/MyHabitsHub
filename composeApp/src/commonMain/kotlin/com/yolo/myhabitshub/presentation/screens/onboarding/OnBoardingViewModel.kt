@@ -2,7 +2,7 @@ package com.yolo.myhabitshub.presentation.screens.onboarding
 
 import androidx.lifecycle.viewModelScope
 import com.yolo.myhabitshub.data.source.preferences.UserPreferences
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel
+import com.yolo.core.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 

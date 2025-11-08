@@ -1,7 +1,7 @@
 package com.yolo.myhabitshub.presentation.screens.main
 
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewState
-import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavItem
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewState
+import com.yolo.myhabitshub.presentation.BottomNavItem
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_back
 import org.jetbrains.compose.resources.DrawableResource

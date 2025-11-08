@@ -18,16 +18,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.yolo.auth.presentation.RegisterScreen
+import com.yolo.auth.presentation.RegisterViewState
+import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
-import com.yolo.myhabitshub.util.UiMessage
+import com.yolo.core.presentation.util.UiText
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 internal fun App() {
-    AppTheme() {
+    YoloTheme {
+        RegisterScreen(
+            RegisterViewState(),
+        )
+    }
+
+    /*
+      AppTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -37,36 +47,38 @@ internal fun App() {
             //Set this to true for showing app, or false for ui components gallery
             val isPreviewComponentsMode = false
             if (isPreviewComponentsMode) AllComponentsGallery()
-            else AppScaffold()
+            else
+                AppScaffold()
         }
     }
+     */
+
 }
 
 @Composable
 private fun AppScaffold() {
     val snackbarHostState = remember { SnackbarHostState() }
-    var uiMessage by remember { mutableStateOf<UiMessage?>(null) }
+    var uiText by remember { mutableStateOf<UiText?>(null) }
 
-    ObserveFlowAsEvent(AppGlobalUiState.uiMessageFlow) { uiMessage = it }
+    ObserveFlowAsEvent(AppGlobalUiState.uiMessageFlow) { uiText = it }
 
-    uiMessage?.value?.let { message ->
+    uiText?.value?.let { message ->
         LaunchedEffect(message) {
             snackbarHostState.showSnackbar(message = message)
-            uiMessage = null
+            uiText = null
         }
     }
     Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }) {
         AppNavigation()
     }
-
 }
 
 object AppGlobalUiState {
-    private val uiMessageChannel = Channel<UiMessage>(Channel.BUFFERED)
-    val uiMessageFlow = uiMessageChannel.receiveAsFlow()
+    private val uiTextChannel = Channel<UiText>(Channel.BUFFERED)
+    val uiMessageFlow = uiTextChannel.receiveAsFlow()
 
-    fun showUiMessage(uiMessage: UiMessage) {
-        uiMessageChannel.trySend(uiMessage)
+    fun showUiMessage(uiText: UiText) {
+        uiTextChannel.trySend(uiText)
     }
 }
 

@@ -5,10 +5,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewEvent
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewIntent
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewState
+import com.yolo.core.presentation.viewmodel.BaseViewModel
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewEvent
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewIntent
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewState
 import com.yolo.myhabitshub.root.LocalNavigator
 import kotlinx.coroutines.flow.Flow
 

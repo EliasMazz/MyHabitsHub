@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.myhabitshub.presentation.components.AppToolbar
-import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavItem
+import com.yolo.myhabitshub.presentation.BottomNavItem
 import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavigationBar
 import org.jetbrains.compose.resources.painterResource
 

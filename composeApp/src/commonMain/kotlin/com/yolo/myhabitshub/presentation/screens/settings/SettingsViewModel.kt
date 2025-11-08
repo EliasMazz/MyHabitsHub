@@ -5,7 +5,7 @@ import com.yolo.myhabitshub.core.domain.usecase.invoke
 import com.yolo.myhabitshub.domain.exceptions.UnAuthorizedException
 import com.yolo.myhabitshub.domain.usecase.DeleteAccountUseCase
 import com.yolo.myhabitshub.domain.usecase.GetUserStream
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel
+import com.yolo.core.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(

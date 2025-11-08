@@ -17,10 +17,10 @@ class CmpPresentationConventionPlugin: Plugin<Project> {
                "commonMainImplementation"(libs.findLibrary("koin-compose").get())
                "commonMainImplementation"(libs.findLibrary("koin-compose-viewmodel").get())
                "commonMainImplementation"(libs.findLibrary("koin-compose-viewmodel-navigation").get())
+
                "commonMainImplementation"(libs.findLibrary("jetbrains-compose-viewmodel").get())
                "commonMainImplementation"(libs.findLibrary("jetbrains-lifecycle-viewmodel").get())
                "commonMainImplementation"(libs.findLibrary("jetbrains-lifecycle-compose").get())
-
                "commonMainImplementation"(libs.findLibrary("jetbrains-lifecycle-viewmodel-savedstate").get())
                "commonMainImplementation"(libs.findLibrary("jetbrains-savedstate").get())
                "commonMainImplementation"(libs.findLibrary("jetbrains-bundle").get())
@@ -28,6 +28,7 @@ class CmpPresentationConventionPlugin: Plugin<Project> {
 
                "androidMainImplementation"(libs.findLibrary("koin-android").get())
                "androidMainImplementation"(libs.findLibrary("koin-core-viewmodel").get())
+
            }
        }
     }

@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.onboarding
 
-import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewState
+import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewState
 import com.yolo.myhabitshub.generated.resources.desc_onboarding_page_1
 import com.yolo.myhabitshub.generated.resources.title_onboarding_page_1
 import myhabitshub.core.designsystem.generated.resources.Res as R
