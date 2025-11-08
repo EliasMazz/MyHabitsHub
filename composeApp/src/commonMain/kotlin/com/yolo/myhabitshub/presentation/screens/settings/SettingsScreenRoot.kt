@@ -21,7 +21,7 @@ class SettingsScreenRoot :
 
             @Composable
             override fun ScreenView(viewState: SettingsViewState) {
-                SettingsScreen(
+                SettingsScreenView(
                     modifier = Modifier.fillMaxSize(),
                     viewState = viewState,
                     onDeleteAccountDialogConfirmed = { viewModel.handleIntent(SettingsViewIntent.OnDeleteAccountDialogConfirmed) },

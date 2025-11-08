@@ -24,7 +24,7 @@ class HelpAndSupportScreenRoot() :
 
            @Composable
            override fun ScreenView(viewState: HelpAndSupportViewState) {
-               HelpAndSupportScreen(
+               HelpAndSupportScreenView(
                    modifier = Modifier.fillMaxSize(),
                    itemList = viewState.settingsItemViewData,
                    onContactSupportClicked = { viewModel.handleIntent(HelpAndSupportViewIntent.OnContactSupportClicked) },

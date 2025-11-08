@@ -3,7 +3,7 @@ package com.yolo.myhabitshub.presentation.screens.main
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
 
-sealed interface MainScreenViewEvent: ViewEvent {
+sealed interface MainViewEvent: ViewEvent {
 
     /**
      * Event to navigate to a specific route.
@@ -20,11 +20,11 @@ sealed interface MainScreenViewEvent: ViewEvent {
         val screenRoot: ScreenRoot<*, *, *, *>,
         val popUpToStartDestination: Boolean = false,
         val launchSingleTop: Boolean = true
-    ) : MainScreenViewEvent
+    ) : MainViewEvent
 
     /**
      * Event to navigate up in the back stack (equivalent to pressing the system back button
      * within the current navigation graph).
      */
-    data object NavigateUp : MainScreenViewEvent
+    data object NavigateUp : MainViewEvent
 }

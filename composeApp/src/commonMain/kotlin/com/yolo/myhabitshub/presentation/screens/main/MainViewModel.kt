@@ -6,16 +6,16 @@ import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_back
 
 class MainViewModel :
-    BaseViewModel<MainScreenViewIntent, MainScreenViewState, MainScreenViewEvent>(
+    BaseViewModel<MainViewIntent, MainScreenViewState, MainViewEvent>(
         initialState = MainScreenViewState(bottomNavViewState = BottomNavViewState(items = BottomNavItem.items()))
     ) {
 
-    override fun onViewIntent(intent: MainScreenViewIntent) {
+    override fun onViewIntent(intent: MainViewIntent) {
         when (intent) {
-            is MainScreenViewIntent.OnNavigationDestinationChanged -> handleNavigationDestinationChanged(intent.route)
-            is MainScreenViewIntent.OnBottomNavItemClicked -> handleBottomNavItemClick(intent.bottomNavItem)
-            is MainScreenViewIntent.OnToolbarSetTitle -> handleToolbarSetTitle(intent.label)
-            MainScreenViewIntent.OnToolbarNavItemClicked -> handleToolbarNavItemClick()
+            is MainViewIntent.OnNavigationDestinationChanged -> handleNavigationDestinationChanged(intent.route)
+            is MainViewIntent.OnBottomNavItemClicked -> handleBottomNavItemClick(intent.bottomNavItem)
+            is MainViewIntent.OnToolbarSetTitle -> handleToolbarSetTitle(intent.label)
+            MainViewIntent.OnToolbarNavItemClicked -> handleToolbarNavItemClick()
         }
     }
 
@@ -65,14 +65,14 @@ class MainViewModel :
     }
 
     private fun handleToolbarNavItemClick() {
-        updateState { copy(viewEvent = MainScreenViewEvent.NavigateUp) }
+        updateState { copy(viewEvent = MainViewEvent.NavigateUp) }
     }
 
     private fun handleBottomNavItemClick(item: BottomNavItem) {
         if (state.value.bottomNavViewState.isVisible) {
             updateState {
                 copy(
-                    viewEvent = MainScreenViewEvent.NavigateTo(
+                    viewEvent = MainViewEvent.NavigateTo(
                         screenRoot = item.screenRoot,
                         popUpToStartDestination = true,
                         launchSingleTop = true

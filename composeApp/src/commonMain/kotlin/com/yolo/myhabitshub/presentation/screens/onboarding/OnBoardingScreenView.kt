@@ -13,7 +13,7 @@ enum class OnBoardingScreenStyle {
 }
 
 @Composable
-fun OnBoardingScreen(
+fun OnBoardingScreenView(
     modifier: Modifier = Modifier,
     style: OnBoardingScreenStyle = OnBoardingScreenStyle.STYLE2,
     viewState: OnBoardingViewState,

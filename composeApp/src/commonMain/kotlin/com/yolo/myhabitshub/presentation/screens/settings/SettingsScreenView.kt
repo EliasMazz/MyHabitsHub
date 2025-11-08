@@ -40,7 +40,7 @@ import myhabitshub.core.designsystem.generated.resources.ic_profile_img_placehol
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun SettingsScreen(
+fun SettingsScreenView(
     modifier: Modifier = Modifier,
     viewState: SettingsViewState,
     onDeleteAccountDialogConfirmed: () -> Unit,

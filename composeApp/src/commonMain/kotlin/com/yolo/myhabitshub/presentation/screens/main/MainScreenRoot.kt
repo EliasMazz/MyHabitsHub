@@ -14,10 +14,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class MainScreenRoot :
-    ScreenRoot<MainViewModel, MainScreenViewIntent, MainScreenViewState, MainScreenViewEvent> {
+    ScreenRoot<MainViewModel, MainViewIntent, MainScreenViewState, MainViewEvent> {
 
     @Composable
-    override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainScreenViewEvent> {
+    override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainViewEvent> {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -25,34 +25,34 @@ class MainScreenRoot :
         LaunchedEffect(navBackStackEntry) {
             currentRoute?.let {
                 viewModel.handleIntent(
-                    MainScreenViewIntent.OnNavigationDestinationChanged(
+                    MainViewIntent.OnNavigationDestinationChanged(
                         route = it,
                     )
                 )
             }
         }
 
-        return object : ScreenContract<MainScreenViewState, MainScreenViewEvent> {
+        return object : ScreenContract<MainScreenViewState, MainViewEvent> {
             @Composable
             override fun ScreenView(viewState: MainScreenViewState) {
                 CompositionLocalProvider(LocalNavigator provides navController) {
-                    MainScreen(
+                    MainScreenView(
                         viewState = viewState,
-                        onToolbarNavItemClicked = { viewModel.handleIntent(MainScreenViewIntent.OnToolbarNavItemClicked) },
-                        onBottomNavItemClicked = { viewModel.handleIntent(MainScreenViewIntent.OnBottomNavItemClicked(bottomNavItem = it)) },
+                        onToolbarNavItemClicked = { viewModel.handleIntent(MainViewIntent.OnToolbarNavItemClicked) },
+                        onBottomNavItemClicked = { viewModel.handleIntent(MainViewIntent.OnBottomNavItemClicked(bottomNavItem = it)) },
                         mainContent = {
                             MainNavHost(
                                 navController = navController,
-                                onToolbarSetTitle = { viewModel.handleIntent(MainScreenViewIntent.OnToolbarSetTitle(label = it)) }
+                                onToolbarSetTitle = { viewModel.handleIntent(MainViewIntent.OnToolbarSetTitle(label = it)) }
                             )
                         }
                     )
                 }
             }
 
-            override fun handleEvent(event: MainScreenViewEvent) {
+            override fun handleEvent(event: MainViewEvent) {
                 when (event) {
-                    is MainScreenViewEvent.NavigateTo -> {
+                    is MainViewEvent.NavigateTo -> {
                         //TODO: Check, for some reason saveState, and restoreState doesn't work
                         navController.navigate(event.screenRoot) {
                             if (event.popUpToStartDestination) {
@@ -65,7 +65,7 @@ class MainScreenRoot :
                         }
                     }
 
-                    MainScreenViewEvent.NavigateUp -> {
+                    MainViewEvent.NavigateUp -> {
                         navController.navigateUp()
                     }
                 }

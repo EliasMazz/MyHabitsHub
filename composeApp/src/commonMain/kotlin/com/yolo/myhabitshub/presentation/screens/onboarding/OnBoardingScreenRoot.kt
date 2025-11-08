@@ -18,7 +18,7 @@ class OnBoardingScreenRoot :
 
             @Composable
             override fun ScreenView(viewState: OnBoardingViewState) {
-                OnBoardingScreen(
+                OnBoardingScreenView(
                     style = OnBoardingScreenStyle.STYLE2,
                     viewState = viewState,
                     onStartClicked = { viewModel.handleIntent(OnBoardingViewIntent.OnStartClicked) }

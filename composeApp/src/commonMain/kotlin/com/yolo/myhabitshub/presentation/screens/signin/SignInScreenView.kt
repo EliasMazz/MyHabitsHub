@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun SignInScreen(
+fun SignInScreenView(
     modifier: Modifier = Modifier,
     viewState: SignInViewState,
     onSignInViewSuccess: () -> Unit,

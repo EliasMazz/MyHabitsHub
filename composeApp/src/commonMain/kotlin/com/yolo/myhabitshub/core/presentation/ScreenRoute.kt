@@ -42,7 +42,7 @@ interface ScreenRoot<
         val viewState = viewModel.state.collectAsStateWithLifecycle()
         val screenContract = provideScreenContract(viewModel = viewModel)
 
-        HandleOneTimeUiEvents(
+        HandleOneTimeUiEvent(
             viewModel.eventsFlow,
             onEvent = { event ->
                 screenContract.handleEvent(event)
@@ -61,7 +61,7 @@ interface ScreenRoot<
     fun provideScreenContract(viewModel: VIEW_MODEL): ScreenContract<STATE, EVENT>
 
     /**
-     * Handles one-time events from ViewModel, passing them to your screenContract
+     * Handles one-time event from ViewModel, passing them to your screenContract
      * observes and processes ViewModel effects, then consume them.
      * Uses `rememberUpdatedState` to prevent issues with stale lambdas in `LaunchedEffect`.
      *
@@ -69,7 +69,7 @@ interface ScreenRoot<
      * https://proandroiddev.com/android-one-off-events-approaches-evolution-anti-patterns-add887cd0250
      */
     @Composable
-    private fun <EVENT> HandleOneTimeUiEvents(
+    private fun <EVENT> HandleOneTimeUiEvent(
         eventFlow: Flow<EVENT?>,
         onEvent: suspend (EVENT) -> Unit,
         onConsumeEvent: () -> Unit,

@@ -12,7 +12,7 @@ import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavigationBa
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun MainScreen(
+fun MainScreenView(
     modifier: Modifier = Modifier,
     viewState: MainScreenViewState,
     onToolbarNavItemClicked:() -> Unit,

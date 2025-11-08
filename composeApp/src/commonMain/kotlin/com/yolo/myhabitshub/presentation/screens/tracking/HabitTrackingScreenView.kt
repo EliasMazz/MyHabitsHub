@@ -45,7 +45,7 @@ import com.yolo.myhabitshub.presentation.components.LoadingProgress
 import com.yolo.myhabitshub.presentation.components.LoadingProgressMode
 
 @Composable
-fun HabitTrackingScreen(
+fun HabitTrackingScreenView(
     viewState: HabitTrackingViewState,
     onToggleHabitClicked: (HabitTrackingItemViewState) -> Unit,
     onHabitDetailsClicked: (HabitTracking) -> Unit

@@ -47,7 +47,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
-fun AccountScreen(
+fun AccountScreenView(
     modifier: Modifier = Modifier,
     viewState: AccountViewState,
     onLogoutDialogConfirmed: () -> Unit,
