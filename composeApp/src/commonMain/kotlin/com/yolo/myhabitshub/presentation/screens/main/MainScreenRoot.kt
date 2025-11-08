@@ -2,8 +2,11 @@ package com.yolo.myhabitshub.presentation.screens.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.root.LocalNavigator
@@ -17,6 +20,18 @@ class MainScreenRoot :
     @Composable
     override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainViewEvent> {
         val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        LaunchedEffect(navBackStackEntry) {
+            currentRoute?.let {
+                viewModel.handleIntent(
+                    MainViewIntent.OnNavigationDestinationChanged(
+                        route = it,
+                    )
+                )
+            }
+        }
 
         return object : ScreenContract<MainScreenViewState, MainViewEvent> {
 
