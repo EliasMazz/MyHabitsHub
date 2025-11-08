@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.root.LocalNavigator
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import kotlinx.serialization.Serializable
 
 @Serializable
-class SignInScreenRoute :
-    ScreenRoute<SignInViewModel, SignInViewIntent, SignInViewState, SignInViewEvent> {
+class SignInScreenRoot :
+    ScreenRoot<SignInViewModel, SignInViewIntent, SignInViewState, SignInViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: SignInViewModel): ScreenContract<SignInViewState, SignInViewEvent> {

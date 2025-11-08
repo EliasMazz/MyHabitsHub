@@ -2,14 +2,14 @@ package com.yolo.myhabitshub.presentation.screens.onboarding
 
 import androidx.compose.runtime.Composable
 import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
-import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
+import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoot
 import com.yolo.myhabitshub.root.LocalNavigator
 import kotlinx.serialization.Serializable
 
 @Serializable
-class OnBoardingScreenRoute :
-    ScreenRoute<OnBoardingViewModel, OnBoardingViewIntent, OnBoardingViewState, OnBoardingViewEvent> {
+class OnBoardingScreenRoot :
+    ScreenRoot<OnBoardingViewModel, OnBoardingViewIntent, OnBoardingViewState, OnBoardingViewEvent> {
     @Composable
     override fun provideScreenContract(viewModel: OnBoardingViewModel): ScreenContract<OnBoardingViewState, OnBoardingViewEvent> {
         val navigator = LocalNavigator.current
@@ -27,8 +27,8 @@ class OnBoardingScreenRoute :
 
             override fun handleEvent(event: OnBoardingViewEvent) {
                 when (event) {
-                    OnBoardingViewEvent.OnBoardingComplete -> navigator.navigate(MainScreenRoute()) {
-                        popUpTo(OnBoardingScreenRoute()) {
+                    OnBoardingViewEvent.OnBoardingComplete -> navigator.navigate(MainScreenRoot()) {
+                        popUpTo(OnBoardingScreenRoot()) {
                             inclusive = true
                         }
                     }

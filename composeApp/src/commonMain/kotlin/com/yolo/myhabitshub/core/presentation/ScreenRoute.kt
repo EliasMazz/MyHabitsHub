@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.Flow
  * @param STATE UI state type (received by UI from ViewModel).
  * @param EVENT One-time side event type (received by UI from ViewModel).
  */
-interface ScreenRoute<
+interface ScreenRoot<
         VIEW_MODEL : BaseViewModel<INTENT, STATE, EVENT>,
         INTENT : ViewIntent,
         STATE : ViewState<EVENT>,
@@ -44,17 +44,17 @@ interface ScreenRoute<
 
         HandleOneTimeUiEvents(
             viewModel.eventsFlow,
-            onConsumeEvent = { viewModel.consumeEvent() },
             onEvent = { event ->
                 screenContract.handleEvent(event)
             },
+            onConsumeEvent = { viewModel.consumeEvent() },
         )
 
         screenContract.Screen(viewState = viewState.value)
     }
 
     /**
-     * **Implement this:** Define UI (`ScreenContent`) and event handling (`handleEvent`) for your screen.
+     * Implement this: Define UI (`ScreenContent`) and event handling (`handleEvent`) for your screen.
      * `Screen` uses this to link your UI with the [viewModel] for [STATE] updates, [EVENT] processing, and sending [INTENT]s.
      */
     @Composable

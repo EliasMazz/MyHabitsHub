@@ -5,15 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.util.AppUtil
 import com.yolo.myhabitshub.util.Constants
 import kotlinx.serialization.Serializable
 import org.koin.compose.koinInject
 
 @Serializable
-class HelpAndSupportScreenRoute() :
-    ScreenRoute<HelpAndSupportViewModel, HelpAndSupportViewIntent, HelpAndSupportViewState, HelpAndSupportEvent> {
+class HelpAndSupportScreenRoot() :
+    ScreenRoot<HelpAndSupportViewModel, HelpAndSupportViewIntent, HelpAndSupportViewState, HelpAndSupportEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: HelpAndSupportViewModel): ScreenContract<HelpAndSupportViewState, HelpAndSupportEvent> {

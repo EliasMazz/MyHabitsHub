@@ -60,7 +60,7 @@ fun BottomNavigationBar(
 @Composable
 fun BottomNavigationBarPreview() {
     PreviewHelper {
-        val emptyScreenRoute = object : ScreenRoute<Nothing, Nothing, Nothing, Nothing> {
+        val emptyScreenRoot = object : ScreenRoot<Nothing, Nothing, Nothing, Nothing> {
             @Composable
             override fun provideScreenContract(viewModel: Nothing): ScreenContract<Nothing, Nothing> {
                 TODO("Not yet implemented")
@@ -70,19 +70,19 @@ fun BottomNavigationBarPreview() {
             BottomNavItem(
                 label = "Home",
                 icon = Icons.Default.Home,
-                screenRoute = emptyScreenRoute,
+                screenRoot = emptyScreenRoot,
                 destination = ""
             ),
             BottomNavItem(
                 label = "Favorite",
                 icon = Icons.Default.Favorite,
-                screenRoute = emptyScreenRoute,
+                screenRoot = emptyScreenRoot,
                 destination = ""
             ),
             BottomNavItem(
                 label = "Profile",
                 icon = Icons.Default.AccountCircle,
-                screenRoute = emptyScreenRoute,
+                screenRoot = emptyScreenRoot,
                 destination = ""
             )
         )

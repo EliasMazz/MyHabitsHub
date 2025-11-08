@@ -5,14 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.root.LocalNavigator
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
-import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportScreenRoute
-import com.yolo.myhabitshub.presentation.screens.settings.SettingsScreenRoute
-import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
+import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportScreenRoot
+import com.yolo.myhabitshub.presentation.screens.settings.SettingsScreenRoot
+import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
 import kotlinx.serialization.Serializable
 
 @Serializable
-class AccountScreenRoute : ScreenRoute<AccountViewModel, AccountViewIntent, AccountViewState, AccountViewEvent> {
+class AccountScreenRoot : ScreenRoot<AccountViewModel, AccountViewIntent, AccountViewState, AccountViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: AccountViewModel): ScreenContract<AccountViewState, AccountViewEvent> {
@@ -36,9 +36,9 @@ class AccountScreenRoute : ScreenRoute<AccountViewModel, AccountViewIntent, Acco
 
             override fun handleEvent(event: AccountViewEvent) {
                 when (event) {
-                    AccountViewEvent.NavigateToHelpAndSupport -> navigator.navigate(HelpAndSupportScreenRoute())
-                    AccountViewEvent.NavigateToSettings -> navigator.navigate(SettingsScreenRoute())
-                    AccountViewEvent.NavigateToSignIn -> navigator.navigate(SignInScreenRoute())
+                    AccountViewEvent.NavigateToHelpAndSupport -> navigator.navigate(HelpAndSupportScreenRoot())
+                    AccountViewEvent.NavigateToSettings -> navigator.navigate(SettingsScreenRoot())
+                    AccountViewEvent.NavigateToSignIn -> navigator.navigate(SignInScreenRoot())
                 }
             }
         }

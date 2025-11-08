@@ -8,9 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoute
+import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoot
 import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
-import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreenRoute
+import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreenRoot
 import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -24,15 +24,15 @@ fun AppNavigation(){
     CompositionLocalProvider(LocalNavigator provides navController) {
         NavHost(
             navController = navController,
-            startDestination = OnBoardingScreenRoute()
+            startDestination = OnBoardingScreenRoot()
         ) {
-            composable<OnBoardingScreenRoute> { navBackStackEntry ->
-                navBackStackEntry.toRoute<OnBoardingScreenRoute>().ScreenEntryPoint(
+            composable<OnBoardingScreenRoot> { navBackStackEntry ->
+                navBackStackEntry.toRoute<OnBoardingScreenRoot>().ScreenEntryPoint(
                     viewModel = koinViewModel<OnBoardingViewModel>()
                 )
             }
-            composable<MainScreenRoute> { navBackStackEntry ->
-                navBackStackEntry.toRoute<MainScreenRoute>().ScreenEntryPoint(
+            composable<MainScreenRoot> { navBackStackEntry ->
+                navBackStackEntry.toRoute<MainScreenRoot>().ScreenEntryPoint(
                     viewModel = koinViewModel<MainViewModel>()
                 )
             }

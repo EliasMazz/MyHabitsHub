@@ -5,7 +5,7 @@ import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
 
 /**
  * Defines a screen's UI and its logic for handling one-time side [EVENT]s.
- * Implemented for each screen and used by `ScreenRoute` to link UI with ViewModel.
+ * Implemented for each screen and used by `ScreenRoot` to link UI with ViewModel.
 */
 interface ScreenContract<STATE : ViewState<EVENT>, EVENT : ViewEvent> {
     /**

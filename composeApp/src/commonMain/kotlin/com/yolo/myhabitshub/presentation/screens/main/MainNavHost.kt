@@ -13,16 +13,16 @@ import com.yolo.myhabitshub.generated.resources.title_screen_progress
 import com.yolo.myhabitshub.generated.resources.title_screen_profile
 import com.yolo.myhabitshub.generated.resources.title_screen_tracking
 import com.yolo.myhabitshub.generated.resources.title_screen_sign_in
-import com.yolo.myhabitshub.presentation.screens.account.AccountScreenRoute
+import com.yolo.myhabitshub.presentation.screens.account.AccountScreenRoot
 import com.yolo.myhabitshub.presentation.screens.account.AccountViewModel
-import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressScreenRoute
-import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportScreenRoute
+import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressScreenRoot
+import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportScreenRoot
 import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportViewModel
 import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
-import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingScreenRoute
-import com.yolo.myhabitshub.presentation.screens.settings.SettingsScreenRoute
+import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingScreenRoot
+import com.yolo.myhabitshub.presentation.screens.settings.SettingsScreenRoot
 import com.yolo.myhabitshub.presentation.screens.settings.SettingsViewModel
-import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoute
+import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
 import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
 import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
 import org.jetbrains.compose.resources.stringResource
@@ -41,41 +41,41 @@ fun MainNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = HabitTrackingScreenRoute()
+        startDestination = HabitTrackingScreenRoot()
     ) {
-        composable<HabitTrackingScreenRoute> { navBackStackEntry ->
+        composable<HabitTrackingScreenRoot> { navBackStackEntry ->
             SetupScreenTitle(screenTitle = stringResource(Res.string.title_screen_tracking))
-            navBackStackEntry.toRoute<HabitTrackingScreenRoute>().ScreenEntryPoint(
+            navBackStackEntry.toRoute<HabitTrackingScreenRoot>().ScreenEntryPoint(
                 viewModel = koinViewModel<HabitTrackingViewModel>()
             )
         }
-        composable<SettingsScreenRoute> { navBackStackEntry ->
+        composable<SettingsScreenRoot> { navBackStackEntry ->
             SetupScreenTitle(screenTitle = stringResource(Res.string.title_screen_profile))
-            navBackStackEntry.toRoute<SettingsScreenRoute>().ScreenEntryPoint(
+            navBackStackEntry.toRoute<SettingsScreenRoot>().ScreenEntryPoint(
                 viewModel = koinViewModel<SettingsViewModel>()
             )
         }
-        composable<SignInScreenRoute> { navBackStackEntry ->
+        composable<SignInScreenRoot> { navBackStackEntry ->
             SetupScreenTitle(screenTitle = stringResource(Res.string.title_screen_sign_in))
-            navBackStackEntry.toRoute<SignInScreenRoute>().ScreenEntryPoint(
+            navBackStackEntry.toRoute<SignInScreenRoot>().ScreenEntryPoint(
                 viewModel = koinViewModel<SignInViewModel>()
             )
         }
-        composable<AccountScreenRoute> { navBackStackEntry ->
+        composable<AccountScreenRoot> { navBackStackEntry ->
             SetupScreenTitle(screenTitle = stringResource(Res.string.title_screen_account))
-            navBackStackEntry.toRoute<AccountScreenRoute>().ScreenEntryPoint(
+            navBackStackEntry.toRoute<AccountScreenRoot>().ScreenEntryPoint(
                 viewModel = koinViewModel<AccountViewModel>()
             )
         }
-        composable<HabitProgressScreenRoute> { navBackStackEntry ->
+        composable<HabitProgressScreenRoot> { navBackStackEntry ->
             SetupScreenTitle(screenTitle = stringResource(Res.string.title_screen_progress))
-            navBackStackEntry.toRoute<HabitProgressScreenRoute>().ScreenEntryPoint(
+            navBackStackEntry.toRoute<HabitProgressScreenRoot>().ScreenEntryPoint(
                 viewModel = koinViewModel<HabitProgressViewModel>()
             )
         }
-        composable<HelpAndSupportScreenRoute> { navBackStackEntry ->
+        composable<HelpAndSupportScreenRoot> { navBackStackEntry ->
             SetupScreenTitle(screenTitle = stringResource(Res.string.title_screen_help_and_support))
-            navBackStackEntry.toRoute<HelpAndSupportScreenRoute>().ScreenEntryPoint(
+            navBackStackEntry.toRoute<HelpAndSupportScreenRoot>().ScreenEntryPoint(
                 viewModel = koinViewModel<HelpAndSupportViewModel>()
             )
         }

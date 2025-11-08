@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import kotlinx.serialization.Serializable
 
 @Serializable
-class HabitProgressScreenRoute : ScreenRoute<HabitProgressViewModel, HabitProgressViewIntent, HabitProgressViewState, HabitProgressViewEvent> {
+class HabitProgressScreenRoot : ScreenRoot<HabitProgressViewModel, HabitProgressViewIntent, HabitProgressViewState, HabitProgressViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: HabitProgressViewModel): ScreenContract<HabitProgressViewState, HabitProgressViewEvent> {

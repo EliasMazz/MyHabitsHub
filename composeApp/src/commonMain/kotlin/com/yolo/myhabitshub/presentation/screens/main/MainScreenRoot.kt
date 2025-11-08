@@ -9,12 +9,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.root.LocalNavigator
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import kotlinx.serialization.Serializable
 
 @Serializable
-class MainScreenRoute :
-    ScreenRoute<MainViewModel, MainScreenViewIntent, MainScreenViewState, MainScreenViewEvent> {
+class MainScreenRoot :
+    ScreenRoot<MainViewModel, MainScreenViewIntent, MainScreenViewState, MainScreenViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainScreenViewEvent> {
@@ -54,7 +54,7 @@ class MainScreenRoute :
                 when (event) {
                     is MainScreenViewEvent.NavigateTo -> {
                         //TODO: Check, for some reason saveState, and restoreState doesn't work
-                        navController.navigate(event.screenRoute) {
+                        navController.navigate(event.screenRoot) {
                             if (event.popUpToStartDestination) {
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true

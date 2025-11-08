@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.main
 
-import com.yolo.myhabitshub.core.presentation.ScreenRoute
+import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
 
 sealed interface MainScreenViewEvent: ViewEvent {
@@ -8,7 +8,7 @@ sealed interface MainScreenViewEvent: ViewEvent {
     /**
      * Event to navigate to a specific route.
      *
-     * @param screenRoute The destination route
+     * @param screenRoot The destination route
      * @param popUpToStartDestination If true, pops up to the start destination of the graph
      *                                before navigating. This is common for bottom navigation items
      *                                to prevent building up a large back stack.
@@ -17,7 +17,7 @@ sealed interface MainScreenViewEvent: ViewEvent {
      */
 
     data class NavigateTo(
-        val screenRoute: ScreenRoute<*, *, *, *>,
+        val screenRoot: ScreenRoot<*, *, *, *>,
         val popUpToStartDestination: Boolean = false,
         val launchSingleTop: Boolean = true
     ) : MainScreenViewEvent

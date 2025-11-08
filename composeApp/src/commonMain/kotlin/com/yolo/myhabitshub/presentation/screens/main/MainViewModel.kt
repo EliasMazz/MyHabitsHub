@@ -49,9 +49,9 @@ class MainViewModel :
     }
 
     private fun checkBottomNavVisibility(currentRoute: String): Boolean {
-        val bottomNavScreenRoutePatterns =
+        val bottomNavScreenRootPatterns =
             state.value.bottomNavViewState.items.map { it.destination }
-        val isBottomNavVisible = bottomNavScreenRoutePatterns.any {
+        val isBottomNavVisible = bottomNavScreenRootPatterns.any {
             currentRoute.contains(it)
         }
         return isBottomNavVisible
@@ -73,7 +73,7 @@ class MainViewModel :
             updateState {
                 copy(
                     viewEvent = MainScreenViewEvent.NavigateTo(
-                        screenRoute = item.screenRoute,
+                        screenRoot = item.screenRoot,
                         popUpToStartDestination = true,
                         launchSingleTop = true
                     )
