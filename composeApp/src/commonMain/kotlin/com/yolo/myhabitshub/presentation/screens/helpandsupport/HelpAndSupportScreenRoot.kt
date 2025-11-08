@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.navigation.NavHostController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.util.AppUtil
@@ -24,7 +25,7 @@ class HelpAndSupportScreenRoot() :
 
            @Composable
            override fun ScreenView(viewState: HelpAndSupportViewState) {
-               HelpAndSupportScreenView(
+               HelpAndSupportScreen(
                    modifier = Modifier.fillMaxSize(),
                    itemList = viewState.settingsItemViewData,
                    onContactSupportClicked = { viewModel.handleIntent(HelpAndSupportViewIntent.OnContactSupportClicked) },
@@ -33,7 +34,7 @@ class HelpAndSupportScreenRoot() :
                )
            }
 
-           override fun handleEvent(event: HelpAndSupportEvent) {
+           override fun handleEvent(event: HelpAndSupportEvent, navigator: NavHostController) {
                when (event) {
                    HelpAndSupportEvent.OpenFeedbackMail -> appUtil.openFeedbackMail()
                    HelpAndSupportEvent.OpenPrivacyPoliceUri -> localUriHandler.openUri(Constants.URL_PRIVACY_POLICY)

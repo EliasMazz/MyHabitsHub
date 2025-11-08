@@ -17,7 +17,7 @@ import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 
 @Composable
-fun HelpAndSupportScreenView(
+fun HelpAndSupportScreen(
     modifier: Modifier = Modifier,
     itemList: List<SettingsItemViewData>,
     onContactSupportClicked : () -> Unit,

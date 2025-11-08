@@ -1,6 +1,7 @@
 package com.yolo.myhabitshub.core.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.*
 
 /**
@@ -18,9 +19,10 @@ interface ScreenContract<STATE : ViewState<EVENT>, EVENT : ViewEvent> {
     fun ScreenView(viewState: STATE)
 
     /**
-     * Processes one-time [ViewEvent]s emitted by the ViewModel.
+     * Processes one-time [ViewEvent]s emitted by the ViewModel, such as navigation.
      *
      * @param event The [EVENT] to handle.
+     * @param navigator The [NavHostController] for performing navigation actions.
      */
-    fun handleEvent(event: EVENT)
+    fun handleEvent(event: EVENT, navigator: NavHostController)
 }

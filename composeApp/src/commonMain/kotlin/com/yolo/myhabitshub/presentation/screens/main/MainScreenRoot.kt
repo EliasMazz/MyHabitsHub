@@ -2,10 +2,8 @@ package com.yolo.myhabitshub.presentation.screens.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.root.LocalNavigator
@@ -19,23 +17,11 @@ class MainScreenRoot :
     @Composable
     override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainViewEvent> {
         val navController = rememberNavController()
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-
-        LaunchedEffect(navBackStackEntry) {
-            currentRoute?.let {
-                viewModel.handleIntent(
-                    MainViewIntent.OnNavigationDestinationChanged(
-                        route = it,
-                    )
-                )
-            }
-        }
 
         return object : ScreenContract<MainScreenViewState, MainViewEvent> {
+
             @Composable
             override fun ScreenView(viewState: MainScreenViewState) {
-                CompositionLocalProvider(LocalNavigator provides navController) {
                     MainScreenView(
                         viewState = viewState,
                         onToolbarNavItemClicked = { viewModel.handleIntent(MainViewIntent.OnToolbarNavItemClicked) },
@@ -47,10 +33,11 @@ class MainScreenRoot :
                             )
                         }
                     )
-                }
             }
 
-            override fun handleEvent(event: MainViewEvent) {
+            override fun handleEvent(event: MainViewEvent, navigator: NavHostController) {
+                // We use 'navController' because it's the one that controls MainNavHost.
+                // The passed-in 'navigator' is an exception and is ignored here, as it belongs to a parent graph
                 when (event) {
                     is MainViewEvent.NavigateTo -> {
                         //TODO: Check, for some reason saveState, and restoreState doesn't work

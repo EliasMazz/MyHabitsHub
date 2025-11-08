@@ -9,6 +9,7 @@ import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel
 import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewEvent
 import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewIntent
 import com.yolo.myhabitshub.core.presentation.viewmodel.BaseViewModel.ViewState
+import com.yolo.myhabitshub.root.LocalNavigator
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -41,11 +42,12 @@ interface ScreenRoot<
     private fun SetupBaseScreen(viewModel: VIEW_MODEL) {
         val viewState = viewModel.state.collectAsStateWithLifecycle()
         val screenContract = provideScreenContract(viewModel = viewModel)
+        val navigator = LocalNavigator.current
 
         HandleOneTimeUiEvent(
             viewModel.eventsFlow,
             onEvent = { event ->
-                screenContract.handleEvent(event)
+                screenContract.handleEvent(event, navigator)
             },
             onConsumeEvent = { viewModel.consumeEvent() },
         )

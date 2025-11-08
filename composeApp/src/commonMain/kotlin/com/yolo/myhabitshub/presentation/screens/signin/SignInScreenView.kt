@@ -44,7 +44,6 @@ fun SignInScreenView(
     onSignInViewSuccess: () -> Unit,
     onSignInViewFail: (Throwable?) -> Unit
 ) {
-
     val scrollState = rememberScrollState()
     LaunchedEffect(true) {
         scrollState.animateScrollTo(scrollState.maxValue, tween(500))

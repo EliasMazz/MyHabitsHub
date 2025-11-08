@@ -2,8 +2,6 @@ package com.yolo.myhabitshub.root
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.compositionLocalOf
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,9 +12,6 @@ import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreenRoot
 import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
-val LocalNavigator = compositionLocalOf<NavHostController> {
-    error("No LocalNavController provided")
-}
 
 @Composable
 fun AppNavigation(){

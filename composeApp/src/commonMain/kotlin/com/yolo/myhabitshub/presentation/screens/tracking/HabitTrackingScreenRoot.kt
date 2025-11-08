@@ -1,6 +1,7 @@
 package com.yolo.myhabitshub.presentation.screens.tracking
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import kotlinx.serialization.Serializable
@@ -11,8 +12,6 @@ class HabitTrackingScreenRoot :
 
     @Composable
     override fun provideScreenContract(viewModel: HabitTrackingViewModel): ScreenContract<HabitTrackingViewState, HabitTrackingViewEvent> {
-
-
         return object : ScreenContract<HabitTrackingViewState, HabitTrackingViewEvent> {
 
             @Composable
@@ -26,7 +25,7 @@ class HabitTrackingScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: HabitTrackingViewEvent) {}
+            override fun handleEvent(event: HabitTrackingViewEvent, navigator: NavHostController) {}
         }
     }
 }

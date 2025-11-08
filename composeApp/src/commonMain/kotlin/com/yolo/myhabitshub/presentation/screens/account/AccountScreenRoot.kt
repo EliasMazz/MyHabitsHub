@@ -3,8 +3,8 @@ package com.yolo.myhabitshub.presentation.screens.account
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.root.LocalNavigator
 import com.yolo.myhabitshub.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportScreenRoot
 import com.yolo.myhabitshub.presentation.screens.settings.SettingsScreenRoot
@@ -16,8 +16,6 @@ class AccountScreenRoot : ScreenRoot<AccountViewModel, AccountViewIntent, Accoun
 
     @Composable
     override fun provideScreenContract(viewModel: AccountViewModel): ScreenContract<AccountViewState, AccountViewEvent> {
-        val navigator = LocalNavigator.current
-
         return object : ScreenContract<AccountViewState, AccountViewEvent> {
 
             @Composable
@@ -34,7 +32,7 @@ class AccountScreenRoot : ScreenRoot<AccountViewModel, AccountViewIntent, Accoun
                 )
             }
 
-            override fun handleEvent(event: AccountViewEvent) {
+            override fun handleEvent(event: AccountViewEvent, navigator: NavHostController) {
                 when (event) {
                     AccountViewEvent.NavigateToHelpAndSupport -> navigator.navigate(HelpAndSupportScreenRoot())
                     AccountViewEvent.NavigateToSettings -> navigator.navigate(SettingsScreenRoot())

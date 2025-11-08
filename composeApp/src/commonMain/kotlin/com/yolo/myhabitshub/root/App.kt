@@ -10,12 +10,14 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.util.UiMessage
@@ -66,4 +68,8 @@ object AppGlobalUiState {
     fun showUiMessage(uiMessage: UiMessage) {
         uiMessageChannel.trySend(uiMessage)
     }
+}
+
+val LocalNavigator = compositionLocalOf<NavHostController> {
+    error("No LocalNavController provided")
 }
