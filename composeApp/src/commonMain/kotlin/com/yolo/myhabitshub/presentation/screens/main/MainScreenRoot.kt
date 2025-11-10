@@ -7,8 +7,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.core.presentation.ScreenRoot
+import com.yolo.core.presentation.ScreenContract
+import com.yolo.core.presentation.ScreenRoot
 import kotlinx.serialization.Serializable
 
 @Serializable

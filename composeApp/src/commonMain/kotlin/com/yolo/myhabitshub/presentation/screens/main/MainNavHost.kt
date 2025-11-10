@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.yolo.core.presentation.LocalNavigator
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.title_screen_help_and_support
 import com.yolo.myhabitshub.generated.resources.title_screen_account
@@ -27,7 +28,6 @@ import com.yolo.myhabitshub.presentation.screens.settings.SettingsViewModel
 import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
 import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
 import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
-import com.yolo.myhabitshub.root.LocalNavigator
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 

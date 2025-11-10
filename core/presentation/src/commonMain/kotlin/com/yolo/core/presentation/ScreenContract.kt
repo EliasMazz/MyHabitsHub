@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.core.presentation
+package com.yolo.core.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

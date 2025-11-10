@@ -2,8 +2,8 @@ package com.yolo.myhabitshub.presentation.screens.onboarding
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.yolo.myhabitshub.core.presentation.ScreenContract
-import com.yolo.myhabitshub.core.presentation.ScreenRoot
+import com.yolo.core.presentation.ScreenContract
+import com.yolo.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoot
 import kotlinx.serialization.Serializable
 

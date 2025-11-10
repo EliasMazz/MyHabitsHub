@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.core.presentation
+package com.yolo.core.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,7 +9,6 @@ import com.yolo.core.presentation.viewmodel.BaseViewModel
 import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewEvent
 import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewIntent
 import com.yolo.core.presentation.viewmodel.BaseViewModel.ViewState
-import com.yolo.myhabitshub.root.LocalNavigator
 import kotlinx.coroutines.flow.Flow
 
 /**

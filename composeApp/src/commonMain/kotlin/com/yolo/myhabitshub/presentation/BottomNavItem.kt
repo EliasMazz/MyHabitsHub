@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.presentation
 
-import com.yolo.myhabitshub.core.presentation.ScreenRoot
+import com.yolo.core.presentation.ScreenRoot
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.bottom_nav_label_progress
 import com.yolo.myhabitshub.generated.resources.bottom_nav_label_settings

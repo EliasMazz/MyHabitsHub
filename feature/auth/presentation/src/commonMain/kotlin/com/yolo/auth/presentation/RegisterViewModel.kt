@@ -1,8 +1,10 @@
 package com.yolo.auth.presentation
 
-import androidx.compose.foundation.text.input.TextFieldState
-import com.yolo.core.presentation.util.UiText
+import com.yolo.core.presentation.viewmodel.BaseViewModel
 
-class RegisterViewModel (
-
-)
+class RegisterViewModel : BaseViewModel<RegisterViewIntent, RegisterViewState, RegisterViewEvent>(
+    RegisterViewState()
+){
+    override fun onViewIntent(intent: RegisterViewIntent) {
+    }
+}

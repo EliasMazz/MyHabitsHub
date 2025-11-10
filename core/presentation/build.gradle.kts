@@ -12,6 +12,7 @@ kotlin {
                 implementation(projects.core.domain)
                 implementation(compose.components.resources)
                 implementation(libs.jetbrains.compose.viewmodel)
+                implementation(libs.jetbrains.navigation.compose)
             }
         }
 

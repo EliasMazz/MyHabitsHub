@@ -31,13 +31,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 @Composable
 internal fun App() {
     YoloTheme {
-        RegisterScreen(
-            RegisterViewState(),
-        )
+        AppNavigation()
     }
-
     /*
-      AppTheme {
+    YoloTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,7 +49,6 @@ internal fun App() {
         }
     }
      */
-
 }
 
 @Composable
@@ -80,8 +76,4 @@ object AppGlobalUiState {
     fun showUiMessage(uiText: UiText) {
         uiTextChannel.trySend(uiText)
     }
-}
-
-val LocalNavigator = compositionLocalOf<NavHostController> {
-    error("No LocalNavController provided")
 }

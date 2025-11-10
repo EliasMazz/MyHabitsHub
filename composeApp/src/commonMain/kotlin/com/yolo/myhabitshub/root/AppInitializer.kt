@@ -19,6 +19,7 @@ import com.mmk.kmpauth.google.GoogleAuthProvider
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
 import com.russhwolf.settings.Settings
+import com.yolo.auth.presentation.RegisterViewModel
 import com.yolo.myhabitshub.common.BuildConfig
 import com.yolo.myhabitshub.data.repository.UserRepositoryImpl
 import com.yolo.myhabitshub.domain.usecase.DeleteAccountUseCase
@@ -155,6 +156,7 @@ private val presentationModule = module {
     viewModelOf(::HabitTrackingViewModel)
     viewModelOf(::HabitProgressViewModel)
     viewModelOf(::MainViewModel)
+    viewModelOf(::RegisterViewModel)
 }
 
 private val appModules: List<Module> get() = platformModule + domainModule + dataModule + presentationModule
