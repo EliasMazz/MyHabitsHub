@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.domain.usecase
 
-import com.yolo.myhabitshub.core.domain.usecase.StreamUseCase
+import com.yolo.core.domain.usecase.StreamUseCase
 import com.yolo.myhabitshub.data.repository.UserRepository
 import com.yolo.myhabitshub.data.model.UserResponse
 import kotlinx.coroutines.flow.Flow

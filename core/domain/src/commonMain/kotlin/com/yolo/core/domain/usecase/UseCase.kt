@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.core.domain.usecase
+package com.yolo.core.domain.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

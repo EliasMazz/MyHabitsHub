@@ -1,7 +1,7 @@
 package com.yolo.myhabitshub.presentation.screens.settings
 
 import androidx.lifecycle.viewModelScope
-import com.yolo.myhabitshub.core.domain.usecase.invoke
+import com.yolo.core.domain.usecase.invoke
 import com.yolo.myhabitshub.domain.exceptions.UnAuthorizedException
 import com.yolo.myhabitshub.domain.usecase.DeleteAccountUseCase
 import com.yolo.myhabitshub.domain.usecase.GetUserStream

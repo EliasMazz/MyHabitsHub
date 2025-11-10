@@ -1,7 +1,7 @@
 package com.yolo.myhabitshub.presentation.screens.signin
 
 import androidx.lifecycle.viewModelScope
-import com.yolo.myhabitshub.core.domain.usecase.invoke
+import com.yolo.core.domain.usecase.invoke
 import com.yolo.myhabitshub.domain.usecase.SendAuthTokenUseCase
 import com.yolo.core.presentation.viewmodel.BaseViewModel
 import com.yolo.myhabitshub.domain.usecase.SendAuthResult

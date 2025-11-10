@@ -1,6 +1,6 @@
 package com.yolo.myhabitshub.domain.usecase
 
-import com.yolo.myhabitshub.core.domain.usecase.UseCase
+import com.yolo.core.domain.usecase.UseCase
 import com.yolo.myhabitshub.data.repository.UserRepository
 import com.yolo.myhabitshub.domain.model.User
 
