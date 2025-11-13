@@ -19,6 +19,8 @@ import com.mmk.kmpauth.google.GoogleAuthProvider
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
 import com.russhwolf.settings.Settings
+import com.yolo.auth.domain.EmailValidatorUseCase
+import com.yolo.auth.domain.RegisterValidatorUseCase
 import com.yolo.auth.presentation.RegisterViewModel
 import com.yolo.myhabitshub.common.BuildConfig
 import com.yolo.myhabitshub.data.repository.UserRepositoryImpl
@@ -32,6 +34,7 @@ import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
 import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
 import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
 import com.yolo.core.data.logging.AppLogger
+import com.yolo.core.domain.validator.PasswordValidatorUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.KoinApplication
@@ -72,7 +75,8 @@ private fun KoinApplication.refreshFeatureFlags() {
 private fun KoinApplication.initializeAnalytics() {
     val featureFlagManager by this.koin.inject<FeatureFlagManager>()
     val analytics by this.koin.inject<Analytics>()
-    val isAnalyticsEnabled = featureFlagManager.getBoolean(FeatureFlagManager.Keys.IS_ANALYTICS_ENABLED)
+    val isAnalyticsEnabled =
+        featureFlagManager.getBoolean(FeatureFlagManager.Keys.IS_ANALYTICS_ENABLED)
     analytics.setEnabled(enabled = isAnalyticsEnabled)
 }
 
@@ -123,12 +127,14 @@ private fun initializeAuthentication() {
     GoogleAuthProvider.create(credentials = GoogleAuthCredentials(serverId = BuildConfig.GOOGLE_WEB_CLIENT_ID))
 }
 
-
 private val domainModule = module {
     factory { GetUserStream(get()) }
     factory { DeleteAccountUseCase(get()) }
     factory { LogOutUseCase(get()) }
     factory { SendAuthTokenUseCase(get()) }
+    factory { EmailValidatorUseCase() }
+    factory { PasswordValidatorUseCase() }
+    factory { RegisterValidatorUseCase(get(), get()) }
 }
 
 private val dataModule = module {

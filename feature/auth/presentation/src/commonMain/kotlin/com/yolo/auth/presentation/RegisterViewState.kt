@@ -13,7 +13,7 @@ data class RegisterViewState(
     val passwordError: UiText? = null,
     val registrationError: UiText? = null,
     val isLoading: Boolean = false,
-    val canRegister : Boolean = false,
+    val canRegister : Boolean = true,
     val isPasswordVisible: Boolean = false,
     override val viewEvent: RegisterViewEvent? = null,
 ) : ViewState<RegisterViewEvent> {

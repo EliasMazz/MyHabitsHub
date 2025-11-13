@@ -2,9 +2,9 @@ package com.yolo.auth.presentation
 
 import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 
-sealed class RegisterViewIntent: ViewIntent {
-    data object OnLogicClick: ViewIntent
-    data object OnInputTextFocusGain: ViewIntent
-    data object OnRegisterClick: ViewIntent
-    data object OnTogglePasswordVisibility: ViewIntent
+sealed interface RegisterViewIntent : ViewIntent {
+    data object OnLogicClick : RegisterViewIntent
+    data object OnInputTextFocusGain : RegisterViewIntent
+    data object OnRegisterClick : RegisterViewIntent
+    data object OnTogglePasswordVisibility : RegisterViewIntent
 }

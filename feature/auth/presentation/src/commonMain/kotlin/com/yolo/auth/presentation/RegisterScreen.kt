@@ -31,6 +31,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun RegisterScreen(
     state: RegisterViewState,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    onRegisterClick: () -> Unit,
+    onInputTextFocusGain: () -> Unit
 ) {
     YoloSnackbarScaffold(
         snackbarHostState = snackbarHostState
@@ -48,7 +50,7 @@ fun RegisterScreen(
                 supportingText = state.emailError?.value,
                 isError = state.emailError != null,
                 onFocusChanged = { isFocused ->
-
+                    onInputTextFocusGain.invoke()
                 }
             )
 
@@ -62,7 +64,7 @@ fun RegisterScreen(
                     ?: stringResource(Res.string.password_hint),
                 isError = state.emailError != null,
                 onFocusChanged = { isFocused ->
-
+                    onInputTextFocusGain.invoke()
                 },
                 onToggleVisibilityClick = {
 
@@ -77,9 +79,7 @@ fun RegisterScreen(
                 enabled = state.canRegister,
                 isLoading = state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {
-
-                }
+                onClick = onRegisterClick
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -99,10 +99,12 @@ fun RegisterScreen(
 
 @Composable
 @Preview
-fun RegisterScreenPreview(){
+fun RegisterScreenPreview() {
     YoloTheme {
         RegisterScreen(
-            RegisterViewState()
+            state = RegisterViewState(),
+            onRegisterClick = { },
+            onInputTextFocusGain = { }
         )
     }
 }
