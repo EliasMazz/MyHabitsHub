@@ -20,8 +20,10 @@ import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
 import com.russhwolf.settings.Settings
 import com.yolo.auth.domain.EmailValidatorUseCase
-import com.yolo.auth.domain.RegisterValidatorUseCase
+import com.yolo.auth.domain.AuthValidatorUseCase
+import com.yolo.auth.domain.RegisterAuthUseCase
 import com.yolo.auth.presentation.RegisterViewModel
+import com.yolo.core.data.auth.AuthRepositoryImpl
 import com.yolo.myhabitshub.common.BuildConfig
 import com.yolo.myhabitshub.data.repository.UserRepositoryImpl
 import com.yolo.myhabitshub.domain.usecase.DeleteAccountUseCase
@@ -34,6 +36,7 @@ import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
 import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
 import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
 import com.yolo.core.data.logging.AppLogger
+import com.yolo.core.domain.auth.AuthRepository
 import com.yolo.core.domain.validator.PasswordValidatorUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -134,7 +137,8 @@ private val domainModule = module {
     factory { SendAuthTokenUseCase(get()) }
     factory { EmailValidatorUseCase() }
     factory { PasswordValidatorUseCase() }
-    factory { RegisterValidatorUseCase(get(), get()) }
+    factory { AuthValidatorUseCase(get(), get()) }
+    factory { RegisterAuthUseCase(get()) }
 }
 
 private val dataModule = module {
@@ -151,6 +155,7 @@ private val dataModule = module {
 
     //Repositories
     single { UserRepositoryImpl(get(), get()) } bind UserRepository::class
+    single { AuthRepositoryImpl(get()) } bind AuthRepository::class
 }
 
 private val presentationModule = module {

@@ -13,6 +13,17 @@ inline fun <T, E: Error, R> ResultData<T, E>.map(map: (T) -> R): ResultData<R, E
     }
 }
 
+
+inline fun <T, E : Error, R> ResultData<T, E>.fold(
+    onSuccess: (T) -> R,
+    onFailure: (E) -> R
+): R {
+    return when (this) {
+        is ResultData.Success -> onSuccess(this.data)
+        is ResultData.Failure -> onFailure(this.error)
+    }
+}
+
 inline fun <T, E: Error> ResultData<T, E>.onSuccess(action: (T) -> Unit): ResultData<T, E> {
     return when(this) {
         is ResultData.Failure -> this
