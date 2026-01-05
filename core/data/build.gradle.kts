@@ -23,6 +23,7 @@ kotlin {
                 implementation(libs.napier)
 
                 implementation(projects.core.domain)
+                implementation(libs.koin.core)
             }
         }
 

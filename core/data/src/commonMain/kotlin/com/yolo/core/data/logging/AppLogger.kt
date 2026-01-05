@@ -4,9 +4,7 @@ import com.yolo.core.domain.logging.Logger
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 
-object AppLogger : Logger by NapierLogger()
-
-internal class NapierLogger : Logger {
+object AppLogger : Logger {
 
     override fun initialize(isDebug: Boolean) {
         if (isDebug) Napier.base(DebugAntilog())

@@ -7,13 +7,15 @@ import com.yolo.core.domain.util.DataError
 import com.yolo.core.domain.util.EmptyResult
 import io.ktor.client.HttpClient
 
-class AuthRepositoryImpl(private val httpClient: HttpClient) : AuthRepository {
+class AuthRepositoryImpl(
+    private val httpClient: HttpClient
+) : AuthRepository {
     override suspend fun register(
         email: String,
         password: String
     ): EmptyResult<DataError.Remote> {
         return httpClient.post(
-            route = "/auth/register",
+            route = "api/auth/register",
             body = RegisterRequest(
                 email = email,
                 password = password

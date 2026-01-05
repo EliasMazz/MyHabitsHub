@@ -159,7 +159,10 @@ jetbrains-compose-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifec
 jetbrains-savedstate = { module = "org.jetbrains.androidx.savedstate:savedstate", version.ref = "jetbrains-savedstate" }
 jetbrains-bundle = { module = "org.jetbrains.androidx.core:core-bundle", version.ref = "jetbrains-core-bundle" }
 
+
+# Logging
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 multiplatformSettings-noargs = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 android-inappreview = { module = "com.google.android.play:review", version.ref = "android-inappreview" }

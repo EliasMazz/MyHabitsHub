@@ -19,7 +19,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 
-object HttpClientFactory {
+object HttpClientFactoryLegacy {
     fun default() = HttpClient {
         defaultRequest {
             //TEST ONLY NEED TO CHANGE TO BASE URL AFTER SERVER DEPLOY

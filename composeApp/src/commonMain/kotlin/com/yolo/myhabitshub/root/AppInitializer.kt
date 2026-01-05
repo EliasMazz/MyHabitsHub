@@ -1,54 +1,18 @@
 package com.yolo.myhabitshub.root
 
-import com.yolo.myhabitshub.data.repository.UserRepository
 import com.yolo.myhabitshub.data.source.featureflag.FeatureFlagManager
-import com.yolo.myhabitshub.data.source.preferences.UserPreferences
-import com.yolo.myhabitshub.data.source.preferences.UserPreferencesImpl
-import com.yolo.myhabitshub.data.source.remote.HttpClientFactory
-import com.yolo.myhabitshub.data.source.remote.apiservices.ApiService
-import com.yolo.myhabitshub.presentation.screens.account.AccountViewModel
-import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingViewModel
-import com.yolo.myhabitshub.presentation.screens.settings.SettingsViewModel
-import com.yolo.myhabitshub.util.ApplicationScope
 import com.yolo.myhabitshub.util.analytics.Analytics
 import com.yolo.myhabitshub.util.isDebug
 import com.yolo.myhabitshub.util.onApplicationStartPlatformSpecific
-import com.yolo.myhabitshub.util.platformModule
 import com.mmk.kmpauth.google.GoogleAuthCredentials
 import com.mmk.kmpauth.google.GoogleAuthProvider
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
-import com.russhwolf.settings.Settings
-import com.yolo.auth.domain.EmailValidatorUseCase
-import com.yolo.auth.domain.AuthValidatorUseCase
-import com.yolo.auth.domain.RegisterAuthUseCase
-import com.yolo.auth.presentation.RegisterViewModel
-import com.yolo.core.data.auth.AuthRepositoryImpl
 import com.yolo.myhabitshub.common.BuildConfig
-import com.yolo.myhabitshub.data.repository.UserRepositoryImpl
-import com.yolo.myhabitshub.domain.usecase.DeleteAccountUseCase
-import com.yolo.myhabitshub.domain.usecase.GetUserStream
-import com.yolo.myhabitshub.domain.usecase.LogOutUseCase
-import com.yolo.myhabitshub.domain.usecase.SendAuthTokenUseCase
-import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportViewModel
-import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
-import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
-import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
-import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
 import com.yolo.core.data.logging.AppLogger
-import com.yolo.core.domain.auth.AuthRepository
-import com.yolo.core.domain.validator.PasswordValidatorUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
+import com.yolo.myhabitshub.root.di.appModules
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
-import org.koin.core.module.Module
-import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.singleOf
-import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.bind
-import org.koin.dsl.module
-import kotlin.coroutines.CoroutineContext
 
 object AppInitializer {
 
@@ -103,7 +67,6 @@ private fun initializeNotification() {
         override fun onNotificationClicked(data: PayloadData) {
             super.onNotificationClicked(data)
             AppLogger.d("onNotification clicked: $data")
-
         }
 
         /**
@@ -129,45 +92,3 @@ private fun initializeNotification() {
 private fun initializeAuthentication() {
     GoogleAuthProvider.create(credentials = GoogleAuthCredentials(serverId = BuildConfig.GOOGLE_WEB_CLIENT_ID))
 }
-
-private val domainModule = module {
-    factory { GetUserStream(get()) }
-    factory { DeleteAccountUseCase(get()) }
-    factory { LogOutUseCase(get()) }
-    factory { SendAuthTokenUseCase(get()) }
-    factory { EmailValidatorUseCase() }
-    factory { PasswordValidatorUseCase() }
-    factory { AuthValidatorUseCase(get(), get()) }
-    factory { RegisterAuthUseCase(get()) }
-}
-
-private val dataModule = module {
-    singleOf(::ApplicationScope)
-    factory { Dispatchers.IO } bind CoroutineContext::class
-
-    //Preferences Source
-    single { Settings() } bind Settings::class
-    singleOf(::UserPreferencesImpl) bind UserPreferences::class
-
-    //Remote source
-    single { HttpClientFactory.default() }
-    factoryOf(::ApiService)
-
-    //Repositories
-    single { UserRepositoryImpl(get(), get()) } bind UserRepository::class
-    single { AuthRepositoryImpl(get()) } bind AuthRepository::class
-}
-
-private val presentationModule = module {
-    viewModelOf(::OnBoardingViewModel)
-    viewModelOf(::SettingsViewModel)
-    viewModelOf(::AccountViewModel)
-    viewModelOf(::HelpAndSupportViewModel)
-    viewModelOf(::SignInViewModel)
-    viewModelOf(::HabitTrackingViewModel)
-    viewModelOf(::HabitProgressViewModel)
-    viewModelOf(::MainViewModel)
-    viewModelOf(::RegisterViewModel)
-}
-
-private val appModules: List<Module> get() = platformModule + domainModule + dataModule + presentationModule

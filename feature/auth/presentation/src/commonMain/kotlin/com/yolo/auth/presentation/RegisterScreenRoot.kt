@@ -28,7 +28,7 @@ class RegisterScreenRoot :
                 event: RegisterViewEvent,
                 navigator: NavHostController
             ) {
-                TODO("Not yet implemented")
+
             }
         }
     }

@@ -104,8 +104,6 @@ class RegisterViewModel(
             )
         )
 
-
-
         val (emailError, passwordError) = when (result) {
             InvalidEmailAndPasswordError -> {
                 UiText.Resource(Res.string.error_invalid_email) to UiText.Resource(Res.string.error_invalid_password)
