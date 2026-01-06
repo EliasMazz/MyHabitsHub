@@ -138,7 +138,7 @@ fun YoloPasswordTextFieldEmptyPreview() {
                 .width(300.dp),
             placeholder = "Password",
             title = "Password",
-            supportingText = "Use 9+ characters, at least one digit and one uppercase letter",
+            supportingText = "Use 6+ characters, at least one digit",
         )
     }
 }
@@ -157,7 +157,7 @@ fun YoloPasswordTextFieldFilledPreview() {
                 .width(300.dp),
             placeholder = "Password",
             title = "Password",
-            supportingText = "Use 9+ characters, at least one digit and one uppercase letter",
+            supportingText = "Use 6+ characters, at least one digit",
         )
     }
 }
