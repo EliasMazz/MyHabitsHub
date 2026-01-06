@@ -32,7 +32,8 @@ fun RegisterScreen(
     state: RegisterViewState,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onRegisterClick: () -> Unit,
-    onInputTextFocusGain: () -> Unit
+    onInputTextFocusGain: () -> Unit,
+    onTogglePasswordVisibility: () -> Unit,
 ) {
     YoloSnackbarScaffold(
         snackbarHostState = snackbarHostState
@@ -66,12 +67,9 @@ fun RegisterScreen(
                 onFocusChanged = { isFocused ->
                     onInputTextFocusGain.invoke()
                 },
-                onToggleVisibilityClick = {
-
-                },
+                onToggleVisibilityClick = onTogglePasswordVisibility,
                 isPasswordVisible = state.isPasswordVisible
             )
-
 
             Spacer(modifier = Modifier.height(16.dp))
             YoloButton(
@@ -104,7 +102,8 @@ fun RegisterScreenPreview() {
         RegisterScreen(
             state = RegisterViewState(),
             onRegisterClick = { },
-            onInputTextFocusGain = { }
+            onInputTextFocusGain = { },
+            onTogglePasswordVisibility = { }
         )
     }
 }

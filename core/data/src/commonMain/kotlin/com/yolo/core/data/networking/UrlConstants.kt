@@ -1,5 +1,5 @@
 package com.yolo.core.data.networking
 
-expect object UrlConstants {
-    val BASE_URL_HTTP: String
+object UrlConstants {
+    const val BASE_URL_HTTP = "http://10.0.2.2:8080"
 }

@@ -114,6 +114,7 @@ suspend inline fun <reified T> responseToResult(response: HttpResponse): ResultD
         403 -> ResultData.Failure(DataError.Remote.FORBIDDEN)
         404 -> ResultData.Failure(DataError.Remote.NOT_FOUND)
         408 -> ResultData.Failure(DataError.Remote.REQUEST_TIMEOUT)
+        409 -> ResultData.Failure(DataError.Remote.CONFLICT)
         413 -> ResultData.Failure(DataError.Remote.PAYLOAD_TOO_LARGE)
         429 -> ResultData.Failure(DataError.Remote.TOO_MANY_REQUESTS)
         500 -> ResultData.Failure(DataError.Remote.SERVER_ERROR)
