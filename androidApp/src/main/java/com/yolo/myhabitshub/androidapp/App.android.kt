@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub
+package com.yolo.myhabitshub.androidapp
 
 import android.app.Application
 import android.content.Intent

@@ -32,10 +32,12 @@ fun RegisterScreen(
     state: RegisterViewState,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onRegisterClick: () -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     onInputTextFocusGain: () -> Unit,
     onTogglePasswordVisibility: () -> Unit,
 ) {
-    YoloSnackbarScaffold(
+  YoloSnackbarScaffold(
         snackbarHostState = snackbarHostState
     ) {
         YoloAdaptiveFormLayout(
@@ -44,7 +46,8 @@ fun RegisterScreen(
             logo = { YoloBrandLogo() },
         ) {
             YoloTextField(
-                state = state.emailTextState,
+                value = state.email,
+                onValueChange = onEmailChange,
                 singleLine = true,
                 placeholder = stringResource(Res.string.email_placeholder),
                 title = stringResource(Res.string.email),
@@ -58,7 +61,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             YoloPasswordTextField(
-                state = state.passwordTextState,
+                value = state.password,
+                onValueChange = onPasswordChange,
                 placeholder = stringResource(Res.string.password),
                 title = stringResource(Res.string.password),
                 supportingText = state.passwordError?.value
@@ -102,6 +106,8 @@ fun RegisterScreenPreview() {
         RegisterScreen(
             state = RegisterViewState(),
             onRegisterClick = { },
+            onEmailChange = { },
+            onPasswordChange = { },
             onInputTextFocusGain = { },
             onTogglePasswordVisibility = { }
         )

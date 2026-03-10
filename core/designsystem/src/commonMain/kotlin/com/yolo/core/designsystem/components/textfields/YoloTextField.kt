@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldLineLimits
-import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +19,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun YoloTextField(
-    state: TextFieldState,
+    value: String,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     title: String? = null,
@@ -42,11 +40,10 @@ fun YoloTextField(
         modifier = modifier
     ) { styleModifier, interactionSource ->
         BasicTextField(
-            state = state,
+            value = value,
+            onValueChange = onValueChange,
             enabled = enabled,
-            lineLimits = if(singleLine) {
-                TextFieldLineLimits.SingleLine
-            } else TextFieldLineLimits.Default,
+            singleLine = singleLine,
             textStyle = MaterialTheme.typography.bodyMedium.copy(
                 color = if(enabled) {
                     MaterialTheme.colorScheme.onSurface
@@ -60,13 +57,13 @@ fun YoloTextField(
             cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             interactionSource = interactionSource,
             modifier = styleModifier,
-            decorator = { innerBox ->
+            decorationBox = { innerBox ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    if(state.text.isEmpty() && placeholder != null) {
+                    if(value.isEmpty() && placeholder != null) {
                         Text(
                             text = placeholder,
                             color = MaterialTheme.colorScheme.extended.textPlaceholder,
@@ -87,7 +84,8 @@ fun YoloTextField(
 fun YoloTextFieldEmptyPreview() {
     YoloTheme {
         YoloTextField(
-            state = rememberTextFieldState(),
+            value = "",
+            onValueChange = {},
             modifier = Modifier
                 .width(300.dp),
             placeholder = "test@test.com",
@@ -104,9 +102,8 @@ fun YoloTextFieldEmptyPreview() {
 fun YoloTextFieldFilledPreview() {
     YoloTheme {
         YoloTextField(
-            state = rememberTextFieldState(
-                initialText = "test@test.com"
-            ),
+            value = "test@test.com",
+            onValueChange = {},
             modifier = Modifier
                 .width(300.dp),
             placeholder = "test@test.com",
@@ -123,7 +120,8 @@ fun YoloTextFieldFilledPreview() {
 fun YoloTextFieldDisabledPreview() {
     YoloTheme {
         YoloTextField(
-            state = rememberTextFieldState(),
+            value = "",
+            onValueChange = {},
             modifier = Modifier
                 .width(300.dp),
             placeholder = "test@test.com",
@@ -141,7 +139,8 @@ fun YoloTextFieldDisabledPreview() {
 fun YoloTextFieldErrorPreview() {
     YoloTheme {
         YoloTextField(
-            state = rememberTextFieldState(),
+            value = "",
+            onValueChange = {},
             modifier = Modifier
                 .width(300.dp),
             placeholder = "test@test.com",

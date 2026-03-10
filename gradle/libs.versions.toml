@@ -1,22 +1,26 @@
 [versions]
 
 # Build tools
-agp = "8.11.2"
-kotlin = "2.2.20"
-ksp = "2.2.20-2.0.4"
+agp = "9.0.0"
+kotlin = "2.3.0"
+ksp = "2.3.4"
 googleServices = "4.4.2"
 buildkonfig = "0.17.1"
 androidDesugarJdkLibs = "2.1.5"
-androidTools = "31.12.0"
+androidTools = "32.0.0-rc02"
 
 # Compose
 composeBom = "2025.07.00"
 compose-hot-reload = "1.0.0-beta04"
 navigationCompose = "2.9.1"
-compose-multiplatform = "1.9.0"
+compose-multiplatform = "1.10.0"
 jetbrains-core-bundle = "1.0.1"
 material-icons = "1.7.3"
-jetbrains-lifecycle = "2.9.5"
+jetbrains-lifecycle = "2.10.0-alpha06"
+# Kotlinx
+kotlinx-coroutines = "1.10.2"
+kotlinx-serialization = "1.9.0"
+kotlinx-datetime = "0.7.1"
 
 # AndroidX
 androidx-uiTest = "1.7.6"
@@ -25,34 +29,28 @@ androidx-test-core = "1.7.0"
 appcompatVersion = "1.7.1"
 core-splashscreen = "1.0.1"
 
-# Kotlinx
-kotlinx-coroutines = "1.9.0"
-kotlinx-serialization = "1.7.3"
-kotlinx-datetime = "0.7.1"
-
 # Third party
-koin = "4.0.0"
+koin = "4.1.1"
 kmpnotifier = "1.4.0"
 firebase = "33.7.0"
 kmpauth = "2.2.0"
 firebaseCrashlytics = "3.0.2"
 napier = "2.7.1"
 buildConfig = "5.4.0"
-ktor = "3.0.1"
+ktor = "3.2.3"
 uuid = "0.8.4"
 multiplatformSettings = "1.1.1"
 android-inappreview = "2.0.2"
 jetbrains-savedstate = "1.3.1"
 datastore = "1.1.7"
-adaptive = "1.2.0-alpha04"
-coil = "3.0.4"
+adaptive = "1.3.0-alpha02"
+coil = "3.3.0"
 moko = "0.19.1"
-kotlinStdlib = "2.2.20"
-kotlinTest = "2.2.20"
 runner = "1.7.0"
-junit = "1.1.5"
+junit = "1.3.0"
 
 #Bug on 1.9.0 breaking ui need to double check before updating
+# Agora usando 1.8.2 para alinhar com o projeto de referencia e evitar erro de resolucao no iOS
 compose-jetbrains = "1.8.2"
 
 projectApplicationId = "com.yolo.myhabitshub"
@@ -61,6 +59,9 @@ projectMinSdkVersion = "26"
 projectTargetSdkVersion = "36"
 projectCompileSdkVersion = "36"
 projectVersionCode = "1"
+junitVersion = "4.13.2"
+espressoCore = "3.5.1"
+material = "1.10.0"
 
 [libraries]
 
@@ -109,6 +110,11 @@ jetbrains-compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", 
 jetbrains-compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-jetbrains" }
 jetbrains-compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-jetbrains" }
 jetbrains-compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref="compose-jetbrains"}
+
+jetbrains-compose-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
+jetbrains-compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
+jetbrains-compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-multiplatform" }
+
 
 jetbrains-compose-material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons"}
 jetbrains-compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons"}
@@ -166,12 +172,15 @@ napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 multiplatformSettings-noargs = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 android-inappreview = { module = "com.google.android.play:review", version.ref = "android-inappreview" }
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 buildkonfig-gradlePlugin = { group = "com.codingfeline.buildkonfig", name = "buildkonfig-gradle-plugin", version.ref = "buildkonfig" }
 buildkonfig-compiler = { group = "com.codingfeline.buildkonfig", name = "buildkonfig-compiler", version.ref = "buildkonfig" }
+junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]

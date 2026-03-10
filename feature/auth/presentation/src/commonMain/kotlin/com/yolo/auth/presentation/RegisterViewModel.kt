@@ -24,6 +24,8 @@ class RegisterViewModel(
 ) {
     override fun onViewIntent(intent: RegisterViewIntent) {
         when (intent) {
+            is RegisterViewIntent.OnEmailChange -> updateState { copy(email = intent.email) }
+            is RegisterViewIntent.OnPasswordChange -> updateState { copy(password = intent.password) }
             RegisterViewIntent.OnRegisterClick -> viewModelScope.launch { handleRegisterClick() }
             RegisterViewIntent.OnLogicClick -> TODO()
             RegisterViewIntent.OnInputTextFocusGain -> handleInputTextFocusGain()
@@ -57,9 +59,9 @@ class RegisterViewModel(
         updateState {
             copy(isLoading = true)
         }
-
-        val email = state.value.emailTextState.text.toString()
-        val password = state.value.passwordTextState.text.toString()
+        
+        val email = state.value.email
+        val password = state.value.password
 
         val result = registerUseCase(
             RegisterAuth(
@@ -94,8 +96,8 @@ class RegisterViewModel(
     private suspend fun validFormInputs(): Boolean {
         clearAllTextFieldErrors()
 
-        val email = state.value.emailTextState.text.toString()
-        val password = state.value.passwordTextState.text.toString()
+        val email = state.value.email
+        val password = state.value.password
 
         val result = authValidatorUseCase.invoke(
             RegisterAuth(

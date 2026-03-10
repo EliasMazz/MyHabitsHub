@@ -6,7 +6,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
     <!-- remove it server after deploy, this is used for the emulator understand server running on 8080-->
     <application
-        android:name=".AndroidApp"
+        android:name=".androidapp.AndroidApp"
         android:icon="@mipmap/ic_launcher"
         android:label="MyHabitsHub"
         android:theme="@android:style/Theme.Material.NoActionBar"
@@ -15,7 +15,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         >
         <activity
-            android:name=".AppActivity"
+            android:name=".androidapp.AppActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:launchMode="singleInstance"

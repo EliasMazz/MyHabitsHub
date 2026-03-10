@@ -8,7 +8,7 @@ import com.mmk.kmpauth.google.GoogleAuthCredentials
 import com.mmk.kmpauth.google.GoogleAuthProvider
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
-import com.yolo.myhabitshub.common.BuildConfig
+import com.yolo.myhabitshub.BuildConfig
 import com.yolo.core.data.logging.AppLogger
 import com.yolo.myhabitshub.root.di.appModules
 import org.koin.core.KoinApplication

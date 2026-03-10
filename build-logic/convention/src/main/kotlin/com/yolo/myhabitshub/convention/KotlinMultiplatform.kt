@@ -1,17 +1,21 @@
 package com.yolo.myhabitshub.convention
 
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 internal fun Project.configureKotlinMultiplatform() {
-    extensions.configure<LibraryExtension> {
-        namespace = this@configureKotlinMultiplatform.pathToPackageName()
-    }
 
-    configureKotlinAndroidTarget()
+    configureAndroidLibraryTarget()
     extensions.configure<KotlinMultiplatformExtension> {
+        extensions.configure<KotlinMultiplatformAndroidLibraryExtension>{
+            compileSdk = libs.findVersion("projectCompileSdkVersion").get().toString().toInt()
+            minSdk = libs.findVersion("projectMinSdkVersion").get().toString().toInt()
+            namespace = pathToPackageName()
+            experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+
+        }
         listOf(
             iosX64(),
             iosArm64(),

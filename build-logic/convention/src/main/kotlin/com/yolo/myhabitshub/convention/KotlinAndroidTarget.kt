@@ -1,16 +1,10 @@
 package com.yolo.myhabitshub.convention
 
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.gradle.kotlin.dsl.dependencies
 
-internal fun Project.configureKotlinAndroidTarget() {
-    extensions.configure<KotlinMultiplatformExtension> {
-        androidTarget {
-            @OptIn(ExperimentalKotlinGradlePluginApi::class)
-            compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
-        }
-    }
+internal fun Project.configureAndroidLibraryTarget() {
+   dependencies{
+       "coreLibraryDesugaring"(libs.findLibrary("android-desugarJdkLibs").get())
+   }
 }

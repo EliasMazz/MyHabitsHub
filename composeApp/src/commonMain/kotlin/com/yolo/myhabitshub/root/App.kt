@@ -16,7 +16,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
-internal fun App() {
+fun App() {
     YoloTheme {
         AppNavigation()
     }

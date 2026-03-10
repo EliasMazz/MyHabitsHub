@@ -1,14 +1,13 @@
 package com.yolo.auth.presentation
 
-import androidx.compose.foundation.text.input.TextFieldState
 import com.yolo.core.presentation.util.UiText
 import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 
 data class RegisterViewState(
-    val emailTextState: TextFieldState = TextFieldState(),
+    val email: String = "",
     val isEmailValid: Boolean = false,
     val emailError: UiText? = null,
-    val passwordTextState: TextFieldState = TextFieldState(),
+    val password: String = "",
     val isPasswordValid: Boolean = false,
     val passwordError: UiText? = null,
     val registrationError: UiText? = null,

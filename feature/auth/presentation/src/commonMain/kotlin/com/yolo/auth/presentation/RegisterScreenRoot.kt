@@ -20,6 +20,8 @@ class RegisterScreenRoot :
                 RegisterScreen(
                     state = viewState,
                     onRegisterClick = { viewModel.handleIntent(RegisterViewIntent.OnRegisterClick) },
+                    onEmailChange = { viewModel.handleIntent(RegisterViewIntent.OnEmailChange(it)) },
+                    onPasswordChange = { viewModel.handleIntent(RegisterViewIntent.OnPasswordChange(it)) },
                     onInputTextFocusGain = { viewModel.handleIntent(RegisterViewIntent.OnInputTextFocusGain) },
                     onTogglePasswordVisibility = { viewModel.handleIntent(RegisterViewIntent.OnTogglePasswordVisibility) }
                 )
