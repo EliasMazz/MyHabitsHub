@@ -37,7 +37,8 @@ fun RegisterScreen(
     onInputTextFocusGain: () -> Unit,
     onTogglePasswordVisibility: () -> Unit,
 ) {
-  YoloSnackbarScaffold(
+
+    YoloSnackbarScaffold(
         snackbarHostState = snackbarHostState
     ) {
         YoloAdaptiveFormLayout(

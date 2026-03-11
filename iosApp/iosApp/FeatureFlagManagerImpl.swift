@@ -1,5 +1,5 @@
 import Foundation
-import ComposeApp
+import shared
 import FirebaseRemoteConfig
 
 class FeatureFlagManagerImpl: FeatureFlagManager {

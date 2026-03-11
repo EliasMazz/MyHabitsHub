@@ -1,5 +1,5 @@
 import SwiftUI
-import ComposeApp
+import shared
 import FirebaseCore
 import FirebaseMessaging
 

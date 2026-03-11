@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
 
-    implementation(projects.composeApp)
+    implementation(projects.shared)
     implementation(projects.core.data)
     implementation(projects.core.presentation)
     implementation(projects.core.domain)

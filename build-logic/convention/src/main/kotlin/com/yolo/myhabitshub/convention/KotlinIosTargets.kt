@@ -12,7 +12,7 @@ internal fun Project.configureIosTargets() {
             iosSimulatorArm64()
         ).forEach { iosTarget ->
             iosTarget.binaries.framework {
-                baseName = "ComposeApp"
+                baseName = "shared"
                 isStatic = true
                 // Re-export kmpnotifier so `NotifierManager` is visible to iOS
                 export(libs.findLibrary("kmpnotifier").get())

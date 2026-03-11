@@ -1,9 +1,8 @@
 import Foundation
-import ComposeApp
+import shared
 import FirebaseAnalytics
-import FirebaseCore
 
-class FirebaseAnalyticsImpl: ComposeApp.Analytics {
+class FirebaseAnalyticsImpl: shared.Analytics {
     
     func logEvent(event: String, params: [String : Any]?) {
         var eventParams: [String: Any] = [:]

@@ -39,7 +39,7 @@ while getopts "v:" opt; do
 done
 
 # -------- Android Versioning --------
-ANDROID_BUILD_FILE="$ROOT_DIR/composeApp/build.gradle.kts"
+ANDROID_BUILD_FILE="$ROOT_DIR/shared/build.gradle.kts"
 
 if [[ ! -f "$ANDROID_BUILD_FILE" ]]; then
   echo "❌ Android build file not found at $ANDROID_BUILD_FILE"

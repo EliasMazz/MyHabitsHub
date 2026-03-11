@@ -84,12 +84,24 @@ kotlin {
     }
 }
 
+buildConfig {
+    packageName = "com.yolo.myhabitshub"
+    buildConfigField("GOOGLE_WEB_CLIENT_ID", getRequiredProperty("GOOGLE_WEB_CLIENT_ID", defaultValue = ""))
+    buildConfigField("DEBUG", provider { (System.getenv("DEBUG") ?: "false").toBoolean() })
+}
+
 compose.resources {
     packageOfResClass = "com.yolo.myhabitshub.generated.resources"
 }
 
 //https://developer.android.com/develop/ui/compose/testing#setup
 dependencies {
+  /*  androidTestImplementation(libs.androidx.uitest.junit4)
+    debugImplementation(libs.androidx.uitest.testManifest)
+    //temporary fix: https://youtrack.jetbrains.com/issue/CMP-5864
+    androidTestImplementation("androidx.test:monitor") {
+        version { strictly("1.6.1") }
+    }*/
 }
 
 fun getRequiredProperty(
