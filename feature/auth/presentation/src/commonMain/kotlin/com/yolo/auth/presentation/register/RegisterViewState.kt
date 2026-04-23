@@ -1,4 +1,4 @@
-package com.yolo.auth.presentation
+package com.yolo.auth.presentation.register
 
 import com.yolo.core.presentation.util.UiText
 import com.yolo.core.presentation.viewmodel.BaseViewModel.*

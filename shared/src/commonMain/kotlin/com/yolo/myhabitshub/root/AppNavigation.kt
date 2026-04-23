@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.yolo.auth.presentation.RegisterScreenRoot
-import com.yolo.auth.presentation.RegisterViewModel
+import com.yolo.auth.presentation.register.RegisterScreenRoot
+import com.yolo.auth.presentation.register.RegisterViewModel
 import com.yolo.core.presentation.LocalNavigator
 import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoot
 import com.yolo.myhabitshub.presentation.screens.main.MainViewModel

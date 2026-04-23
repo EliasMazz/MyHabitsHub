@@ -1,4 +1,4 @@
-package com.yolo.auth.presentation
+package com.yolo.auth.presentation.register
 
 import androidx.lifecycle.viewModelScope
 import com.yolo.auth.domain.AuthValidatorResult.*
@@ -59,7 +59,7 @@ class RegisterViewModel(
         updateState {
             copy(isLoading = true)
         }
-        
+
         val email = state.value.email
         val password = state.value.password
 

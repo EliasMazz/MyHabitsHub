@@ -1,4 +1,4 @@
-package com.yolo.auth.presentation
+package com.yolo.auth.presentation.register
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
