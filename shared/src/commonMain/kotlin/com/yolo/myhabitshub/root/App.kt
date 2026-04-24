@@ -1,5 +1,10 @@
 package com.yolo.myhabitshub.root
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -9,19 +14,29 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.yolo.core.designsystem.theme.YoloTheme
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.yolo.core.presentation.util.UiText
+import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 fun App() {
-    YoloTheme {
-        AppNavigation()
-    }
+
+    // Uncomment this for login screen
     /*
-    YoloTheme {
+    {
+        YoloTheme {
+            AppNavigation()
+        }
+
+     */
+
+    // Uncomment this for main screen
+    AppTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -35,7 +50,7 @@ fun App() {
                 AppScaffold()
         }
     }
-     */
+
 }
 
 @Composable

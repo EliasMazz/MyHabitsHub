@@ -59,7 +59,7 @@ fun AppToolbar(
             actionIconContentColor = AppTheme.colors.text.primary,
         ),
         title = {
-            Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+            Box(contentAlignment = Alignment.Center) {
                 ToolbarTitle(text = title.orEmpty())
             }
         },
