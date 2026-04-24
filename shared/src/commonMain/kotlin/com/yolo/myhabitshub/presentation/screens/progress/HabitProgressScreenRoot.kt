@@ -3,9 +3,9 @@ package com.yolo.myhabitshub.presentation.screens.progress
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.Navigator
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -20,7 +20,7 @@ class HabitProgressScreenRoot : ScreenRoot<HabitProgressViewModel, HabitProgress
                 HabitProgressScreen(Modifier.fillMaxSize())
             }
 
-            override fun handleEvent(event: HabitProgressViewEvent, navigator: NavHostController) {
+            override fun handleEvent(event: HabitProgressViewEvent, navigator: Navigator) {
                 TODO("Not yet implemented")
             }
         }

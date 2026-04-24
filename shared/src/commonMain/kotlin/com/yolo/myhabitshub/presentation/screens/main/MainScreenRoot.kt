@@ -1,26 +1,22 @@
 package com.yolo.myhabitshub.presentation.screens.main
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.Navigator
 import kotlinx.serialization.Serializable
-
 @Serializable
 class MainScreenRoot :
     ScreenRoot<MainViewModel, MainViewIntent, MainScreenViewState, MainViewEvent> {
-
     @Composable
     override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainViewEvent> {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
-
         LaunchedEffect(navBackStackEntry) {
             currentRoute?.let {
                 viewModel.handleIntent(
@@ -30,9 +26,7 @@ class MainScreenRoot :
                 )
             }
         }
-
         return object : ScreenContract<MainScreenViewState, MainViewEvent> {
-
             @Composable
             override fun Screen(viewState: MainScreenViewState) {
                     MainScreen(
@@ -47,8 +41,7 @@ class MainScreenRoot :
                         }
                     )
             }
-
-            override fun handleEvent(event: MainViewEvent, navigator: NavHostController) {
+            override fun handleEvent(event: MainViewEvent, navigator: Navigator) {
                 // We use 'navController' because it's the one that controls MainNavHost.
                 // The passed-in 'navigator' is an exception and is ignored here, as it belongs to a parent graph
                 when (event) {
@@ -64,7 +57,6 @@ class MainScreenRoot :
                             }
                         }
                     }
-
                     MainViewEvent.NavigateUp -> {
                         navController.navigateUp()
                     }
@@ -73,4 +65,3 @@ class MainScreenRoot :
         }
     }
 }
-

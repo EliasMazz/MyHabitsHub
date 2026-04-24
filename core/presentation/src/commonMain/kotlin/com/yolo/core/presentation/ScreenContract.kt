@@ -1,7 +1,7 @@
 package com.yolo.core.presentation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
+import com.yolo.core.presentation.navigation.Navigator
 import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 
 /**
@@ -22,7 +22,7 @@ interface ScreenContract<STATE : ViewState<EVENT>, EVENT : ViewEvent> {
      * Processes one-time [ViewEvent]s emitted by the ViewModel, such as navigation.
      *
      * @param event The [EVENT] to handle.
-     * @param navigator The [androidx.navigation.NavHostController] for performing navigation actions.
+     * @param navigator The [Navigator] for performing navigation actions.
      */
-    fun handleEvent(event: EVENT, navigator: NavHostController)
+    fun handleEvent(event: EVENT, navigator: Navigator)
 }

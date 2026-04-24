@@ -3,12 +3,14 @@ package com.yolo.myhabitshub.presentation.screens.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.yolo.core.presentation.LocalNavigator
+import com.yolo.myhabitshub.navigation.ComposeNavigator
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.title_screen_help_and_support
 import com.yolo.myhabitshub.generated.resources.title_screen_account
@@ -42,7 +44,8 @@ fun MainNavHost(
         screenTitle: String,
     ) = LaunchedEffect(Unit) { onToolbarSetTitle(screenTitle) }
 
-    CompositionLocalProvider(LocalNavigator provides navController) {
+    val navigator = remember(navController) { ComposeNavigator(navController) }
+    CompositionLocalProvider(LocalNavigator provides navigator) {
         NavHost(
             navController = navController,
             startDestination = HabitTrackingScreenRoot()

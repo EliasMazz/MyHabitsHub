@@ -1,9 +1,9 @@
 package com.yolo.auth.presentation.register
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.Navigator
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,7 +29,7 @@ class RegisterScreenRoot :
 
             override fun handleEvent(
                 event: RegisterViewEvent,
-                navigator: NavHostController
+                navigator: Navigator
             ) {
 
             }

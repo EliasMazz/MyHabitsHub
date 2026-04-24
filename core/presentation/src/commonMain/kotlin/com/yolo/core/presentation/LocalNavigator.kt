@@ -1,8 +1,8 @@
 package com.yolo.core.presentation
 
 import androidx.compose.runtime.compositionLocalOf
-import androidx.navigation.NavHostController
+import com.yolo.core.presentation.navigation.Navigator
 
-val LocalNavigator = compositionLocalOf<NavHostController> {
+val LocalNavigator = compositionLocalOf<Navigator> {
     error("No LocalNavController provided")
 }

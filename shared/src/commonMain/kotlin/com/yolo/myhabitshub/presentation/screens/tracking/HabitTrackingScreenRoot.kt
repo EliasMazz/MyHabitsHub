@@ -1,9 +1,9 @@
 package com.yolo.myhabitshub.presentation.screens.tracking
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.Navigator
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -25,7 +25,7 @@ class HabitTrackingScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: HabitTrackingViewEvent, navigator: NavHostController) {}
+            override fun handleEvent(event: HabitTrackingViewEvent, navigator: Navigator) {}
         }
     }
 }

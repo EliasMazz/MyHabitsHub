@@ -3,9 +3,10 @@ package com.yolo.myhabitshub.presentation.screens.account
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.NavigationAction
+import com.yolo.core.presentation.navigation.Navigator
 import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportScreenRoot
 import com.yolo.myhabitshub.presentation.screens.settings.SettingsScreenRoot
 import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
@@ -32,11 +33,11 @@ class AccountScreenRoot : ScreenRoot<AccountViewModel, AccountViewIntent, Accoun
                 )
             }
 
-            override fun handleEvent(event: AccountViewEvent, navigator: NavHostController) {
+            override fun handleEvent(event: AccountViewEvent, navigator: Navigator) {
                 when (event) {
-                    AccountViewEvent.NavigateToHelpAndSupport -> navigator.navigate(HelpAndSupportScreenRoot())
-                    AccountViewEvent.NavigateToSettings -> navigator.navigate(SettingsScreenRoot())
-                    AccountViewEvent.NavigateToSignIn -> navigator.navigate(SignInScreenRoot())
+                    AccountViewEvent.NavigateToHelpAndSupport -> navigator.execute(NavigationAction.Navigate(HelpAndSupportScreenRoot()))
+                    AccountViewEvent.NavigateToSettings -> navigator.execute(NavigationAction.Navigate(SettingsScreenRoot()))
+                    AccountViewEvent.NavigateToSignIn -> navigator.execute(NavigationAction.Navigate(SignInScreenRoot()))
                 }
             }
         }

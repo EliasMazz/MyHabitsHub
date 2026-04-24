@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.Navigator
 import com.yolo.myhabitshub.util.AppUtil
 import com.yolo.myhabitshub.util.Constants
 import kotlinx.serialization.Serializable
@@ -34,7 +34,7 @@ class HelpAndSupportScreenRoot() :
                )
            }
 
-           override fun handleEvent(event: HelpAndSupportEvent, navigator: NavHostController) {
+           override fun handleEvent(event: HelpAndSupportEvent, navigator: Navigator) {
                when (event) {
                    HelpAndSupportEvent.OpenFeedbackMail -> appUtil.openFeedbackMail()
                    HelpAndSupportEvent.OpenPrivacyPoliceUri -> localUriHandler.openUri(Constants.URL_PRIVACY_POLICY)

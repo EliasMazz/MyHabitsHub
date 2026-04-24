@@ -3,9 +3,10 @@ package com.yolo.myhabitshub.presentation.screens.signin
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.NavigationAction
+import com.yolo.core.presentation.navigation.Navigator
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -25,9 +26,9 @@ class SignInScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: SignInViewEvent, navigator: NavHostController) {
+            override fun handleEvent(event: SignInViewEvent, navigator: Navigator) {
                 when (event) {
-                    SignInViewEvent.SignInSuccess -> navigator.popBackStack()
+                    SignInViewEvent.SignInSuccess -> navigator.execute(NavigationAction.PopBackStack)
                 }
             }
         }

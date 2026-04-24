@@ -3,9 +3,10 @@ package com.yolo.myhabitshub.presentation.screens.settings
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
+import com.yolo.core.presentation.navigation.NavigationAction
+import com.yolo.core.presentation.navigation.Navigator
 import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
 import kotlinx.serialization.Serializable
 
@@ -33,14 +34,16 @@ class SettingsScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: SettingsViewEvent, navigator: NavHostController) {
+            override fun handleEvent(event: SettingsViewEvent, navigator: Navigator) {
                 when (event) {
                     SettingsViewEvent.NavigateToSign -> {
-                        navigator.navigate(SignInScreenRoot()) {
-                            popUpTo(SettingsScreenRoot()) {
+                        navigator.execute(
+                            NavigationAction.NavigatePopUpTo(
+                                route = SignInScreenRoot(),
+                                popUpTo = SettingsScreenRoot(),
                                 inclusive = true
-                            }
-                        }
+                            )
+                        )
                     }
                 }
             }
