@@ -24,8 +24,8 @@ fun AppNavigation(){
     CompositionLocalProvider(LocalNavigator provides navigator) {
         NavHost(
             navController = navController,
-            // Add RegisterScreenRoot for auth screen
-            startDestination = OnBoardingScreenRoot()
+            // Add RegisterScreenRoot for OnBoardingScreenRoot onboarding screen
+            startDestination = RegisterScreenRoot()
         ) {
             composable<RegisterScreenRoot>{ navBackStackEntry ->
                 navBackStackEntry.toRoute<RegisterScreenRoot>().ScreenEntryPoint(
