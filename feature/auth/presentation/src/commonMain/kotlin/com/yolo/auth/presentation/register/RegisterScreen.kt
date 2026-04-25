@@ -7,6 +7,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.components.brand.YoloBrandLogo
 import com.yolo.core.designsystem.components.buttons.YoloButton
@@ -25,7 +26,6 @@ import myhabitshub.feature.auth.presentation.generated.resources.password_hint
 import myhabitshub.feature.auth.presentation.generated.resources.register
 import myhabitshub.feature.auth.presentation.generated.resources.welcome
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RegisterScreen(
@@ -37,7 +37,6 @@ fun RegisterScreen(
     onInputTextFocusGain: () -> Unit,
     onTogglePasswordVisibility: () -> Unit,
 ) {
-
     YoloSnackbarScaffold(
         snackbarHostState = snackbarHostState
     ) {

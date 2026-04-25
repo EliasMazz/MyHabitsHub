@@ -4,6 +4,8 @@ import com.yolo.auth.presentation.register.RegisterViewEvent
 import com.yolo.core.presentation.viewmodel.BaseViewModel
 
 data class RegisterSuccessViewState(
+    val registeredEmail: String = "",
+    val isResendingVerificationEmail: Boolean = false,
 
     override val viewEvent: RegisterSuccessViewEvent? = null,
 ) : BaseViewModel.ViewState<RegisterSuccessViewEvent> {

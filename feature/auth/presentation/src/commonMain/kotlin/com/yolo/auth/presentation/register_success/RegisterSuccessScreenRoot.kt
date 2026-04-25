@@ -1,6 +1,7 @@
 package com.yolo.auth.presentation.register_success
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
 import com.yolo.core.presentation.navigation.Navigator
@@ -15,7 +16,11 @@ class RegisterSuccessScreenRoot :
         return object : ScreenContract<RegisterSuccessViewState, RegisterSuccessViewEvent> {
             @Composable
             override fun Screen(viewState: RegisterSuccessViewState) {
-                RegisterSuccessScreen()
+                RegisterSuccessScreen(
+                    state = viewState,
+                    onLoginClick = { viewModel.handleIntent(RegisterSuccessViewIntent.OnLoginClick) },
+                    onResendVerificationEmailClick = { viewModel.handleIntent(RegisterSuccessViewIntent.OnResendVerificationEmailClick) }
+                )
             }
 
             override fun handleEvent(
@@ -25,6 +30,16 @@ class RegisterSuccessScreenRoot :
 
             }
         }
+    }
+
+    @Composable
+    @Preview
+    fun RegisterSuccessScreenPreview() {
+        RegisterSuccessScreen(
+            state = RegisterSuccessViewState(),
+            onLoginClick = {  },
+            onResendVerificationEmailClick = {  }
+        )
     }
 
 
