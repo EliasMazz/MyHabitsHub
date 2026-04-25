@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.yolo.auth.presentation.register.RegisterScreenRoot
 import com.yolo.auth.presentation.register.RegisterViewModel
+import com.yolo.auth.presentation.register_success.RegisterSuccessScreenRoot
+import com.yolo.auth.presentation.register_success.RegisterSuccessViewModel
 import com.yolo.core.presentation.LocalNavigator
 import com.yolo.myhabitshub.navigation.ComposeNavigator
 import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoot
@@ -25,13 +27,19 @@ fun AppNavigation(){
         NavHost(
             navController = navController,
             // Add RegisterScreenRoot for OnBoardingScreenRoot onboarding screen
-            startDestination = RegisterScreenRoot()
+            startDestination = RegisterSuccessScreenRoot()
         ) {
             composable<RegisterScreenRoot>{ navBackStackEntry ->
                 navBackStackEntry.toRoute<RegisterScreenRoot>().ScreenEntryPoint(
                     viewModel = koinViewModel<RegisterViewModel>()
                 )
             }
+            composable<RegisterSuccessScreenRoot>{ navBackStackEntry ->
+                navBackStackEntry.toRoute<RegisterSuccessScreenRoot>().ScreenEntryPoint(
+                    viewModel = koinViewModel<RegisterSuccessViewModel>()
+                )
+            }
+
             composable<OnBoardingScreenRoot> { navBackStackEntry ->
                 navBackStackEntry.toRoute<OnBoardingScreenRoot>().ScreenEntryPoint(
                     viewModel = koinViewModel<OnBoardingViewModel>()
