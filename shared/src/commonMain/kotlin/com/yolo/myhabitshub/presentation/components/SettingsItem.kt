@@ -26,7 +26,17 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
+enum class SettingsAction {
+    HELP_AND_SUPPORT,
+    LOGOUT,
+    CONTACT_SUPPORT,
+    PRIVACY_POLICY,
+    TERMS_AND_CONDITIONS,
+    DELETE_ACCOUNT,
+}
+
 data class SettingsItemViewData(
+    val action: SettingsAction,
     val textRes: StringResource,
     val startIcon: DrawableResource? = null,
     val helperTextRes: StringResource? = null,

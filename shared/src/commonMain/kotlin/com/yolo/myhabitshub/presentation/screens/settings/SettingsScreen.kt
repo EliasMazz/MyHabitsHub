@@ -27,6 +27,7 @@ import com.yolo.myhabitshub.generated.resources.btn_delete_account
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
 import com.yolo.myhabitshub.presentation.components.LoadingProgressMode
 import com.yolo.myhabitshub.presentation.components.SettingItemListContainer
+import com.yolo.myhabitshub.presentation.components.SettingsAction
 import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import com.yolo.myhabitshub.presentation.components.UserInput
 import com.yolo.myhabitshub.presentation.components.modals.AppDialog
@@ -121,6 +122,7 @@ fun SettingsScreenContent(
             itemTextStyle = AppTheme.typography.h5.copy(fontWeight = FontWeight.SemiBold),
             itemList = listOf(
                 SettingsItemViewData(
+                    action = SettingsAction.DELETE_ACCOUNT,
                     textRes = Res.string.btn_delete_account,
                     startIcon = R.drawable.ic_delete,
                     showEndIcon = false,

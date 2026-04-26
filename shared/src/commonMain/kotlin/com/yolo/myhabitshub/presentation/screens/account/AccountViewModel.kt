@@ -4,8 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.yolo.core.domain.usecase.invoke
 import com.yolo.myhabitshub.domain.usecase.GetUserStream
 import com.yolo.myhabitshub.domain.usecase.LogOutUseCase
-import com.yolo.myhabitshub.generated.resources.Res
-import com.yolo.myhabitshub.generated.resources.logout
+import com.yolo.myhabitshub.presentation.components.SettingsAction
 import com.yolo.core.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -57,14 +56,12 @@ class AccountViewModel(
                 }
 
             is AccountViewIntent.OnSettingsItemClicked -> {
-                when (intent.item.textRes) {
-                    Res.string.logout -> {
+                when (intent.item.action) {
+                    SettingsAction.HELP_AND_SUPPORT ->
+                        updateState { copy(viewEvent = AccountViewEvent.NavigateToHelpAndSupport) }
+                    SettingsAction.LOGOUT ->
                         updateState { copy(isLogoutDialogVisible = true) }
-                    }
-
-                    else -> {
-                        //TODO
-                    }
+                    else -> Unit
                 }
             }
         }

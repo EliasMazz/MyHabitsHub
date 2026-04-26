@@ -4,6 +4,7 @@ import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 import com.yolo.myhabitshub.data.model.UserResponse
 import com.yolo.myhabitshub.generated.resources.title_screen_help_and_support
 import com.yolo.myhabitshub.generated.resources.logout
+import com.yolo.myhabitshub.presentation.components.SettingsAction
 import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import myhabitshub.core.designsystem.generated.resources.Res as R
 import com.yolo.myhabitshub.generated.resources.Res
@@ -13,11 +14,12 @@ import myhabitshub.core.designsystem.generated.resources.ic_settings_item_suppor
 data class AccountViewState(
     val settingsItemList: List<SettingsItemViewData> = listOf(
         SettingsItemViewData(
+            action = SettingsAction.HELP_AND_SUPPORT,
             startIcon = R.drawable.ic_settings_item_support_legal,
-            textRes = Res.string.title_screen_help_and_support
+            textRes = Res.string.title_screen_help_and_support,
         ),
-
         SettingsItemViewData(
+            action = SettingsAction.LOGOUT,
             startIcon = R.drawable.ic_settings_item_logout,
             textRes = Res.string.logout,
             showEndIcon = false,
