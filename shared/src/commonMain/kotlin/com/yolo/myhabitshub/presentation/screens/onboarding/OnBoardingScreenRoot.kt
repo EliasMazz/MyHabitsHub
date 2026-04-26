@@ -19,7 +19,7 @@ class OnBoardingScreenRoot(
                 )
             }
 
-            override fun handleEvent(event: OnBoardingViewEvent) {
+            override suspend fun handleEvent(event: OnBoardingViewEvent) {
                 when (event) {
                     OnBoardingViewEvent.OnBoardingComplete -> onOnBoardingComplete()
                 }

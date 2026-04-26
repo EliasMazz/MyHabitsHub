@@ -22,5 +22,5 @@ interface ScreenContract<STATE : ViewState<EVENT>, EVENT : ViewEvent> {
      *
      * @param event The [EVENT] to handle.
      */
-    fun handleEvent(event: EVENT)
+    suspend fun handleEvent(event: EVENT)
 }

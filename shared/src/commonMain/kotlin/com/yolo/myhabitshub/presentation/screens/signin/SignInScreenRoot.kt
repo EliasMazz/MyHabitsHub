@@ -23,7 +23,7 @@ class SignInScreenRoot(
                 )
             }
 
-            override fun handleEvent(event: SignInViewEvent) {
+            override suspend fun handleEvent(event: SignInViewEvent) {
                 when (event) {
                     SignInViewEvent.SignInSuccess -> onSignInSuccess()
                 }

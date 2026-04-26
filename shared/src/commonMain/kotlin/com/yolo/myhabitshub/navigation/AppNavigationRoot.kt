@@ -19,7 +19,7 @@ fun AppNavigationRoot() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = AppRoutes.OnBoarding
+        startDestination = AuthGraphRoutes.Graph
     ) {
         authGraph(
             navController = navController,
@@ -41,7 +41,7 @@ fun AppNavigationRoot() {
             )
         }
         composable<AppRoutes.Main> {
-            //// We use 'mainNavController' because it's the one that controls MainNavHost bottomsheet
+            // separate 'mainNavController' is used because it's the one that controls MainNavHost for bottomsheet
             val mainNavController = rememberNavController()
             MainScreenRoot(
                 navController = mainNavController,

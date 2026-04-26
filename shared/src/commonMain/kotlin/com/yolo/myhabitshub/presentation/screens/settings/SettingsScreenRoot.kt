@@ -30,7 +30,7 @@ class SettingsScreenRoot(
                 )
             }
 
-            override fun handleEvent(event: SettingsViewEvent) {
+            override suspend fun handleEvent(event: SettingsViewEvent) {
                 when (event) {
                     SettingsViewEvent.NavigateToSign -> onNavigateToSignIn()
                 }

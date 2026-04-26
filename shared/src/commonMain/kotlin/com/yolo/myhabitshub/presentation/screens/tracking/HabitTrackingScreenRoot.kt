@@ -20,7 +20,7 @@ class HabitTrackingScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: HabitTrackingViewEvent) {}
+            override suspend fun handleEvent(event: HabitTrackingViewEvent) {}
         }
     }
 }

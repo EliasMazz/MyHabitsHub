@@ -43,7 +43,7 @@ class MainScreenRoot(
                         }
                     )
             }
-            override fun handleEvent(event: MainViewEvent) {
+            override suspend fun handleEvent(event: MainViewEvent) {
                 when (event) {
                     is MainViewEvent.NavigateTo -> onNavigateTo(event)
                     MainViewEvent.NavigateUp -> onNavigateUp()

@@ -26,7 +26,7 @@ class AccountScreenRoot(
                     onSettingsItemClicked = { viewModel.handleIntent(AccountViewIntent.OnSettingsItemClicked(it)) }
                 )
             }
-            override fun handleEvent(event: AccountViewEvent) {
+            override suspend fun handleEvent(event: AccountViewEvent) {
                 when (event) {
                     AccountViewEvent.NavigateToSignIn -> onNavigateToSignIn()
                     AccountViewEvent.NavigateToSettings -> onNavigateToSettings()

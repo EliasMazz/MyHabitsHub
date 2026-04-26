@@ -28,7 +28,7 @@ class HelpAndSupportScreenRoot :
                )
            }
 
-           override fun handleEvent(event: HelpAndSupportEvent) {
+           override suspend fun handleEvent(event: HelpAndSupportEvent) {
                when (event) {
                    HelpAndSupportEvent.OpenFeedbackMail -> appUtil.openFeedbackMail()
                    HelpAndSupportEvent.OpenPrivacyPoliceUri -> localUriHandler.openUri(Constants.URL_PRIVACY_POLICY)

@@ -10,7 +10,6 @@ class RegisterScreenRoot(
 
     @Composable
     override fun provideScreenContract(viewModel: RegisterViewModel): ScreenContract<RegisterViewState, RegisterViewEvent> {
-
         return object : ScreenContract<RegisterViewState, RegisterViewEvent> {
 
             @Composable
@@ -25,10 +24,10 @@ class RegisterScreenRoot(
                 )
             }
 
-            override fun handleEvent(event: RegisterViewEvent) {
+            override suspend fun handleEvent(event: RegisterViewEvent) {
                 when (event) {
                     is RegisterViewEvent.OnRegisterSuccess -> {
-                        onRegisterSuccess.invoke(event.email)
+                        onRegisterSuccess(event.email)
                     }
                 }
             }

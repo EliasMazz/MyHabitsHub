@@ -15,7 +15,7 @@ class HabitProgressScreenRoot : ScreenRoot<HabitProgressViewModel, HabitProgress
                 HabitProgressScreen(Modifier.fillMaxSize())
             }
 
-            override fun handleEvent(event: HabitProgressViewEvent) {
+            override suspend fun handleEvent(event: HabitProgressViewEvent) {
             }
         }
     }
