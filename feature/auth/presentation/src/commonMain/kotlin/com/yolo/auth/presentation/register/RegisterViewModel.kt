@@ -87,7 +87,7 @@ class RegisterViewModel(
             RegisterAuthResult.Success -> updateState {
                 copy(
                     isLoading = false,
-                    viewEvent = RegisterViewEvent.Success(email)
+                    viewEvent = RegisterViewEvent.OnRegisterSuccess(email)
                 )
             }
         }

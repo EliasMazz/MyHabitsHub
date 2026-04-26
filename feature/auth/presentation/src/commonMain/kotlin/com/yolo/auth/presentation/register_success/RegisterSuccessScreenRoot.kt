@@ -4,11 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
-import com.yolo.core.presentation.navigation.Navigator
-import kotlinx.serialization.Serializable
 
-@Serializable
-class RegisterSuccessScreenRoot :
+class RegisterSuccessScreenRoot(
+    private val onLoginClick: () -> Unit = {},
+) :
     ScreenRoot<RegisterSuccessViewModel, RegisterSuccessViewIntent, RegisterSuccessViewState, RegisterSuccessViewEvent> {
     @Composable
     override fun provideScreenContract(viewModel: RegisterSuccessViewModel): ScreenContract<RegisterSuccessViewState, RegisterSuccessViewEvent> {
@@ -23,11 +22,10 @@ class RegisterSuccessScreenRoot :
                 )
             }
 
-            override fun handleEvent(
-                event: RegisterSuccessViewEvent,
-                navigator: Navigator
-            ) {
-
+            override fun handleEvent(event: RegisterSuccessViewEvent) {
+                when (event) {
+                    RegisterSuccessViewEvent.NavigateToLogin -> onLoginClick()
+                }
             }
         }
     }
@@ -41,6 +39,4 @@ class RegisterSuccessScreenRoot :
             onResendVerificationEmailClick = {  }
         )
     }
-
-
 }

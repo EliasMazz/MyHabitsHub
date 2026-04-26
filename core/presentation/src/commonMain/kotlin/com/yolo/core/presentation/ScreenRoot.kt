@@ -41,12 +41,11 @@ interface ScreenRoot<
     private fun SetupBaseScreen(viewModel: VIEW_MODEL) {
         val viewState = viewModel.state.collectAsStateWithLifecycle()
         val screenContract = provideScreenContract(viewModel = viewModel)
-        val navigator = LocalNavigator.current
 
         HandleOneTimeUiEvent(
             viewModel.eventsFlow,
             onEvent = { event ->
-                screenContract.handleEvent(event, navigator)
+                screenContract.handleEvent(event)
             },
             onConsumeEvent = { viewModel.consumeEvent() },
         )

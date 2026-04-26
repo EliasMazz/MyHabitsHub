@@ -1,20 +1,21 @@
 package com.yolo.myhabitshub.presentation.screens.main
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
-import com.yolo.core.presentation.navigation.Navigator
-import kotlinx.serialization.Serializable
-@Serializable
-class MainScreenRoot :
-    ScreenRoot<MainViewModel, MainViewIntent, MainScreenViewState, MainViewEvent> {
+
+class MainScreenRoot(
+    private val navController: NavHostController,
+    private val onSignInSuccess: () -> Unit = {},
+    private val onNavigateTo: (MainViewEvent.NavigateTo) -> Unit = {},
+    private val onNavigateUp: () -> Unit = {},
+) : ScreenRoot<MainViewModel, MainViewIntent, MainScreenViewState, MainViewEvent> {
     @Composable
     override fun provideScreenContract(viewModel: MainViewModel): ScreenContract<MainScreenViewState, MainViewEvent> {
-        val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         LaunchedEffect(navBackStackEntry) {
@@ -36,30 +37,16 @@ class MainScreenRoot :
                         mainContent = {
                             MainNavHost(
                                 navController = navController,
+                                onSignInSuccess = onSignInSuccess,
                                 onToolbarSetTitle = { viewModel.handleIntent(MainViewIntent.OnToolbarSetTitle(label = it)) }
                             )
                         }
                     )
             }
-            override fun handleEvent(event: MainViewEvent, navigator: Navigator) {
-                // We use 'navController' because it's the one that controls MainNavHost.
-                // The passed-in 'navigator' is an exception and is ignored here, as it belongs to a parent graph
+            override fun handleEvent(event: MainViewEvent) {
                 when (event) {
-                    is MainViewEvent.NavigateTo -> {
-                        //TODO: Check, for some reason saveState, and restoreState doesn't work
-                        navController.navigate(event.screenRoot) {
-                            if (event.popUpToStartDestination) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = event.launchSingleTop
-                                restoreState = true
-                            }
-                        }
-                    }
-                    MainViewEvent.NavigateUp -> {
-                        navController.navigateUp()
-                    }
+                    is MainViewEvent.NavigateTo -> onNavigateTo(event)
+                    MainViewEvent.NavigateUp -> onNavigateUp()
                 }
             }
         }

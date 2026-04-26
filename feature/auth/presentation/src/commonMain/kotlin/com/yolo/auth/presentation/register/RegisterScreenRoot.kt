@@ -3,12 +3,10 @@ package com.yolo.auth.presentation.register
 import androidx.compose.runtime.Composable
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
-import com.yolo.core.presentation.navigation.Navigator
-import kotlinx.serialization.Serializable
 
-@Serializable
-class RegisterScreenRoot :
-    ScreenRoot<RegisterViewModel, RegisterViewIntent, RegisterViewState, RegisterViewEvent> {
+class RegisterScreenRoot(
+    private val onRegisterSuccess: (String) -> Unit,
+) : ScreenRoot<RegisterViewModel, RegisterViewIntent, RegisterViewState, RegisterViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: RegisterViewModel): ScreenContract<RegisterViewState, RegisterViewEvent> {
@@ -27,14 +25,13 @@ class RegisterScreenRoot :
                 )
             }
 
-            override fun handleEvent(
-                event: RegisterViewEvent,
-                navigator: Navigator
-            ) {
-
+            override fun handleEvent(event: RegisterViewEvent) {
+                when (event) {
+                    is RegisterViewEvent.OnRegisterSuccess -> {
+                        onRegisterSuccess.invoke(event.email)
+                    }
+                }
             }
         }
     }
-
-
 }

@@ -5,14 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
-import com.yolo.core.presentation.navigation.NavigationAction
-import com.yolo.core.presentation.navigation.Navigator
-import com.yolo.myhabitshub.presentation.screens.signin.SignInScreenRoot
-import kotlinx.serialization.Serializable
 
-@Serializable
-class SettingsScreenRoot :
-    ScreenRoot<SettingsViewModel, SettingsViewIntent, SettingsViewState, SettingsViewEvent> {
+class SettingsScreenRoot(
+    private val onNavigateToSignIn: () -> Unit = {},
+) : ScreenRoot<SettingsViewModel, SettingsViewIntent, SettingsViewState, SettingsViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: SettingsViewModel): ScreenContract<SettingsViewState, SettingsViewEvent> {
@@ -34,17 +30,9 @@ class SettingsScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: SettingsViewEvent, navigator: Navigator) {
+            override fun handleEvent(event: SettingsViewEvent) {
                 when (event) {
-                    SettingsViewEvent.NavigateToSign -> {
-                        navigator.execute(
-                            NavigationAction.NavigatePopUpTo(
-                                route = SignInScreenRoot(),
-                                popUpTo = SettingsScreenRoot(),
-                                inclusive = true
-                            )
-                        )
-                    }
+                    SettingsViewEvent.NavigateToSign -> onNavigateToSignIn()
                 }
             }
         }

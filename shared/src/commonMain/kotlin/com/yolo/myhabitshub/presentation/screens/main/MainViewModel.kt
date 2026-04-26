@@ -73,7 +73,7 @@ class MainViewModel :
             updateState {
                 copy(
                     viewEvent = MainViewEvent.NavigateTo(
-                        screenRoot = item.screenRoot,
+                        route = item.route,
                         popUpToStartDestination = true,
                         launchSingleTop = true
                     )

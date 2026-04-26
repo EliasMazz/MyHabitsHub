@@ -5,13 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
-import com.yolo.core.presentation.navigation.NavigationAction
-import com.yolo.core.presentation.navigation.Navigator
-import kotlinx.serialization.Serializable
 
-@Serializable
-class SignInScreenRoot :
-    ScreenRoot<SignInViewModel, SignInViewIntent, SignInViewState, SignInViewEvent> {
+class SignInScreenRoot(
+    private val onSignInSuccess: () -> Unit = {},
+) : ScreenRoot<SignInViewModel, SignInViewIntent, SignInViewState, SignInViewEvent> {
 
     @Composable
     override fun provideScreenContract(viewModel: SignInViewModel): ScreenContract<SignInViewState, SignInViewEvent> {
@@ -26,9 +23,9 @@ class SignInScreenRoot :
                 )
             }
 
-            override fun handleEvent(event: SignInViewEvent, navigator: Navigator) {
+            override fun handleEvent(event: SignInViewEvent) {
                 when (event) {
-                    SignInViewEvent.SignInSuccess -> navigator.execute(NavigationAction.PopBackStack)
+                    SignInViewEvent.SignInSuccess -> onSignInSuccess()
                 }
             }
         }

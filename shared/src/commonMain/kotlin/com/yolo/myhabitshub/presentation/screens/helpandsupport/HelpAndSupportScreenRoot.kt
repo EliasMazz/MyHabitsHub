@@ -6,23 +6,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import com.yolo.core.presentation.ScreenContract
 import com.yolo.core.presentation.ScreenRoot
-import com.yolo.core.presentation.navigation.Navigator
 import com.yolo.myhabitshub.util.AppUtil
 import com.yolo.myhabitshub.util.Constants
-import kotlinx.serialization.Serializable
 import org.koin.compose.koinInject
 
-@Serializable
-class HelpAndSupportScreenRoot() :
+class HelpAndSupportScreenRoot :
     ScreenRoot<HelpAndSupportViewModel, HelpAndSupportViewIntent, HelpAndSupportViewState, HelpAndSupportEvent> {
-
     @Composable
     override fun provideScreenContract(viewModel: HelpAndSupportViewModel): ScreenContract<HelpAndSupportViewState, HelpAndSupportEvent> {
         val localUriHandler = LocalUriHandler.current
         val appUtil = koinInject<AppUtil>()
-
        return object : ScreenContract<HelpAndSupportViewState, HelpAndSupportEvent> {
-
            @Composable
            override fun Screen(viewState: HelpAndSupportViewState) {
                HelpAndSupportScreen(
@@ -34,7 +28,7 @@ class HelpAndSupportScreenRoot() :
                )
            }
 
-           override fun handleEvent(event: HelpAndSupportEvent, navigator: Navigator) {
+           override fun handleEvent(event: HelpAndSupportEvent) {
                when (event) {
                    HelpAndSupportEvent.OpenFeedbackMail -> appUtil.openFeedbackMail()
                    HelpAndSupportEvent.OpenPrivacyPoliceUri -> localUriHandler.openUri(Constants.URL_PRIVACY_POLICY)
@@ -44,5 +38,3 @@ class HelpAndSupportScreenRoot() :
        }
     }
 }
-
-
