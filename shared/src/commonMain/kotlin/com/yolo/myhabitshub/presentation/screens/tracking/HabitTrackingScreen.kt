@@ -39,13 +39,35 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import com.yolo.core.presentation.MviScreen
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.domain.model.HabitTracking
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
 import com.yolo.myhabitshub.presentation.components.LoadingProgressMode
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HabitTrackingScreen(
+    viewModel: HabitTrackingViewModel = koinViewModel(),
+) {
+    MviScreen(
+        viewModel = viewModel,
+        handleEvent = {
+            // Handle events
+        }
+    ) { state, onIntent ->
+        HabitTrackingScreenContent(
+            viewState = state,
+            onToggleHabitClicked = {
+                onIntent(HabitTrackingViewIntent.OnToggleHabitClicked(it))
+            },
+            onHabitDetailsClicked = {}
+        )
+    }
+}
+
+@Composable
+fun HabitTrackingScreenContent(
     viewState: HabitTrackingViewState,
     onToggleHabitClicked: (HabitTrackingItemViewState) -> Unit,
     onHabitDetailsClicked: (HabitTracking) -> Unit

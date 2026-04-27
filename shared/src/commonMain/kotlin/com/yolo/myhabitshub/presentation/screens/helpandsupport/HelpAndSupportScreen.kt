@@ -8,6 +8,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalUriHandler
+import com.yolo.core.presentation.MviScreen
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.item_contact_support
 import com.yolo.myhabitshub.generated.resources.privacy_policy
@@ -15,9 +17,40 @@ import com.yolo.myhabitshub.generated.resources.terms_conditions
 import com.yolo.myhabitshub.presentation.components.SettingItemListContainer
 import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import com.yolo.myhabitshub.util.AppUtil
+import com.yolo.myhabitshub.util.Constants
+import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HelpAndSupportScreen(
+    viewModel: HelpAndSupportViewModel = koinViewModel(),
+) {
+    val localUriHandler = LocalUriHandler.current
+    val appUtil = koinInject<AppUtil>()
+
+    MviScreen(
+        viewModel = viewModel,
+        handleEvent = { event ->
+            when (event) {
+                HelpAndSupportEvent.OpenFeedbackMail -> appUtil.openFeedbackMail()
+                HelpAndSupportEvent.OpenPrivacyPoliceUri -> localUriHandler.openUri(Constants.URL_PRIVACY_POLICY)
+                HelpAndSupportEvent.OpenTermsAndConditionsUri -> localUriHandler.openUri(Constants.URL_TERMS_CONDITIONS)
+            }
+        }
+    ) { state, onIntent ->
+        HelpAndSupportScreenContent(
+            modifier = Modifier.fillMaxSize(),
+            itemList = state.settingsItemViewData,
+            onContactSupportClicked = { onIntent(HelpAndSupportViewIntent.OnContactSupportClicked) },
+            onTermsAndConditionsClicked = { onIntent(HelpAndSupportViewIntent.OnTermsAndConditionsClicked) },
+            onPrivacyPolicyClicked = { onIntent(HelpAndSupportViewIntent.OnPrivacyPolicyClicked) }
+        )
+    }
+}
+
+@Composable
+fun HelpAndSupportScreenContent(
     modifier: Modifier = Modifier,
     itemList: List<SettingsItemViewData>,
     onContactSupportClicked : () -> Unit,

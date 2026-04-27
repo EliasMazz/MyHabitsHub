@@ -22,6 +22,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.yolo.core.presentation.MviScreen
 import com.yolo.myhabitshub.data.model.UserResponse
 import com.yolo.myhabitshub.generated.resources.btn_delete_account
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
@@ -39,9 +40,36 @@ import com.yolo.myhabitshub.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_delete
 import myhabitshub.core.designsystem.generated.resources.ic_profile_img_placeholder
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SettingsScreen(
+    viewModel: SettingsViewModel = koinViewModel(),
+    onNavigateToSignIn: () -> Unit,
+) {
+    MviScreen(
+        viewModel = viewModel,
+        handleEvent = { event ->
+            when (event) {
+                SettingsViewEvent.NavigateToSign -> onNavigateToSignIn()
+            }
+        }
+    ) { state, onIntent ->
+        SettingsScreenContent(
+            modifier = Modifier.fillMaxSize(),
+            viewState = state,
+            onDeleteAccountDialogConfirmed = { onIntent(SettingsViewIntent.OnDeleteAccountDialogConfirmed) },
+            onDeleteAccountDialogDismissed = {
+                onIntent(SettingsViewIntent.OnDeleteAccountDialogDismissed)
+            },
+            onErrorDialogConfirmed = { onIntent(SettingsViewIntent.OnErrorDialogConfirmed) },
+            onDeleteAccountClicked = { onIntent(SettingsViewIntent.OnDeleteAccountClicked) }
+        )
+    }
+}
+
+@Composable
+fun SettingsScreenContent(
     modifier: Modifier = Modifier,
     viewState: SettingsViewState,
     onDeleteAccountDialogConfirmed: () -> Unit,

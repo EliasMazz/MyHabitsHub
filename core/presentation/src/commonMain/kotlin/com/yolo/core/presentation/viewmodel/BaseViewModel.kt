@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 
 /**
  * Base for MVI ViewModels: transforms user actions [INTENT]s into UI data [STATE] and one-time events [EVENT]s managed as part of the state.
@@ -61,7 +62,7 @@ abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState<EVENT>, EVEN
 
     /** Updates the current [STATE], call this from `onViewIntent` to modify the state.*/
     protected fun updateState(reduce: STATE.() -> STATE) {
-        _state.value = _state.value.reduce()
+        _state.update { it.reduce() }
     }
 
     /** A marker interface for one-time UI events (e.g., navigation, toast).*/
@@ -75,9 +76,13 @@ abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState<EVENT>, EVEN
 
     /** Consume the current [ViewEvent] in the state. */
     fun consumeEvent() {
-        if (_state.value.viewEvent != null) {
-            @Suppress("UNCHECKED_CAST")
-            _state.value = _state.value.consumeEvent() as STATE
+        _state.update {
+            if (it.viewEvent != null) {
+                @Suppress("UNCHECKED_CAST")
+                it.consumeEvent() as STATE
+            } else {
+                it
+            }
         }
     }
 }

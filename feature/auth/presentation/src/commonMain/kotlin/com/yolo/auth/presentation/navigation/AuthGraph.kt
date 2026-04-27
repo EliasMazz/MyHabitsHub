@@ -4,11 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.yolo.auth.presentation.register.RegisterScreenRoot
-import com.yolo.auth.presentation.register.RegisterViewModel
-import com.yolo.auth.presentation.register_success.RegisterSuccessScreenRoot
-import com.yolo.auth.presentation.register_success.RegisterSuccessViewModel
-import org.koin.compose.viewmodel.koinViewModel
+import com.yolo.auth.presentation.register.RegisterScreen
+import com.yolo.auth.presentation.register_success.RegisterSuccessScreen
 
 fun NavGraphBuilder.authGraph(
     navController: NavController,
@@ -18,22 +15,18 @@ fun NavGraphBuilder.authGraph(
         startDestination = AuthGraphRoutes.Register
     ) {
         composable<AuthGraphRoutes.Register> {
-            RegisterScreenRoot(
+            RegisterScreen(
                 onRegisterSuccess = { email ->
                     navController.navigate(AuthGraphRoutes.RegisterSuccess(email))
                 }
-            ).ScreenEntryPoint(
-                viewModel = koinViewModel<RegisterViewModel>()
             )
         }
 
         composable<AuthGraphRoutes.RegisterSuccess> {
-            RegisterSuccessScreenRoot(
+            RegisterSuccessScreen(
                 onLoginClick = {
                     onLoginSuccess()
                 }
-            ).ScreenEntryPoint(
-                viewModel = koinViewModel<RegisterSuccessViewModel>()
             )
         }
     }

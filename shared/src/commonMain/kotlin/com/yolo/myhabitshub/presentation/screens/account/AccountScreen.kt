@@ -25,6 +25,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.yolo.core.presentation.MviScreen
 import com.yolo.myhabitshub.data.model.UserResponse
 import com.yolo.myhabitshub.generated.resources.btn_cancel
 import com.yolo.myhabitshub.generated.resources.btn_logout_confirm
@@ -45,9 +46,40 @@ import myhabitshub.core.designsystem.generated.resources.ic_profile_img_placehol
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun AccountScreen(
+    viewModel: AccountViewModel = koinViewModel(),
+    onNavigateToSignIn: () -> Unit,
+    onNavigateToSettings: () -> Unit,
+    onNavigateToHelpAndSupport: () -> Unit
+) {
+    MviScreen(
+        viewModel = viewModel,
+        handleEvent = { event ->
+            when (event) {
+                AccountViewEvent.NavigateToSignIn -> onNavigateToSignIn()
+                AccountViewEvent.NavigateToSettings -> onNavigateToSettings()
+                AccountViewEvent.NavigateToHelpAndSupport -> onNavigateToHelpAndSupport()
+            }
+        }
+    ) { state, onIntent ->
+        AccountScreenContent(
+            modifier = Modifier.fillMaxSize(),
+            viewState = state,
+            onLogoutDialogConfirmed = { onIntent(AccountViewIntent.OnLogoutDialogConfirmed) },
+            onLogoutDialogDismissed = { onIntent(AccountViewIntent.OnLogoutDialogDismissed) },
+            onSignInClicked = { onIntent(AccountViewIntent.OnSignInClicked) },
+            onProfileClicked = { onIntent(AccountViewIntent.OnProfileClicked) },
+            onHelpAndSupportClicked = { onIntent(AccountViewIntent.OnHelpAndSupportClicked) },
+            onSettingsItemClicked = { onIntent(AccountViewIntent.OnSettingsItemClicked(it)) }
+        )
+    }
+}
+
+@Composable
+fun AccountScreenContent(
     modifier: Modifier = Modifier,
     viewState: AccountViewState,
     onLogoutDialogConfirmed: () -> Unit,

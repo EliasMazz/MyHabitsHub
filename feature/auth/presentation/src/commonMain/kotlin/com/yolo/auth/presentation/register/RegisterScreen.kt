@@ -17,6 +17,7 @@ import com.yolo.core.designsystem.components.layout.YoloSnackbarScaffold
 import com.yolo.core.designsystem.components.textfields.YoloPasswordTextField
 import com.yolo.core.designsystem.components.textfields.YoloTextField
 import com.yolo.core.designsystem.theme.YoloTheme
+import com.yolo.core.presentation.MviScreen
 import myhabitshub.feature.auth.presentation.generated.resources.Res
 import myhabitshub.feature.auth.presentation.generated.resources.email
 import myhabitshub.feature.auth.presentation.generated.resources.email_placeholder
@@ -26,9 +27,36 @@ import myhabitshub.feature.auth.presentation.generated.resources.password_hint
 import myhabitshub.feature.auth.presentation.generated.resources.register
 import myhabitshub.feature.auth.presentation.generated.resources.welcome
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RegisterScreen(
+    viewModel: RegisterViewModel = koinViewModel(),
+    onRegisterSuccess: (String) -> Unit,
+) {
+    MviScreen(
+        viewModel = viewModel,
+        handleEvent = { event ->
+            when (event) {
+                is RegisterViewEvent.OnRegisterSuccess -> {
+                    onRegisterSuccess(event.email)
+                }
+            }
+        }
+    ) { state, onIntent ->
+        RegisterScreenContent(
+            state = state,
+            onRegisterClick = { onIntent(RegisterViewIntent.OnRegisterClick) },
+            onEmailChange = { onIntent(RegisterViewIntent.OnEmailChange(it)) },
+            onPasswordChange = { onIntent(RegisterViewIntent.OnPasswordChange(it)) },
+            onInputTextFocusGain = { onIntent(RegisterViewIntent.OnInputTextFocusGain) },
+            onTogglePasswordVisibility = { onIntent(RegisterViewIntent.OnTogglePasswordVisibility) }
+        )
+    }
+}
+
+@Composable
+fun RegisterScreenContent(
     state: RegisterViewState,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onRegisterClick: () -> Unit,
@@ -103,7 +131,7 @@ fun RegisterScreen(
 @Preview
 fun RegisterScreenPreview() {
     YoloTheme {
-        RegisterScreen(
+        RegisterScreenContent(
             state = RegisterViewState(),
             onRegisterClick = { },
             onEmailChange = { },

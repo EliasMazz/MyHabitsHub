@@ -34,11 +34,35 @@ import com.yolo.myhabitshub.presentation.components.AuthUIHelperButtons
 import com.yolo.myhabitshub.presentation.components.LogoImage
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.core.data.logging.AppLogger
+import com.yolo.core.presentation.MviScreen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SignInScreen(
+    viewModel: SignInViewModel = koinViewModel(),
+    onSignInSuccess: () -> Unit = {},
+) {
+    MviScreen(
+        viewModel = viewModel,
+        handleEvent = { event ->
+            when (event) {
+                SignInViewEvent.SignInSuccess -> onSignInSuccess()
+            }
+        }
+    ) { state, onIntent ->
+        SignInScreenContent(
+            modifier = Modifier.fillMaxSize(),
+            viewState = state,
+            onSignInViewSuccess = { onIntent(SignInViewIntent.OnSignInSuccess) },
+            onSignInViewFail = { exception -> onIntent(SignInViewIntent.OnSignInFail(exception))}
+        )
+    }
+}
+
+@Composable
+fun SignInScreenContent(
     modifier: Modifier = Modifier,
     viewState: SignInViewState,
     onSignInViewSuccess: () -> Unit,

@@ -8,18 +8,15 @@ import androidx.navigation.compose.rememberNavController
 import com.yolo.auth.presentation.navigation.AuthGraphRoutes
 import com.yolo.auth.presentation.navigation.authGraph
 import com.yolo.myhabitshub.navigation.routes.AppRoutes
-import com.yolo.myhabitshub.presentation.screens.main.MainScreenRoot
-import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
-import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreenRoot
-import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingViewModel
-import org.koin.compose.viewmodel.koinViewModel
+import com.yolo.myhabitshub.presentation.screens.main.MainScreen
+import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreen
 
 @Composable
 fun AppNavigationRoot() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = AuthGraphRoutes.Graph
+        startDestination = AppRoutes.OnBoarding
     ) {
         authGraph(
             navController = navController,
@@ -30,20 +27,18 @@ fun AppNavigationRoot() {
             }
         )
         composable<AppRoutes.OnBoarding> {
-            OnBoardingScreenRoot(
+            OnBoardingScreen(
                 onOnBoardingComplete = {
                     navController.navigate(AppRoutes.Main) {
                         popUpTo(AppRoutes.OnBoarding) { inclusive = true }
                     }
                 }
-            ).ScreenEntryPoint(
-                viewModel = koinViewModel<OnBoardingViewModel>()
             )
         }
         composable<AppRoutes.Main> {
             // separate 'mainNavController' is used because it's the one that controls MainNavHost for bottomsheet
             val mainNavController = rememberNavController()
-            MainScreenRoot(
+            MainScreen(
                 navController = mainNavController,
                 onSignInSuccess = {
                     navController.navigate(AppRoutes.Main) {
@@ -63,8 +58,6 @@ fun AppNavigationRoot() {
                     }
                 },
                 onNavigateUp = { mainNavController.navigateUp() },
-            ).ScreenEntryPoint(
-                viewModel = koinViewModel<MainViewModel>()
             )
         }
     }
