@@ -22,7 +22,7 @@ import com.yolo.core.designsystem.theme.extended
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun YoloSimpleSuccessLayout(
+fun YoloSimpleResultLayout(
     title: String,
     description: String,
     icon: @Composable () -> Unit,
@@ -84,7 +84,7 @@ fun YoloSimpleSuccessLayout(
 @Preview
 fun YoloSimpleSuccessLayoutPreview() {
     YoloTheme(darkTheme = true) {
-        YoloSimpleSuccessLayout(
+        YoloSimpleResultLayout(
             title = "Hello world!",
             description = "Test description",
             icon = {

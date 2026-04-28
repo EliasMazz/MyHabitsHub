@@ -10,7 +10,7 @@ import com.yolo.core.designsystem.components.brand.YoloSuccessIcon
 import com.yolo.core.designsystem.components.buttons.YoloButton
 import com.yolo.core.designsystem.components.buttons.YoloButtonStyle
 import com.yolo.core.designsystem.components.layout.YoloAdaptiveResultLayout
-import com.yolo.core.designsystem.components.layout.YoloSimpleSuccessLayout
+import com.yolo.core.designsystem.components.layout.YoloSimpleResultLayout
 import com.yolo.core.designsystem.components.layout.YoloSnackbarScaffold
 import com.yolo.core.presentation.MviScreen
 import myhabitshub.feature.auth.presentation.generated.resources.Res
@@ -61,7 +61,7 @@ fun RegisterSuccessScreenContent(
 ) {
     YoloSnackbarScaffold(snackbarHostState = snackbarHostState){
         YoloAdaptiveResultLayout {
-            YoloSimpleSuccessLayout(
+            YoloSimpleResultLayout(
                 title = stringResource(Res.string.account_successfully_created),
                 description = stringResource(
                     Res.string.verification_email_sent_to_x,
