@@ -2,6 +2,7 @@ package com.yolo.core.data.auth
 
 import com.yolo.core.data.auth.dto.EmailRequest
 import com.yolo.core.data.auth.dto.RegisterRequest
+import com.yolo.core.data.networking.get
 import com.yolo.core.data.networking.post
 import com.yolo.core.domain.auth.AuthRepository
 import com.yolo.core.domain.util.DataError
@@ -28,6 +29,13 @@ class AuthRepositoryImpl(
         return httpClient.post(
             route = "api/auth/resend-verification",
             body = EmailRequest(email = email)
+        )
+    }
+
+    override suspend fun verifyEmail(token: String): EmptyResult<DataError.Remote> {
+        return httpClient.get(
+            route = "api/auth/verify",
+            queryParams = mapOf("token" to token)
         )
     }
 }
