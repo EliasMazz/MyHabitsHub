@@ -33,8 +33,7 @@ fun App() {
     }
 
     // Uncomment this for main screen
-/*
-   AppTheme {
+/*   AppTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -47,9 +46,7 @@ fun App() {
             else
                 AppScaffold()
         }
-    }
- */
-
+    }*/
 }
 
 @Composable

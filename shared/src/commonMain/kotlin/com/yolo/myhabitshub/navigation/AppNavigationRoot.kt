@@ -16,7 +16,8 @@ fun AppNavigationRoot() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = AppRoutes.OnBoarding
+        // AuthGraphRoutes.Graph for register and AppRoutes.OnBoarding for main
+        startDestination = AuthGraphRoutes.Graph
     ) {
         authGraph(
             navController = navController,
