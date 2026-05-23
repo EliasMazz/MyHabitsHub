@@ -27,7 +27,7 @@ class RegisterViewModel(
             is RegisterViewIntent.OnEmailChange -> updateState { copy(email = intent.email) }
             is RegisterViewIntent.OnPasswordChange -> updateState { copy(password = intent.password) }
             RegisterViewIntent.OnRegisterClick -> viewModelScope.launch { handleRegisterClick() }
-            RegisterViewIntent.OnLogicClick -> TODO()
+            RegisterViewIntent.OnLoginClick -> updateState { copy(viewEvent = RegisterViewEvent.OnLogin) }
             RegisterViewIntent.OnInputTextFocusGain -> handleInputTextFocusGain()
             RegisterViewIntent.OnTogglePasswordVisibility -> handleTogglePasswordVisibility()
         }

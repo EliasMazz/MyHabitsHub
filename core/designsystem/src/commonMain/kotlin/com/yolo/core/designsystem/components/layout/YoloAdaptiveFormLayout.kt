@@ -36,20 +36,20 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun YoloAdaptiveFormLayout(
-    headerText: String,
+    headerText: String? = null,
     errorText: String? = null,
     logo: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     formContent: @Composable ColumnScope.() -> Unit
 ) {
     val configuration = currentDeviceConfiguration()
-    val headerColor = if(configuration == DeviceConfiguration.MOBILE_LANDSCAPE) {
+    val headerColor = if (configuration == DeviceConfiguration.MOBILE_LANDSCAPE) {
         MaterialTheme.colorScheme.onBackground
     } else {
         MaterialTheme.colorScheme.extended.textPrimary
     }
 
-    when(configuration) {
+    when (configuration) {
         DeviceConfiguration.MOBILE_PORTRAIT -> {
             YoloSurface(
                 modifier = modifier
@@ -72,6 +72,7 @@ fun YoloAdaptiveFormLayout(
                 formContent()
             }
         }
+
         DeviceConfiguration.MOBILE_LANDSCAPE -> {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -104,6 +105,7 @@ fun YoloAdaptiveFormLayout(
                 }
             }
         }
+
         DeviceConfiguration.TABLET_PORTRAIT,
         DeviceConfiguration.TABLET_LANDSCAPE,
         DeviceConfiguration.DESKTOP -> {
@@ -139,22 +141,24 @@ fun YoloAdaptiveFormLayout(
 
 @Composable
 fun ColumnScope.AuthHeaderSection(
-    headerText: String,
+    headerText: String?,
     headerColor: Color,
     errorText: String? = null,
     headerTextAlignment: TextAlign = TextAlign.Center
 ) {
-    Text(
-        text = headerText,
-        style = MaterialTheme.typography.titleLarge,
-        color = headerColor,
-        textAlign = headerTextAlignment,
-        modifier = Modifier.fillMaxWidth()
-    )
+    headerText?.let {
+        Text(
+            text = headerText,
+            style = MaterialTheme.typography.titleLarge,
+            color = headerColor,
+            textAlign = headerTextAlignment,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
     AnimatedVisibility(
         visible = errorText != null
     ) {
-        if(errorText != null) {
+        if (errorText != null) {
             Text(
                 text = errorText,
                 style = MaterialTheme.typography.labelSmall,

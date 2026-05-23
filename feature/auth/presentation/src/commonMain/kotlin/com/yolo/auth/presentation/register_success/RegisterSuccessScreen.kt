@@ -26,7 +26,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun RegisterSuccessScreen(
     viewModel: RegisterSuccessViewModel = koinViewModel(),
-    onLoginClick: () -> Unit
+    onLoginSuccessEvent: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -34,7 +34,7 @@ fun RegisterSuccessScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
-                RegisterSuccessViewEvent.NavigateToLogin -> onLoginClick()
+                RegisterSuccessViewEvent.NavigateToLogin -> onLoginSuccessEvent()
                 RegisterSuccessViewEvent.ResentVerificationEmailSuccess -> {
                     snackbarHostState.showSnackbar(
                         message = getString(Res.string.resent_verification_email),

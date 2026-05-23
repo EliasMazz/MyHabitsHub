@@ -7,8 +7,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yolo.auth.presentation.login.LoginEvent
 import com.yolo.core.designsystem.components.brand.YoloBrandLogo
 import com.yolo.core.designsystem.components.buttons.YoloButton
 import com.yolo.core.designsystem.components.buttons.YoloButtonStyle
@@ -32,21 +34,25 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = koinViewModel(),
-    onRegisterSuccess: (String) -> Unit,
+    onRegisterSuccessEvent: (String) -> Unit,
+    onLoginEvent: () -> Unit,
 ) {
     BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
                 is RegisterViewEvent.OnRegisterSuccess -> {
-                    onRegisterSuccess(event.email)
+                    onRegisterSuccessEvent(event.email)
                 }
+
+                RegisterViewEvent.OnLogin -> onLoginEvent()
             }
         }
     ) { state, onIntent ->
         RegisterScreenContent(
             state = state,
             onRegisterClick = { onIntent(RegisterViewIntent.OnRegisterClick) },
+            onLoginClick = { onIntent(RegisterViewIntent.OnLoginClick) },
             onEmailChange = { onIntent(RegisterViewIntent.OnEmailChange(it)) },
             onPasswordChange = { onIntent(RegisterViewIntent.OnPasswordChange(it)) },
             onInputTextFocusGain = { onIntent(RegisterViewIntent.OnInputTextFocusGain) },
@@ -64,6 +70,7 @@ fun RegisterScreenContent(
     onPasswordChange: (String) -> Unit,
     onInputTextFocusGain: () -> Unit,
     onTogglePasswordVisibility: () -> Unit,
+    onLoginClick: () -> Unit,
 ) {
     YoloSnackbarScaffold(
         snackbarHostState = snackbarHostState
@@ -83,7 +90,8 @@ fun RegisterScreenContent(
                 isError = state.emailError != null,
                 onFocusChanged = { isFocused ->
                     onInputTextFocusGain.invoke()
-                }
+                },
+                keyboardType = KeyboardType.Email
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -118,9 +126,7 @@ fun RegisterScreenContent(
                 isLoading = state.isLoading,
                 style = YoloButtonStyle.SECONDARY,
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {
-
-                }
+                onClick = onLoginClick
             )
             Spacer(modifier = Modifier.height(24.dp))
         }
@@ -137,7 +143,8 @@ fun RegisterScreenPreview() {
             onEmailChange = { },
             onPasswordChange = { },
             onInputTextFocusGain = { },
-            onTogglePasswordVisibility = { }
+            onTogglePasswordVisibility = { },
+            onLoginClick = {}
         )
     }
 }
