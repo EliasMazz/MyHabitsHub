@@ -16,20 +16,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.core.presentation.util.UiText
-import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.navigation.AppNavigationRoot
-import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
+import com.yolo.myhabitshub.navigation.DeepLinkListener
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 fun App() {
+    val navController = rememberNavController()
+    DeepLinkListener(navController)
     // Uncomment this for login screen
     YoloTheme {
-        AppNavigationRoot()
+        AppNavigationRoot(navController)
     }
 
     // Uncomment this for main screen
@@ -50,7 +53,7 @@ fun App() {
 }
 
 @Composable
-private fun AppScaffold() {
+private fun AppScaffold(navController: NavHostController) {
     val snackbarHostState = remember { SnackbarHostState() }
     var uiText by remember { mutableStateOf<UiText?>(null) }
 
@@ -63,7 +66,7 @@ private fun AppScaffold() {
         }
     }
     Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }) {
-        AppNavigationRoot()
+        AppNavigationRoot(navController)
     }
 }
 

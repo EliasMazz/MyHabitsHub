@@ -2,7 +2,9 @@ package com.yolo.auth.presentation.email_verification
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.yolo.auth.domain.EmailVerificationUseCase
+import com.yolo.auth.presentation.navigation.AuthGraphRoutes
 import com.yolo.core.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -13,13 +15,24 @@ class EmailVerificationViewModel(
     initialState = EmailVerificationViewState()
 ) {
 
+    private val token: String
+
     init {
+        // Debug: see everything in SavedStateHandle
+        println("[DEBUG] SavedStateHandle keys: ${savedStateHandle.keys()}")
+        savedStateHandle.keys().forEach { key ->
+            println("[DEBUG] SavedStateHandle[$key] = ${savedStateHandle.get<Any>(key)}")
+        }
+
+        val tokenFromRoute = savedStateHandle.toRoute<AuthGraphRoutes.EmailVerification>().token
+        val tokenDirect = savedStateHandle.get<String>("token")
+        println("[DEBUG] token via toRoute(): '$tokenFromRoute'")
+        println("[DEBUG] token via get(): '$tokenDirect'")
+
+        token = tokenDirect ?: tokenFromRoute
         verifyEmail()
     }
-
-    private val token =
-        savedStateHandle.get<String>("token") ?: throw IllegalStateException("Invalid token")
-
+    
     override fun onViewIntent(intent: EmailVerificationViewIntent) {
 
     }

@@ -14,6 +14,7 @@ import com.mmk.kmpnotifier.extensions.onCreateOrOnNewIntent
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.permission.permissionUtil
 import com.yolo.core.data.logging.AppLogger
+import com.yolo.myhabitshub.navigation.ExternalUriHandler
 import org.koin.android.ext.koin.androidContext
 
 
@@ -38,12 +39,19 @@ class AppActivity : ComponentActivity() {
             AppLogger.d("HasNotification Permission: $it")
         }
         NotifierManager.onCreateOrOnNewIntent(intent)
-
+        handleDeepLink(intent)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         NotifierManager.onCreateOrOnNewIntent(intent)
+        handleDeepLink(intent)
+    }
+
+    private fun handleDeepLink(intent: Intent?) {
+        intent?.data?.toString()?.let { uri ->
+            ExternalUriHandler.onNewUri(uri)
+        }
     }
 
 }

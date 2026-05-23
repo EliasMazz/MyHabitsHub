@@ -56,6 +56,7 @@ struct iOSApp: App {
             
             ContentView().onOpenURL(perform: { url in
                 GIDSignIn.sharedInstance.handle(url)
+                ExternalUriHandler.shared.onNewUri(uri: url.absoluteString)
             })
             
         }

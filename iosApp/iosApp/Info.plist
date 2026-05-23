@@ -9,6 +9,14 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>myhabitshub</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>myhabitshub.com</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>com.googleusercontent.apps.220287993884-539uj7dmj1deun9qv20kuuss292tm394</string>
 			</array>
 		</dict>
@@ -190,9 +198,9 @@
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
 	</array>
-        <key>UIBackgroundModes</key>
-        <array>
-                <string>remote-notification</string>
-        </array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

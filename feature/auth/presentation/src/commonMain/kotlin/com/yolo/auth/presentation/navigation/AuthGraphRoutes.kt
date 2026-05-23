@@ -22,5 +22,5 @@ sealed interface AuthGraphRoutes {
     data object ResetPassword: AuthGraphRoutes
 
     @Serializable
-    data class EmailVerification(val token: String): AuthGraphRoutes
+    data class EmailVerification(val token: String = ""): AuthGraphRoutes
 }

@@ -3,7 +3,9 @@ package com.yolo.auth.presentation.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
+import com.yolo.auth.presentation.email_verification.EmailVerificationScreen
 import com.yolo.auth.presentation.register.RegisterScreen
 import com.yolo.auth.presentation.register_success.RegisterSuccessScreen
 
@@ -29,5 +31,19 @@ fun NavGraphBuilder.authGraph(
                 }
             )
         }
+
+        composable<AuthGraphRoutes.EmailVerification>(
+            deepLinks = listOf(
+                navDeepLink<AuthGraphRoutes.EmailVerification>(
+                    basePath = "https://myhabitshub.com/api/auth/verify"
+                ),
+                navDeepLink<AuthGraphRoutes.EmailVerification>(
+                    basePath = "myhabitshub://myhabitshub.com/api/auth/verify"
+                ),
+            )
+        ) {
+            EmailVerificationScreen()
+        }
+        
     }
 }

@@ -2,6 +2,7 @@ package com.yolo.myhabitshub.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,8 +13,8 @@ import com.yolo.myhabitshub.presentation.screens.main.MainScreen
 import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreen
 
 @Composable
-fun AppNavigationRoot() {
-    val navController = rememberNavController()
+fun AppNavigationRoot(navController: NavHostController) {
+
     NavHost(
         navController = navController,
         // AuthGraphRoutes.Graph for register and AppRoutes.OnBoarding for main
