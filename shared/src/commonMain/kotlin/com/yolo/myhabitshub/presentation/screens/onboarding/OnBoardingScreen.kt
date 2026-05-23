@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.presentation.components.LogoImage
 import org.koin.compose.viewmodel.koinViewModel
@@ -19,7 +19,7 @@ fun OnBoardingScreen(
     viewModel: OnBoardingViewModel = koinViewModel(),
     onOnBoardingComplete: () -> Unit,
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

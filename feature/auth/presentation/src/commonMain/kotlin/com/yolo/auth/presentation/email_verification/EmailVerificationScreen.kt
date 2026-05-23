@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.yolo.auth.presentation.email_verification.EmailVerificationViewState
 import com.yolo.core.designsystem.components.brand.YoloFailureIcon
 import com.yolo.core.designsystem.components.brand.YoloSuccessIcon
 import com.yolo.core.designsystem.components.buttons.YoloButton
@@ -25,7 +24,7 @@ import com.yolo.core.designsystem.components.layout.YoloAdaptiveResultLayout
 import com.yolo.core.designsystem.components.layout.YoloSimpleResultLayout
 import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.core.designsystem.theme.extended
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import myhabitshub.feature.auth.presentation.generated.resources.Res
 import myhabitshub.feature.auth.presentation.generated.resources.close
 import myhabitshub.feature.auth.presentation.generated.resources.email_verified_failed
@@ -41,7 +40,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun EmailVerificationScreen(
     viewModel: EmailVerificationViewModel = koinViewModel(),
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

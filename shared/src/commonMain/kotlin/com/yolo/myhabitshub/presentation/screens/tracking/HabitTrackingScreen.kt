@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.domain.model.HabitTracking
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
@@ -50,7 +50,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun HabitTrackingScreen(
     viewModel: HabitTrackingViewModel = koinViewModel(),
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = {
             // Handle events

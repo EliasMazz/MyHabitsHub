@@ -22,7 +22,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.myhabitshub.data.model.UserResponse
 import com.yolo.myhabitshub.generated.resources.btn_delete_account
 import com.yolo.myhabitshub.presentation.components.LoadingProgress
@@ -47,7 +47,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = koinViewModel(),
     onNavigateToSignIn: () -> Unit,
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

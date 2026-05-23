@@ -17,7 +17,7 @@ import com.yolo.core.designsystem.components.layout.YoloSnackbarScaffold
 import com.yolo.core.designsystem.components.textfields.YoloPasswordTextField
 import com.yolo.core.designsystem.components.textfields.YoloTextField
 import com.yolo.core.designsystem.theme.YoloTheme
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import myhabitshub.feature.auth.presentation.generated.resources.Res
 import myhabitshub.feature.auth.presentation.generated.resources.email
 import myhabitshub.feature.auth.presentation.generated.resources.email_placeholder
@@ -34,7 +34,7 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = koinViewModel(),
     onRegisterSuccess: (String) -> Unit,
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

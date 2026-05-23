@@ -7,14 +7,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HabitProgressScreen(
     viewModel: HabitProgressViewModel = koinViewModel(),
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             // Handle events if any

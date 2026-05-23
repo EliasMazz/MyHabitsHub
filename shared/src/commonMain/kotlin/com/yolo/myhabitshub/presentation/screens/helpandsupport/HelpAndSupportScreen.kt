@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalUriHandler
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.myhabitshub.generated.resources.Res
 import com.yolo.myhabitshub.generated.resources.item_contact_support
 import com.yolo.myhabitshub.generated.resources.privacy_policy
@@ -29,7 +29,7 @@ fun HelpAndSupportScreen(
     val localUriHandler = LocalUriHandler.current
     val appUtil = koinInject<AppUtil>()
 
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

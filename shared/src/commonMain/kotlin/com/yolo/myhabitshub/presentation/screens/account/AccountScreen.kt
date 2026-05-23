@@ -25,7 +25,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.myhabitshub.data.model.UserResponse
 import com.yolo.myhabitshub.generated.resources.btn_cancel
 import com.yolo.myhabitshub.generated.resources.btn_logout_confirm
@@ -55,7 +55,7 @@ fun AccountScreen(
     onNavigateToSettings: () -> Unit,
     onNavigateToHelpAndSupport: () -> Unit
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

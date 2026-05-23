@@ -12,7 +12,7 @@ import com.yolo.core.designsystem.components.buttons.YoloButtonStyle
 import com.yolo.core.designsystem.components.layout.YoloAdaptiveResultLayout
 import com.yolo.core.designsystem.components.layout.YoloSimpleResultLayout
 import com.yolo.core.designsystem.components.layout.YoloSnackbarScaffold
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import myhabitshub.feature.auth.presentation.generated.resources.Res
 import myhabitshub.feature.auth.presentation.generated.resources.account_successfully_created
 import myhabitshub.feature.auth.presentation.generated.resources.login
@@ -30,7 +30,7 @@ fun RegisterSuccessScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

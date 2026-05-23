@@ -34,7 +34,7 @@ import com.yolo.myhabitshub.presentation.components.AuthUIHelperButtons
 import com.yolo.myhabitshub.presentation.components.LogoImage
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.core.data.logging.AppLogger
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -44,7 +44,7 @@ fun SignInScreen(
     viewModel: SignInViewModel = koinViewModel(),
     onSignInSuccess: () -> Unit = {},
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

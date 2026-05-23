@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.yolo.core.presentation.MviScreen
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.myhabitshub.presentation.components.AppToolbar
 import com.yolo.myhabitshub.presentation.BottomNavItem
 import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavigationBar
@@ -25,7 +25,7 @@ fun MainScreen(
     onNavigateTo: (MainViewEvent.NavigateTo) -> Unit = {},
     onNavigateUp: () -> Unit = {},
 ) {
-    MviScreen(
+    BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {

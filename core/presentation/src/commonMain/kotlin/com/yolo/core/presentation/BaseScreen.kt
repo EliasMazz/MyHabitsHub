@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * @param content The UI content of the screen, receiving the current [STATE] and an intent dispatcher.
  */
 @Composable
-fun <INTENT : ViewIntent, STATE : ViewState<EVENT>, EVENT : ViewEvent> MviScreen(
+fun <INTENT : ViewIntent, STATE : ViewState<EVENT>, EVENT : ViewEvent> BaseScreen(
     viewModel: BaseViewModel<INTENT, STATE, EVENT>,
     handleEvent: suspend (EVENT) -> Unit = {},
     content: @Composable (STATE, (INTENT) -> Unit) -> Unit
