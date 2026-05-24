@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.yolo.auth.presentation.login.LoginEvent
 import com.yolo.core.designsystem.components.brand.YoloBrandLogo
 import com.yolo.core.designsystem.components.buttons.YoloButton
 import com.yolo.core.designsystem.components.buttons.YoloButtonStyle
@@ -34,18 +33,18 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = koinViewModel(),
-    onRegisterSuccessEvent: (String) -> Unit,
-    onLoginEvent: () -> Unit,
+    navigateToRegisterSuccessEvent: (String) -> Unit,
+    navigateToLoginEvent: () -> Unit,
 ) {
     BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
-                is RegisterViewEvent.OnRegisterSuccess -> {
-                    onRegisterSuccessEvent(event.email)
+                is RegisterViewEvent.NavigateToRegisterSuccessEvent -> {
+                    navigateToRegisterSuccessEvent(event.email)
                 }
 
-                RegisterViewEvent.OnLogin -> onLoginEvent()
+                RegisterViewEvent.NavigateToLoginEvent -> navigateToLoginEvent()
             }
         }
     ) { state, onIntent ->

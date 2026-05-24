@@ -15,26 +15,23 @@ class EmailVerificationViewModel(
     initialState = EmailVerificationViewState()
 ) {
 
-    private val token: String
+    private val token: String = savedStateHandle.get<String>("token")
+        ?: throw IllegalStateException("Token must be provided")
 
     init {
-        // Debug: see everything in SavedStateHandle
-        println("[DEBUG] SavedStateHandle keys: ${savedStateHandle.keys()}")
-        savedStateHandle.keys().forEach { key ->
-            println("[DEBUG] SavedStateHandle[$key] = ${savedStateHandle.get<Any>(key)}")
-        }
-
-        val tokenFromRoute = savedStateHandle.toRoute<AuthGraphRoutes.EmailVerification>().token
-        val tokenDirect = savedStateHandle.get<String>("token")
-        println("[DEBUG] token via toRoute(): '$tokenFromRoute'")
-        println("[DEBUG] token via get(): '$tokenDirect'")
-
-        token = tokenDirect ?: tokenFromRoute
         verifyEmail()
     }
-    
-    override fun onViewIntent(intent: EmailVerificationViewIntent) {
 
+    override fun onViewIntent(intent: EmailVerificationViewIntent) {
+        when (intent) {
+            EmailVerificationViewIntent.OnCloseClick -> updateState {
+                copy(viewEvent = EmailVerificationViewEvent.NavigateBackEvent)
+            }
+
+            EmailVerificationViewIntent.OnLoginClick -> updateState {
+                copy(viewEvent = EmailVerificationViewEvent.NavigateToLoginEvent)
+            }
+        }
     }
 
     private fun verifyEmail() {

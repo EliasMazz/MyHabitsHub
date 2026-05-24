@@ -39,21 +39,22 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun EmailVerificationScreen(
     viewModel: EmailVerificationViewModel = koinViewModel(),
+    navigateBackEvent: () -> Unit,
+    navigateToLoginEvent: () -> Unit,
 ) {
     BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
-
-
-                else -> {}
+                EmailVerificationViewEvent.NavigateBackEvent -> navigateBackEvent()
+                EmailVerificationViewEvent.NavigateToLoginEvent -> navigateToLoginEvent()
             }
         }
     ) { state, onIntent ->
         EmailVerificationScreenContent(
             state = state,
-            onLoginClicked = { onIntent(EmailVerificationViewIntent.OnLoginClick) },
-            onCloseClicked = { onIntent(EmailVerificationViewIntent.OnCloseClick) }
+            onLoginClick = { onIntent(EmailVerificationViewIntent.OnLoginClick) },
+            onCloseClick = { onIntent(EmailVerificationViewIntent.OnCloseClick) }
         )
     }
 }
@@ -61,8 +62,8 @@ fun EmailVerificationScreen(
 @Composable
 fun EmailVerificationScreenContent(
     state: EmailVerificationViewState,
-    onLoginClicked: () -> Unit,
-    onCloseClicked: () -> Unit,
+    onLoginClick: () -> Unit,
+    onCloseClick: () -> Unit,
 ) {
     YoloAdaptiveResultLayout {
         when {
@@ -82,7 +83,7 @@ fun EmailVerificationScreenContent(
                     primaryButton = {
                         YoloButton(
                             text = stringResource(Res.string.login),
-                            onClick = onLoginClicked,
+                            onClick = onLoginClick,
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }
@@ -104,7 +105,7 @@ fun EmailVerificationScreenContent(
                     primaryButton = {
                         YoloButton(
                             text = stringResource(Res.string.close),
-                            onClick = onCloseClicked,
+                            onClick = onCloseClick,
                             modifier = Modifier.fillMaxWidth(),
                             style = YoloButtonStyle.SECONDARY
                         )
@@ -112,7 +113,6 @@ fun EmailVerificationScreenContent(
                 )
             }
         }
-
     }
 }
 
@@ -143,8 +143,8 @@ private fun EmailVerificationErrorPreview() {
     YoloTheme {
         EmailVerificationScreenContent(
             state = EmailVerificationViewState(),
-            onLoginClicked = {},
-            onCloseClicked = {},
+            onLoginClick = {},
+            onCloseClick = {},
         )
     }
 }
@@ -157,8 +157,8 @@ private fun EmailVerificationVerifyingPreview() {
             state = EmailVerificationViewState(
                 isVerifying = true
             ),
-            onLoginClicked = {},
-            onCloseClicked = {},
+            onLoginClick = {},
+            onCloseClick = {},
         )
     }
 }
@@ -171,8 +171,8 @@ private fun EmailVerificationSuccessPreview() {
             state = EmailVerificationViewState(
                 isVerified = true
             ),
-            onLoginClicked = {},
-            onCloseClicked = {},
+            onLoginClick = {},
+            onCloseClick = {},
         )
     }
 }

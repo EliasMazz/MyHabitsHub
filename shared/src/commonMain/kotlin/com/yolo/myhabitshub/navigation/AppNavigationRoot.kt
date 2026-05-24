@@ -23,7 +23,7 @@ fun AppNavigationRoot(navController: NavHostController) {
         authGraph(
             navController = navController,
             onLoginSuccess = {
-                navController.navigate(AppRoutes.OnBoarding) {
+                navController.navigate(AppRoutes.Main) {
                     popUpTo(AuthGraphRoutes.Graph) { inclusive = true }
                 }
             }

@@ -1,7 +1,9 @@
 package com.yolo.core.domain.auth
 
+import com.yolo.core.domain.AuthInfo
 import com.yolo.core.domain.util.DataError
 import com.yolo.core.domain.util.EmptyResult
+import com.yolo.core.domain.util.ResultData
 
 interface AuthRepository {
 
@@ -18,4 +20,10 @@ interface AuthRepository {
     suspend fun verifyEmail(
         token: String
     ): EmptyResult<DataError.Remote>
+
+
+    suspend fun login(
+        email: String,
+        password: String
+    ) : ResultData<AuthInfo, DataError.Remote>
 }

@@ -34,17 +34,17 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    onLoginSuccessEvent: () -> Unit,
-    onForgotPasswordEvent: () -> Unit,
-    onRegisterEvent: () -> Unit,
+    loginSuccessEvent: () -> Unit,
+    navigateToForgotPasswordEvent: () -> Unit,
+    navigateToRegisterEvent: () -> Unit,
 ) {
     BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
-                LoginEvent.OnForgotPassword -> onForgotPasswordEvent()
-                LoginEvent.OnRegister -> onRegisterEvent()
-                LoginEvent.OnSuccessLogin -> onLoginSuccessEvent()
+                LoginEvent.NavigateToForgotPasswordEvent -> navigateToForgotPasswordEvent()
+                LoginEvent.NavigateToRegisterEvent -> navigateToRegisterEvent()
+                LoginEvent.LoginSuccessEvent -> loginSuccessEvent()
             }
         }
     ) { state, onIntent ->
@@ -53,7 +53,9 @@ fun LoginScreen(
             onTogglePasswordVisibility = { onIntent(LoginIntent.OnTogglePasswordVisibility) },
             onForgotPasswordClick = { onIntent(LoginIntent.OnForgotPasswordClick) },
             onLoginClick = { onIntent(LoginIntent.OnLoginClick) },
-            onSignupClick = { onIntent(LoginIntent.OnSignupClick) }
+            onSignupClick = { onIntent(LoginIntent.OnSignupClick) },
+            onPasswordChange = { onIntent(LoginIntent.OnPasswordChange(it)) },
+            onEmailChange = { onIntent(LoginIntent.OnEmailChange(it)) },
         )
     }
 }
@@ -64,7 +66,9 @@ fun LoginScreenContent(
     onTogglePasswordVisibility: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onLoginClick: () -> Unit,
-    onSignupClick: () -> Unit
+    onSignupClick: () -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
 ) {
     YoloAdaptiveFormLayout(
         logo = { YoloBrandLogo() },
@@ -73,7 +77,7 @@ fun LoginScreenContent(
         formContent = {
             YoloTextField(
                 value = state.email,
-                onValueChange = { },
+                onValueChange = onEmailChange,
                 singleLine = true,
                 placeholder = stringResource(Res.string.email_placeholder),
                 title = stringResource(Res.string.email),
@@ -85,7 +89,7 @@ fun LoginScreenContent(
 
             YoloPasswordTextField(
                 value = state.password,
-                onValueChange = { },
+                onValueChange = onPasswordChange,
                 placeholder = stringResource(Res.string.password),
                 title = stringResource(Res.string.password),
                 onToggleVisibilityClick = onTogglePasswordVisibility,
@@ -109,7 +113,7 @@ fun LoginScreenContent(
             YoloButton(
                 text = stringResource(Res.string.login),
                 onClick = onLoginClick,
-                enabled = state.canLogin,
+                enabled = !state.isLoggingIn,
                 isLoading = state.isLoggingIn,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -135,10 +139,12 @@ fun LoginScreenLightPreview() {
                 email = "yolo@myhabitshub.com",
                 password = "YoloPassword123",
             ),
-            onTogglePasswordVisibility = { },
+            onTogglePasswordVisibility = {},
             onForgotPasswordClick = {},
             onLoginClick = {},
-            onSignupClick = {}
+            onSignupClick = {},
+            onPasswordChange = {},
+            onEmailChange = {},
         )
     }
 }
@@ -155,7 +161,9 @@ fun LoginScreenDarkPreview() {
             onTogglePasswordVisibility = { },
             onForgotPasswordClick = {},
             onLoginClick = {},
-            onSignupClick = {}
+            onSignupClick = {},
+            onPasswordChange = {},
+            onEmailChange = {},
         )
     }
 }

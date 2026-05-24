@@ -20,12 +20,12 @@ fun NavGraphBuilder.authGraph(
 
         composable<AuthGraphRoutes.Login> {
             LoginScreen(
-                onLoginSuccessEvent = onLoginSuccess,
-                onForgotPasswordEvent = {
+                loginSuccessEvent = onLoginSuccess,
+                navigateToForgotPasswordEvent = {
                     navController.navigate(AuthGraphRoutes.ForgotPassword)
                 },
-                onRegisterEvent = {
-                    navController.navigate(AuthGraphRoutes.Register){
+                navigateToRegisterEvent = {
+                    navController.navigate(AuthGraphRoutes.Register) {
                         restoreState = true
                         launchSingleTop = true
                     }
@@ -34,10 +34,10 @@ fun NavGraphBuilder.authGraph(
         }
         composable<AuthGraphRoutes.Register> {
             RegisterScreen(
-                onRegisterSuccessEvent = { email ->
+                navigateToRegisterSuccessEvent = { email ->
                     navController.navigate(AuthGraphRoutes.RegisterSuccess(email))
                 },
-                onLoginEvent = {
+                navigateToLoginEvent = {
                     navController.navigate(AuthGraphRoutes.Login) {
                         popUpTo(AuthGraphRoutes.Register) {
                             inclusive = true
@@ -52,8 +52,12 @@ fun NavGraphBuilder.authGraph(
 
         composable<AuthGraphRoutes.RegisterSuccess> {
             RegisterSuccessScreen(
-                onLoginSuccessEvent = {
-                    onLoginSuccess()
+                navigateToLoginEvent = {
+                    navController.navigate(AuthGraphRoutes.Login) {
+                        popUpTo(AuthGraphRoutes.RegisterSuccess) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -68,8 +72,18 @@ fun NavGraphBuilder.authGraph(
                 ),
             )
         ) {
-            EmailVerificationScreen()
+            EmailVerificationScreen(
+                navigateToLoginEvent = {
+                    navController.navigate(AuthGraphRoutes.Login) {
+                        popUpTo(AuthGraphRoutes.EmailVerification) {
+                            inclusive = true
+                        }
+                    }
+                },
+                navigateBackEvent = {
+                    navController.popBackStack()
+                },
+            )
         }
-
     }
 }

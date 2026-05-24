@@ -1,4 +1,4 @@
-package com.yolo.core.data.auth.dto
+package com.yolo.core.data.auth.dto.request
 
 import kotlinx.serialization.Serializable
 
