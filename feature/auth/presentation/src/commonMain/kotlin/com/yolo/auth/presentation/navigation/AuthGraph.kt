@@ -39,7 +39,7 @@ fun NavGraphBuilder.authGraph(
                 },
                 navigateToLoginEvent = {
                     navController.navigate(AuthGraphRoutes.Login) {
-                        popUpTo(AuthGraphRoutes.Register) {
+                        popUpTo<AuthGraphRoutes.Register> {
                             inclusive = true
                             saveState = true
                         }
@@ -54,7 +54,7 @@ fun NavGraphBuilder.authGraph(
             RegisterSuccessScreen(
                 navigateToLoginEvent = {
                     navController.navigate(AuthGraphRoutes.Login) {
-                        popUpTo(AuthGraphRoutes.RegisterSuccess) {
+                        popUpTo<AuthGraphRoutes.RegisterSuccess> {
                             inclusive = true
                         }
                     }
@@ -75,7 +75,7 @@ fun NavGraphBuilder.authGraph(
             EmailVerificationScreen(
                 navigateToLoginEvent = {
                     navController.navigate(AuthGraphRoutes.Login) {
-                        popUpTo(AuthGraphRoutes.EmailVerification) {
+                        popUpTo<AuthGraphRoutes.EmailVerification>{
                             inclusive = true
                         }
                     }
