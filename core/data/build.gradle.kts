@@ -24,12 +24,21 @@ kotlin {
 
                 implementation(projects.core.domain)
                 implementation(libs.koin.core)
+
+                implementation(libs.datastore)
+                implementation(libs.datastore.preferences)
+
+                implementation(libs.multiplatformSettings.no.arg)
+                implementation(libs.multiplatformSettings.coroutines)
+                implementation(libs.multiplatformSettings.serialization)
             }
         }
 
         androidMain {
             dependencies {
               implementation(libs.ktor.client.okhttp)
+              implementation(libs.koin.android)
+              implementation(libs.androidx.security.crypto)
             }
         }
 

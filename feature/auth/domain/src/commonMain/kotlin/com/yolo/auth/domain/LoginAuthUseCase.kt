@@ -1,6 +1,7 @@
 package com.yolo.auth.domain
 
 import com.yolo.auth.domain.entities.LoginAuth
+import com.yolo.core.domain.auth.AuthInfo
 import com.yolo.core.domain.auth.AuthRepository
 import com.yolo.core.domain.usecase.UseCase
 import com.yolo.core.domain.util.DataError
@@ -12,8 +13,8 @@ class LoginAuthUseCase(
     override suspend fun execute(param: LoginAuth): LoginAuthResult {
         val result = authRepository.login(param.email, param.password)
         return result.fold(
-            onSuccess = {
-                LoginAuthResult.Success
+            onSuccess = { authInfo ->
+                LoginAuthResult.Success(authInfo)
             },
             onFailure = { error ->
                 LoginAuthResult.Error(error)
@@ -23,6 +24,6 @@ class LoginAuthUseCase(
 }
 
 sealed interface LoginAuthResult {
-    object Success : LoginAuthResult
+    data class Success(val authInfo: AuthInfo) : LoginAuthResult
     data class Error(val dataError: DataError) : LoginAuthResult
 }

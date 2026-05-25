@@ -39,7 +39,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
             implementation(libs.uuid)
-            implementation(libs.multiplatformSettings.noargs)
+            implementation(libs.multiplatformSettings.no.arg)
             implementation(libs.android.inappreview)
             implementation(libs.coil.compose)
             implementation(libs.coil.ktor)

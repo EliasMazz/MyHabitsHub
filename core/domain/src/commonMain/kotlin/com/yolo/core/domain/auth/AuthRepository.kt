@@ -1,6 +1,5 @@
 package com.yolo.core.domain.auth
 
-import com.yolo.core.domain.AuthInfo
 import com.yolo.core.domain.util.DataError
 import com.yolo.core.domain.util.EmptyResult
 import com.yolo.core.domain.util.ResultData

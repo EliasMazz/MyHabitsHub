@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import com.yolo.auth.presentation.email_verification.EmailVerificationScreen
+import com.yolo.auth.presentation.forgot_password.ForgotPasswordScreen
 import com.yolo.auth.presentation.login.LoginScreen
 import com.yolo.auth.presentation.register.RegisterScreen
 import com.yolo.auth.presentation.register_success.RegisterSuccessScreen
@@ -17,10 +18,13 @@ fun NavGraphBuilder.authGraph(
     navigation<AuthGraphRoutes.Graph>(
         startDestination = AuthGraphRoutes.Login
     ) {
-
+        // onLoginSuccess()
         composable<AuthGraphRoutes.Login> {
             LoginScreen(
-                loginSuccessEvent = onLoginSuccess,
+                loginSuccessEvent = {
+
+                    navController.navigate(AuthGraphRoutes.ForgotPassword)
+                },
                 navigateToForgotPasswordEvent = {
                     navController.navigate(AuthGraphRoutes.ForgotPassword)
                 },
@@ -50,6 +54,10 @@ fun NavGraphBuilder.authGraph(
             )
         }
 
+        composable<AuthGraphRoutes.ForgotPassword> {
+            ForgotPasswordScreen()
+        }
+
         composable<AuthGraphRoutes.RegisterSuccess> {
             RegisterSuccessScreen(
                 navigateToLoginEvent = {
@@ -75,7 +83,7 @@ fun NavGraphBuilder.authGraph(
             EmailVerificationScreen(
                 navigateToLoginEvent = {
                     navController.navigate(AuthGraphRoutes.Login) {
-                        popUpTo<AuthGraphRoutes.EmailVerification>{
+                        popUpTo<AuthGraphRoutes.EmailVerification> {
                             inclusive = true
                         }
                     }

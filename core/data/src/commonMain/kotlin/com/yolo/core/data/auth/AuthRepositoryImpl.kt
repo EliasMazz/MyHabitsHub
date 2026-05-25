@@ -7,7 +7,7 @@ import com.yolo.core.data.auth.dto.response.AuthInfoResponse
 import com.yolo.core.data.mapper.toDomain
 import com.yolo.core.data.networking.get
 import com.yolo.core.data.networking.post
-import com.yolo.core.domain.AuthInfo
+import com.yolo.core.domain.auth.AuthInfo
 import com.yolo.core.domain.auth.AuthRepository
 import com.yolo.core.domain.util.DataError
 import com.yolo.core.domain.util.EmptyResult

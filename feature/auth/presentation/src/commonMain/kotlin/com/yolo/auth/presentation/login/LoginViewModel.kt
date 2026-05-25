@@ -10,6 +10,7 @@ import com.yolo.auth.domain.LoginAuthResult
 import com.yolo.auth.domain.LoginAuthUseCase
 import com.yolo.auth.domain.entities.LoginAuth
 import com.yolo.auth.domain.entities.RegisterAuth
+import com.yolo.core.domain.auth.SessionStorage
 import com.yolo.core.domain.util.DataError
 import com.yolo.core.presentation.util.UiText
 import com.yolo.core.presentation.util.toUiText
@@ -24,6 +25,7 @@ import myhabitshub.feature.auth.presentation.generated.resources.error_invalid_p
 class LoginViewModel(
     val loginAuthUseCase: LoginAuthUseCase,
     private val authValidatorUseCase: AuthValidatorUseCase,
+    private val sessionStorage: SessionStorage
 ) : BaseViewModel<LoginIntent, LoginState, LoginEvent>(
     initialState = LoginState()
 ) {
@@ -59,7 +61,9 @@ class LoginViewModel(
         )
 
         when (result) {
-            LoginAuthResult.Success -> {
+            is LoginAuthResult.Success -> {
+                sessionStorage.set(result.authInfo)
+
                 updateState {
                     copy(
                         isLoggingIn = false,
