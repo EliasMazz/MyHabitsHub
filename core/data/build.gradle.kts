@@ -31,6 +31,7 @@ kotlin {
                 implementation(libs.multiplatformSettings.no.arg)
                 implementation(libs.multiplatformSettings.coroutines)
                 implementation(libs.multiplatformSettings.serialization)
+                implementation(libs.multiplatformSettings.make.observable)
             }
         }
 
