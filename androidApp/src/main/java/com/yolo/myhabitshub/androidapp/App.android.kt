@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.yolo.myhabitshub.root.App
 import com.yolo.myhabitshub.root.AppInitializer
 import com.mmk.kmpnotifier.extensions.onCreateOrOnNewIntent
@@ -32,6 +33,7 @@ class AppActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         enableEdgeToEdge()
         setContent { App() }
         val permissionUtil by permissionUtil()

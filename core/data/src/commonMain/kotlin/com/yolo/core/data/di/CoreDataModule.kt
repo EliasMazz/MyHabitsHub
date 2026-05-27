@@ -15,7 +15,7 @@ expect val platformCoreDataModule: Module
 val coreDataModule = module {
     includes(platformCoreDataModule)
 
-    single { HttpClientFactory().create(get()) }
-    single { AuthRepositoryImpl(get()) } bind AuthRepository::class
+    single { HttpClientFactory(sessionStorage = get()).create(engine = get()) }
+    single { AuthRepositoryImpl(httpClient = get()) } bind AuthRepository::class
     single<SessionStorage> { SettingsSessionStorage(get<ObservableSettings>()) }
 }

@@ -7,12 +7,12 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>myhabitshub.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>myhabitshub</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>myhabitshub.com</string>
 		</dict>
 		<dict>
 			<key>CFBundleURLSchemes</key>
