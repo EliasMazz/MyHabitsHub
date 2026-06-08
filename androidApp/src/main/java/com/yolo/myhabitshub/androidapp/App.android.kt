@@ -33,9 +33,18 @@ class AppActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+
+        var shouldShowSplashScreen = true
+
+        installSplashScreen().setKeepOnScreenCondition {
+            shouldShowSplashScreen
+        }
         enableEdgeToEdge()
-        setContent { App() }
+        setContent {
+            App(
+                onAuthenticationChecked = { shouldShowSplashScreen = false }
+            )
+        }
         val permissionUtil by permissionUtil()
         permissionUtil.askNotificationPermission {
             AppLogger.d("HasNotification Permission: $it")

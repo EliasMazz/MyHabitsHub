@@ -38,6 +38,8 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
+            api(libs.jetbrains.lifecycle.viewmodel)
+            api(libs.jetbrains.lifecycle.compose)
             implementation(libs.uuid)
             implementation(libs.multiplatformSettings.no.arg)
             implementation(libs.android.inappreview)
@@ -47,7 +49,7 @@ kotlin {
 
             implementation(projects.core.data)
             implementation(projects.core.domain)
-            implementation(projects.core.presentation)
+            api(projects.core.presentation)
             implementation(projects.core.designsystem)
 
             implementation(projects.feature.auth.domain)

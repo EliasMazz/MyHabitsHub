@@ -11,7 +11,9 @@ kotlin {
                 implementation(libs.material3.adaptive)
                 implementation(projects.core.domain)
                 implementation(compose.components.resources)
-                implementation(libs.jetbrains.compose.viewmodel)
+                api(libs.jetbrains.lifecycle.viewmodel)
+                api(libs.jetbrains.lifecycle.compose)
+                api(libs.jetbrains.compose.viewmodel)
                 implementation(libs.jetbrains.navigation.compose)
             }
         }

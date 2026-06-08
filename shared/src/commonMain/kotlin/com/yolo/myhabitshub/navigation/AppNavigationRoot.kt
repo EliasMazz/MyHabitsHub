@@ -13,12 +13,14 @@ import com.yolo.myhabitshub.presentation.screens.main.MainScreen
 import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreen
 
 @Composable
-fun AppNavigationRoot(navController: NavHostController) {
+fun AppNavigationRoot(
+    navController: NavHostController,
+    startDestination: Any
+) {
 
     NavHost(
         navController = navController,
-        // AuthGraphRoutes.Graph for register and AppRoutes.OnBoarding for main
-        startDestination = AuthGraphRoutes.Graph
+        startDestination = startDestination
     ) {
         authGraph(
             navController = navController,
