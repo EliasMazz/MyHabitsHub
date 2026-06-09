@@ -21,12 +21,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.yolo.auth.presentation.navigation.AuthGraphRoutes
 import com.yolo.core.designsystem.theme.YoloTheme
+import com.yolo.core.presentation.BaseScreen
 import com.yolo.core.presentation.util.UiText
 import com.yolo.myhabitshub.core.presentation.theme.AppTheme
 import com.yolo.myhabitshub.navigation.AppNavigationRoot
 import com.yolo.myhabitshub.navigation.DeepLinkListener
 import com.yolo.myhabitshub.navigation.routes.AppRoutes
 import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
+import com.yolo.myhabitshub.presentation.screens.root.RootViewEvent
 import com.yolo.myhabitshub.presentation.screens.root.RootViewModel
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
@@ -40,11 +42,8 @@ fun App(
 ) {
     val navController = rememberNavController()
     DeepLinkListener(navController)
-    // Uncomment this for login screen
-
 
     val state by viewModel.state.collectAsStateWithLifecycle()
-
 
     LaunchedEffect(state.isCheckingAuth) {
         if (!state.isCheckingAuth) {
@@ -52,6 +51,20 @@ fun App(
         }
     }
 
+    BaseScreen(
+        viewModel = viewModel,
+        handleEvent = { event ->
+            when (event) {
+                RootViewEvent.SessionExpired -> {
+                    navController.navigate(AuthGraphRoutes.Graph) {
+                        popUpTo(AuthGraphRoutes.Graph) {
+                            inclusive = false
+                        }
+                    }
+                }
+            }
+        }
+    ) { _, _ -> }
 
     if (!state.isCheckingAuth) {
         if (state.isLoggedIn) {
