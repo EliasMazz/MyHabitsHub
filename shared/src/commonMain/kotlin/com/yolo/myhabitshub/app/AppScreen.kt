@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.root
+package com.yolo.myhabitshub.app
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -28,17 +28,15 @@ import com.yolo.myhabitshub.navigation.AppNavigationRoot
 import com.yolo.myhabitshub.navigation.DeepLinkListener
 import com.yolo.myhabitshub.navigation.routes.AppRoutes
 import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
-import com.yolo.myhabitshub.presentation.screens.root.RootViewEvent
-import com.yolo.myhabitshub.presentation.screens.root.RootViewModel
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun App(
+fun AppScreen(
     onAuthenticationChecked: () -> Unit = {},
-    viewModel: RootViewModel = koinViewModel()
+    viewModel: AppViewModel = koinViewModel()
 ) {
     val navController = rememberNavController()
     DeepLinkListener(navController)
@@ -55,7 +53,7 @@ fun App(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
-                RootViewEvent.SessionExpired -> {
+                AppViewEvent.SessionExpired -> {
                     navController.navigate(AuthGraphRoutes.Graph) {
                         popUpTo(AuthGraphRoutes.Graph) {
                             inclusive = false
@@ -87,11 +85,16 @@ fun App(
             YoloTheme {
                 AppNavigationRoot(
                     navController = navController,
-                    startDestination = AuthGraphRoutes.Graph
+                    startDestination = AuthGraphRoutes.Graph,
+                    onLoginSuccess = {
+                        viewModel.handleIntent(AppViewIntent.OnLoginSuccess)
+                    }
                 )
             }
         }
     }
+
+
 }
 
 @Composable

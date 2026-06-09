@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.root.di
+package com.yolo.myhabitshub.app.di
 
 import com.russhwolf.settings.Settings
 import com.yolo.auth.domain.di.authDomainModule
@@ -20,7 +20,7 @@ import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportVi
 import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
 import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingViewModel
 import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
-import com.yolo.myhabitshub.presentation.screens.root.RootViewModel
+import com.yolo.myhabitshub.app.AppViewModel
 import com.yolo.myhabitshub.presentation.screens.settings.SettingsViewModel
 import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
 import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
@@ -69,7 +69,7 @@ private val presentationModule = module {
     viewModelOf(::HabitTrackingViewModel)
     viewModelOf(::HabitProgressViewModel)
     viewModelOf(::MainViewModel)
-    viewModelOf(::RootViewModel)
+    viewModelOf(::AppViewModel)
 }
 
 val appModules: List<Module> get() = platformModule + domainModule + dataModule + presentationModule + authModule

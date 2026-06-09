@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.root
+package com.yolo.myhabitshub.app
 
 import com.yolo.myhabitshub.data.source.featureflag.FeatureFlagManager
 import com.yolo.myhabitshub.util.analytics.Analytics
@@ -10,7 +10,7 @@ import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.PayloadData
 import com.yolo.myhabitshub.BuildConfig
 import com.yolo.core.data.logging.AppLogger
-import com.yolo.myhabitshub.root.di.appModules
+import com.yolo.myhabitshub.app.di.appModules
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 

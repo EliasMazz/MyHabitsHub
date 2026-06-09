@@ -1,6 +1,6 @@
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.window.ComposeUIViewController
-import com.yolo.myhabitshub.root.App
+import com.yolo.myhabitshub.app.AppScreen
 import com.yolo.myhabitshub.util.LocalNativeViewFactory
 import com.yolo.myhabitshub.util.NativeViewFactory
 import com.yolo.myhabitshub.util.SwiftLibDependencyFactory
@@ -11,7 +11,7 @@ import platform.UIKit.UIViewController
 fun MainViewController(nativeViewFactory: NativeViewFactory): UIViewController =
     ComposeUIViewController {
         CompositionLocalProvider(LocalNativeViewFactory provides nativeViewFactory) {
-            App()
+            AppScreen()
         }
     }
 

@@ -9,8 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.yolo.myhabitshub.root.App
-import com.yolo.myhabitshub.root.AppInitializer
+import com.yolo.myhabitshub.app.AppScreen
+import com.yolo.myhabitshub.app.AppInitializer
 import com.mmk.kmpnotifier.extensions.onCreateOrOnNewIntent
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.permission.permissionUtil
@@ -41,7 +41,7 @@ class AppActivity : ComponentActivity() {
         }
         enableEdgeToEdge()
         setContent {
-            App(
+            AppScreen(
                 onAuthenticationChecked = { shouldShowSplashScreen = false }
             )
         }
@@ -69,8 +69,8 @@ class AppActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun AppPreview() {
-    App()
+fun AppScreenPreview() {
+    AppScreen()
 }
         
         

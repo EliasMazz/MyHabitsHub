@@ -15,7 +15,8 @@ import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingScreen
 @Composable
 fun AppNavigationRoot(
     navController: NavHostController,
-    startDestination: Any
+    startDestination: Any,
+    onLoginSuccess: () -> Unit = {}
 ) {
 
     NavHost(
@@ -24,11 +25,7 @@ fun AppNavigationRoot(
     ) {
         authGraph(
             navController = navController,
-            onLoginSuccess = {
-                navController.navigate(AppRoutes.Main) {
-                    popUpTo(AuthGraphRoutes.Graph) { inclusive = true }
-                }
-            }
+            onLoginSuccess = onLoginSuccess
         )
         composable<AppRoutes.OnBoarding> {
             OnBoardingScreen(

@@ -18,12 +18,10 @@ fun NavGraphBuilder.authGraph(
     navigation<AuthGraphRoutes.Graph>(
         startDestination = AuthGraphRoutes.Login
     ) {
-        // onLoginSuccess()
         composable<AuthGraphRoutes.Login> {
             LoginScreen(
                 loginSuccessEvent = {
-
-                    navController.navigate(AuthGraphRoutes.ForgotPassword)
+                    onLoginSuccess()
                 },
                 navigateToForgotPasswordEvent = {
                     navController.navigate(AuthGraphRoutes.ForgotPassword)

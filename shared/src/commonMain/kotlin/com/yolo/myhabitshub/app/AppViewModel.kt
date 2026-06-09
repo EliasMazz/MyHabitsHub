@@ -1,4 +1,4 @@
-package com.yolo.myhabitshub.presentation.screens.root
+package com.yolo.myhabitshub.app
 
 import com.yolo.core.domain.auth.SessionStorage
 import com.yolo.core.presentation.viewmodel.BaseViewModel
@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class RootViewModel(
+class AppViewModel(
     private val sessionStorage: SessionStorage
-) : BaseViewModel<RootViewIntent, RootViewState, RootViewEvent>(
-    initialState = RootViewState()
+) : BaseViewModel<AppViewIntent, AppViewState, AppViewEvent>(
+    initialState = AppViewState()
 ) {
 
     private var previousRefreshToken: String? = null
@@ -40,7 +40,7 @@ class RootViewModel(
                 updateState {
                     copy(
                         isLoggedIn = false,
-                        viewEvent = RootViewEvent.SessionExpired
+                        viewEvent = AppViewEvent.SessionExpired
                     )
                 }
             }
@@ -49,6 +49,19 @@ class RootViewModel(
     }
 
 
-    override fun onViewIntent(intent: RootViewIntent) {}
+    override fun onViewIntent(intent: AppViewIntent) {
+        when (intent) {
+            AppViewIntent.OnLoginSuccess -> viewModelScope.launch {
+                val authInfo = sessionStorage.observeAuthInfo().firstOrNull()
+                previousRefreshToken = authInfo?.refreshToken
+                updateState {
+                    copy(
+                        isCheckingAuth = false,
+                        isLoggedIn = authInfo != null
+                    )
+                }
+            }
+        }
+    }
 
 }
