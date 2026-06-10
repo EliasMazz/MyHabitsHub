@@ -53,7 +53,11 @@ fun NavGraphBuilder.authGraph(
         }
 
         composable<AuthGraphRoutes.ForgotPassword> {
-            ForgotPasswordScreen()
+            ForgotPasswordScreen(
+                onBack = {
+
+                }
+            )
         }
 
         composable<AuthGraphRoutes.RegisterSuccess> {

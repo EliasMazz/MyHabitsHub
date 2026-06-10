@@ -2,9 +2,7 @@ package com.yolo.auth.presentation.email_verification
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.yolo.auth.domain.EmailVerificationUseCase
-import com.yolo.auth.presentation.navigation.AuthGraphRoutes
 import com.yolo.core.presentation.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
