@@ -19,7 +19,8 @@ class OnBoardingViewModel(
         viewModelScope.launch {
             updateState { copy(isLoading = true) }
             if (userPreferences.getBoolean(UserPreferences.KEY_IS_ONBOARD_SHOWN)) {
-                updateState { copy(isLoading = false, viewEvent = OnBoardingViewEvent.OnBoardingComplete) }
+                updateState { copy(isLoading = false) }
+                sendEvent(OnBoardingViewEvent.OnBoardingComplete)
             } else{
                 updateState{ copy( isLoading = false) }
             }
@@ -34,7 +35,8 @@ class OnBoardingViewModel(
 
     private suspend fun onBoardShown() {
         userPreferences.putBoolean(UserPreferences.KEY_IS_ONBOARD_SHOWN, true)
-        updateState { copy( isLoading = false, viewEvent = OnBoardingViewEvent.OnBoardingComplete) }
+        updateState { copy(isLoading = false) }
+        sendEvent(OnBoardingViewEvent.OnBoardingComplete)
     }
 }
 

@@ -40,9 +40,9 @@ class SignInViewModel(
                         copy(
                             linkAccount = true,
                             snackbarMessage = "Sign in successful",
-                            viewEvent = SignInViewEvent.SignInSuccess
                         )
                     }
+                    sendEvent(SignInViewEvent.SignInSuccess)
                 }
             }
 

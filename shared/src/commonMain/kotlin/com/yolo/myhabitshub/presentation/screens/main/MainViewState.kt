@@ -10,12 +10,7 @@ import org.jetbrains.compose.resources.DrawableResource
 data class MainScreenViewState(
     val bottomNavViewState: BottomNavViewState = BottomNavViewState(),
     val toolbarUiState: ToolbarViewState = ToolbarViewState(),
-    override val viewEvent: MainViewEvent? = null
-): ViewState<MainViewEvent>{
-    override fun consumeEvent(): ViewState<MainViewEvent> {
-        return copy(viewEvent = null)
-    }
-}
+): ViewState
 
 data class ToolbarViewState(
     val isVisible: Boolean = false,

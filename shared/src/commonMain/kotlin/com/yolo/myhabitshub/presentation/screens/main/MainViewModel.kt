@@ -65,20 +65,18 @@ class MainViewModel :
     }
 
     private fun handleToolbarNavItemClick() {
-        updateState { copy(viewEvent = MainViewEvent.NavigateUp) }
+        sendEvent(MainViewEvent.NavigateUp)
     }
 
     private fun handleBottomNavItemClick(item: BottomNavItem) {
         if (state.value.bottomNavViewState.isVisible) {
-            updateState {
-                copy(
-                    viewEvent = MainViewEvent.NavigateTo(
-                        route = item.route,
-                        popUpToStartDestination = true,
-                        launchSingleTop = true
-                    )
+            sendEvent(
+                MainViewEvent.NavigateTo(
+                    route = item.route,
+                    popUpToStartDestination = true,
+                    launchSingleTop = true
                 )
-            }
+            )
         }
     }
 }

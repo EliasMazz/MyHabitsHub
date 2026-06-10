@@ -8,9 +8,4 @@ data class SettingsViewState(
     val userResponse: UserResponse? = null,
     val deleteUserDialogShown: Boolean = false,
     val errorMessage: String? = null,
-    override val viewEvent: SettingsViewEvent? = null
-): ViewState<SettingsViewEvent>{
-    override fun consumeEvent(): ViewState<SettingsViewEvent> {
-        return this.copy(viewEvent = null)
-    }
-}
+): ViewState

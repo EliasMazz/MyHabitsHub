@@ -27,7 +27,8 @@ class SettingsViewModel(
                         updateState { copy(isLoading = false, userResponse = user) }
                     }.onFailure { error ->
                         if (error is UnAuthorizedException) {
-                            updateState { copy(isLoading = false, userResponse = null, viewEvent = SettingsViewEvent.NavigateToSign) }
+                            updateState { copy(isLoading = false, userResponse = null) }
+                            sendEvent(SettingsViewEvent.NavigateToSign)
                         } else {
                             updateState { copy(isLoading = false, errorMessage = error.message) }
                         }

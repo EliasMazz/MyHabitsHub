@@ -2,22 +2,23 @@ package com.yolo.core.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.yolo.core.presentation.viewmodel.BaseViewModel.*
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 
 /**
- * Base for MVI ViewModels: transforms user actions [INTENT]s into UI data [STATE] and one-time events [EVENT]s managed as part of the state.
+ * Base for MVI ViewModels: transforms user actions [INTENT]s into UI data [STATE] and one-time events [EVENT]s.
  *
  * - UI sends [INTENT]s to `handleIntent()`
- * - Implement `onViewIntent()` to process [INTENT]s and call `updateState()` to modify state including [EVENT]s
+ * - Implement `onViewIntent()` to process [INTENT]s and call `updateState()` to modify state
+ * - Call `sendEvent()` to emit a one-time [EVENT]
  * - UI collects `state` (StateFlow) for screen data.
- * - UI collects `eventsFlow` (derived from state) for one time events and calls `consumeEvent()` after handling.
+ * - UI collects `events` (a [Channel]-backed [Flow]) for one-time events.
  */
-abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState<EVENT>, EVENT : ViewEvent>(
+abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState, EVENT : ViewEvent>(
     initialState: STATE
 ) : ViewModel(){
 
@@ -32,27 +33,8 @@ abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState<EVENT>, EVEN
         onViewIntent(viewIntent)
     }
 
-    /**
-     * Represents the UI state. One-time [ViewEvent]s are also part of this state,
-     * making them part of the state until consumed via [consumeEvent]
-     * This aligns with the philosophy that ViewModel events should result in a UI state update.
-     *
-     * More on one-time events:
-     * Problem  - https://medium.com/androiddevelopers/viewmodel-one-off-event-antipatterns-16a1da869b95
-     * Solution - https://proandroiddev.com/android-one-off-events-approaches-evolution-anti-patterns-add887cd0250
-     */
-    interface ViewState<EVENT : ViewEvent>{
-        /** Current one-time event null if none. */
-        val viewEvent: EVENT?
-
-        /**
-         * **Implement:** Returns a **copy** of this state with [viewEvent]
-         * Typically implemented in data classes using `copy(viewEvents = null)
-         * This marks the current event as consumed by the UI.
-         * Called by `BaseViewModel.consumeEvent()`.
-         */
-        fun consumeEvent(): ViewState<EVENT>
-    }
+    /** Marker interface for the UI state. */
+    interface ViewState
 
     private var _state = MutableStateFlow(initialState)
 
@@ -69,20 +51,21 @@ abstract class BaseViewModel<INTENT : ViewIntent, STATE : ViewState<EVENT>, EVEN
     interface ViewEvent
 
     /**
-     * Emits distinct one-time [EVENT]s derived from the main [state].
-     * UI collects this to handle events and must call `consumeEvent()` afterwards.
+     * Backs [events]. A [Channel] is used (not StateFlow/SharedFlow) so events are delivered
+     * exactly once and never replayed — no duplicate navigation/toast on recompose or config change.
+     * UNLIMITED so `trySend` can never fail on capacity (its only failure mode is a closed channel).
      */
-    val eventsFlow: Flow<EVENT?> = state.map { it.viewEvent }.distinctUntilChanged()
+    private val eventChannel = Channel<EVENT>(Channel.UNLIMITED)
 
-    /** Consume the current [ViewEvent] in the state. */
-    fun consumeEvent() {
-        _state.update {
-            if (it.viewEvent != null) {
-                @Suppress("UNCHECKED_CAST")
-                it.consumeEvent() as STATE
-            } else {
-                it
-            }
-        }
+    /** One-time [EVENT]s as a hot, non-replayed, FIFO stream. Each event is collected exactly once. */
+    val events: Flow<EVENT> = eventChannel.receiveAsFlow()
+
+    /**
+     * Send a one-time [EVENT] to the UI.
+     * Uses non-suspending [Channel.trySend] (no coroutine needed); with UNLIMITED capacity it always
+     * enqueues immediately, in caller order.
+     */
+    protected fun sendEvent(event: EVENT) {
+        eventChannel.trySend(event)
     }
 }

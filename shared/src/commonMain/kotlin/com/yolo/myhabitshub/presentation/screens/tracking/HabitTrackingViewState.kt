@@ -25,9 +25,4 @@ data class HabitTrackingViewState(
             ),
         )
     ),
-    override val viewEvent: HabitTrackingViewEvent? = null
-): ViewState<HabitTrackingViewEvent>{
-    override fun consumeEvent(): ViewState<HabitTrackingViewEvent> {
-       return this.copy(viewEvent = null)
-    }
-}
+): ViewState

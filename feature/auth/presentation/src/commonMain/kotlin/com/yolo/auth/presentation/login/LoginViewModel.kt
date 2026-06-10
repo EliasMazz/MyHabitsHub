@@ -33,7 +33,7 @@ class LoginViewModel(
         when (intent) {
             LoginIntent.OnForgotPasswordClick -> TODO()
             LoginIntent.OnLoginClick -> viewModelScope.launch { handleLogin() }
-            LoginIntent.OnSignupClick -> updateState { copy(viewEvent = LoginEvent.NavigateToRegisterEvent) }
+            LoginIntent.OnSignupClick -> sendEvent(LoginEvent.NavigateToRegisterEvent)
             LoginIntent.OnTogglePasswordVisibility -> handleTogglePasswordVisibility()
             is LoginIntent.OnEmailChange -> updateState { copy(email = intent.email) }
             is LoginIntent.OnPasswordChange -> updateState { copy(password = intent.password) }
@@ -64,12 +64,8 @@ class LoginViewModel(
             is LoginAuthResult.Success -> {
                 sessionStorage.set(result.authInfo)
 
-                updateState {
-                    copy(
-                        isLoggingIn = false,
-                        viewEvent = LoginEvent.LoginSuccessEvent
-                    )
-                }
+                updateState { copy(isLoggingIn = false) }
+                sendEvent(LoginEvent.LoginSuccessEvent)
             }
 
             is LoginAuthResult.Error -> {

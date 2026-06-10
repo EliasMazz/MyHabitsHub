@@ -41,13 +41,13 @@ class AccountViewModel(
                 updateState { copy(isLogoutDialogVisible = false) }
 
             AccountViewIntent.OnProfileClicked ->
-                updateState { copy(viewEvent = AccountViewEvent.NavigateToSettings) }
+                sendEvent(AccountViewEvent.NavigateToSettings)
 
             AccountViewIntent.OnSignInClicked ->
-                updateState { copy(viewEvent = AccountViewEvent.NavigateToSignIn) }
+                sendEvent(AccountViewEvent.NavigateToSignIn)
 
             AccountViewIntent.OnHelpAndSupportClicked ->
-                updateState { copy(viewEvent = AccountViewEvent.NavigateToHelpAndSupport) }
+                sendEvent(AccountViewEvent.NavigateToHelpAndSupport)
 
             AccountViewIntent.OnLogoutDialogConfirmed ->
                 viewModelScope.launch {
@@ -58,7 +58,7 @@ class AccountViewModel(
             is AccountViewIntent.OnSettingsItemClicked -> {
                 when (intent.item.action) {
                     SettingsAction.HELP_AND_SUPPORT ->
-                        updateState { copy(viewEvent = AccountViewEvent.NavigateToHelpAndSupport) }
+                        sendEvent(AccountViewEvent.NavigateToHelpAndSupport)
                     SettingsAction.LOGOUT ->
                         updateState { copy(isLogoutDialogVisible = true) }
                     else -> Unit

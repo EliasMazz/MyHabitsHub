@@ -37,12 +37,8 @@ class AppViewModel(
             val isSessionExpired = previousRefreshToken != null && currentRefreshToken == null
             if (isSessionExpired) {
                 sessionStorage.set(null)
-                updateState {
-                    copy(
-                        isLoggedIn = false,
-                        viewEvent = AppViewEvent.SessionExpired
-                    )
-                }
+                updateState { copy(isLoggedIn = false) }
+                sendEvent(AppViewEvent.SessionExpired)
             }
             previousRefreshToken = currentRefreshToken
         }.launchIn(viewModelScope)

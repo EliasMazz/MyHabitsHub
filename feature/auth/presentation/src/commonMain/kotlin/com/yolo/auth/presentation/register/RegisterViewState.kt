@@ -14,11 +14,6 @@ data class RegisterViewState(
     val isLoading: Boolean = false,
     val canRegister : Boolean = true,
     val isPasswordVisible: Boolean = false,
-    override val viewEvent: RegisterViewEvent? = null,
-) : ViewState<RegisterViewEvent> {
-    override fun consumeEvent(): ViewState<RegisterViewEvent> {
-        return copy(viewEvent = null)
-    }
-}
+) : ViewState
 
 

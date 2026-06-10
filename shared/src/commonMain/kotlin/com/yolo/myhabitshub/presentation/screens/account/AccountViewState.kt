@@ -27,10 +27,5 @@ data class AccountViewState(
     ),
     val userResponse: UserResponse? = null,
     val isLogoutDialogVisible: Boolean = false,
-    override val viewEvent: AccountViewEvent? = null,
-): ViewState<AccountViewEvent> {
-    override fun consumeEvent(): ViewState<AccountViewEvent> {
-        return copy(viewEvent = null)
-    }
-}
+): ViewState
 

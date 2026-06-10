@@ -30,12 +30,7 @@ data class OnBoardingViewState(
         ),
     ),
     val isLoading: Boolean = true,
-    override val viewEvent: OnBoardingViewEvent? = null
-): ViewState<OnBoardingViewEvent>{
-    override fun consumeEvent(): ViewState<OnBoardingViewEvent> {
-      return this.copy(viewEvent = null)
-    }
-}
+): ViewState
 
 data class OnBoardingScreenData(
     val title: StringResource,

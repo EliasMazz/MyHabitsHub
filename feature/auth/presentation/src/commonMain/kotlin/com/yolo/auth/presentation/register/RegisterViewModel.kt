@@ -27,7 +27,7 @@ class RegisterViewModel(
             is RegisterViewIntent.OnEmailChange -> updateState { copy(email = intent.email) }
             is RegisterViewIntent.OnPasswordChange -> updateState { copy(password = intent.password) }
             RegisterViewIntent.OnRegisterClick -> viewModelScope.launch { handleRegisterClick() }
-            RegisterViewIntent.OnLoginClick -> updateState { copy(viewEvent = RegisterViewEvent.NavigateToLoginEvent) }
+            RegisterViewIntent.OnLoginClick -> sendEvent(RegisterViewEvent.NavigateToLoginEvent)
             RegisterViewIntent.OnInputTextFocusGain -> handleInputTextFocusGain()
             RegisterViewIntent.OnTogglePasswordVisibility -> handleTogglePasswordVisibility()
         }
@@ -84,11 +84,9 @@ class RegisterViewModel(
                 }
             }
 
-            RegisterAuthResult.Success -> updateState {
-                copy(
-                    isLoading = false,
-                    viewEvent = RegisterViewEvent.NavigateToRegisterSuccessEvent(email)
-                )
+            RegisterAuthResult.Success -> {
+                updateState { copy(isLoading = false) }
+                sendEvent(RegisterViewEvent.NavigateToRegisterSuccessEvent(email))
             }
         }
     }

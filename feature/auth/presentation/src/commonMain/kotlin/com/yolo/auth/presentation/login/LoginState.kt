@@ -9,9 +9,4 @@ data class LoginState(
     val isPasswordVisible: Boolean = false,
     val isLoggingIn: Boolean = false,
     val errorText: UiText? = null,
-    override val viewEvent: LoginEvent? = null,
-) : ViewState<LoginEvent> {
-    override fun consumeEvent(): ViewState<LoginEvent> {
-        return copy(viewEvent = null)
-    }
-}
+) : ViewState

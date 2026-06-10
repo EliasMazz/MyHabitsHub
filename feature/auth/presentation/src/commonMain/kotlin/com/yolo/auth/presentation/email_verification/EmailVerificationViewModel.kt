@@ -22,13 +22,11 @@ class EmailVerificationViewModel(
 
     override fun onViewIntent(intent: EmailVerificationViewIntent) {
         when (intent) {
-            EmailVerificationViewIntent.OnCloseClick -> updateState {
-                copy(viewEvent = EmailVerificationViewEvent.NavigateBackEvent)
-            }
+            EmailVerificationViewIntent.OnCloseClick ->
+                sendEvent(EmailVerificationViewEvent.NavigateBackEvent)
 
-            EmailVerificationViewIntent.OnLoginClick -> updateState {
-                copy(viewEvent = EmailVerificationViewEvent.NavigateToLoginEvent)
-            }
+            EmailVerificationViewIntent.OnLoginClick ->
+                sendEvent(EmailVerificationViewEvent.NavigateToLoginEvent)
         }
     }
 

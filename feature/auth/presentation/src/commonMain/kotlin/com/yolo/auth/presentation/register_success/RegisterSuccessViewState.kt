@@ -7,10 +7,4 @@ data class RegisterSuccessViewState(
     val registeredEmail: String = "",
     val isResendingVerificationEmail: Boolean = false,
     val resendVerificationEmailError: UiText? = null,
-
-    override val viewEvent: RegisterSuccessViewEvent? = null,
-) : BaseViewModel.ViewState<RegisterSuccessViewEvent> {
-    override fun consumeEvent(): BaseViewModel.ViewState<RegisterSuccessViewEvent> {
-        return copy(viewEvent = null)
-    }
-}
+) : BaseViewModel.ViewState

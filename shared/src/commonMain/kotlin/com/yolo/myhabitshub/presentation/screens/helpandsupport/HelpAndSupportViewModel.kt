@@ -21,9 +21,9 @@ class HelpAndSupportViewModel :
 
     override fun onViewIntent(intent: HelpAndSupportViewIntent) {
         when (intent) {
-            HelpAndSupportViewIntent.OnContactSupportClicked -> updateState { copy(viewEvent = HelpAndSupportEvent.OpenFeedbackMail) }
-            HelpAndSupportViewIntent.OnPrivacyPolicyClicked ->  updateState { copy(viewEvent = HelpAndSupportEvent.OpenPrivacyPoliceUri) }
-            HelpAndSupportViewIntent.OnTermsAndConditionsClicked -> updateState { copy(viewEvent = HelpAndSupportEvent.OpenTermsAndConditionsUri) }
+            HelpAndSupportViewIntent.OnContactSupportClicked -> sendEvent(HelpAndSupportEvent.OpenFeedbackMail)
+            HelpAndSupportViewIntent.OnPrivacyPolicyClicked -> sendEvent(HelpAndSupportEvent.OpenPrivacyPoliceUri)
+            HelpAndSupportViewIntent.OnTermsAndConditionsClicked -> sendEvent(HelpAndSupportEvent.OpenTermsAndConditionsUri)
         }
     }
 }

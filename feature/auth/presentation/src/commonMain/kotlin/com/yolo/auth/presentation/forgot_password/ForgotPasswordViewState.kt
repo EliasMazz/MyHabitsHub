@@ -10,9 +10,4 @@ data class ForgotPasswordViewState(
     val errorText: UiText? = null,
     val isEmailSentSuccessfully: Boolean = false,
     val canSubmit: Boolean = false,
-    override val viewEvent: ForgotPasswordViewEvent? = null,
-) : BaseViewModel.ViewState<ForgotPasswordViewEvent> {
-    override fun consumeEvent(): BaseViewModel.ViewState<ForgotPasswordViewEvent> {
-        return copy(viewEvent = null)
-    }
-}
+) : BaseViewModel.ViewState

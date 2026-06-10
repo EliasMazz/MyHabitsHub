@@ -21,7 +21,7 @@ class RegisterSuccessViewModel(
 
     override fun onViewIntent(intent: RegisterSuccessViewIntent) {
         when (intent) {
-            RegisterSuccessViewIntent.OnLoginClick -> updateState { copy(viewEvent = RegisterSuccessViewEvent.NavigateToLoginEvent) }
+            RegisterSuccessViewIntent.OnLoginClick -> sendEvent(RegisterSuccessViewEvent.NavigateToLoginEvent)
             RegisterSuccessViewIntent.OnResendVerificationEmailClick -> handleResendVerification()
         }
     }
@@ -33,12 +33,8 @@ class RegisterSuccessViewModel(
             updateState { copy(isResendingVerificationEmail = true) }
             when (val result = resendVerificationEmailUseCase(email)) {
                 is ResendVerificationEmailResult.Success -> {
-                    updateState {
-                        copy(
-                            isResendingVerificationEmail = false,
-                            viewEvent = RegisterSuccessViewEvent.ResendVerificationEmailSuccessEvent
-                        )
-                    }
+                    updateState { copy(isResendingVerificationEmail = false) }
+                    sendEvent(RegisterSuccessViewEvent.ResendVerificationEmailSuccessEvent)
                 }
 
                 is ResendVerificationEmailResult.Error -> {

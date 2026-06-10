@@ -5,9 +5,4 @@ import com.yolo.myhabitshub.presentation.components.SettingsItemViewData
 
 data class HelpAndSupportViewState(
     val settingsItemViewData: List<SettingsItemViewData>,
-    override val viewEvent: HelpAndSupportEvent? = null
-): ViewState<HelpAndSupportEvent> {
-    override fun consumeEvent(): ViewState<HelpAndSupportEvent> {
-        return copy(viewEvent = null)
-    }
-}
+): ViewState
