@@ -33,7 +33,7 @@ class AuthRepositoryImpl(
 
     override suspend fun resendVerificationEmail(email: String): EmptyResult<DataError.Remote> {
         return httpClient.post(
-            route = "api/auth/resend-verification",
+        route = "api/auth/resend-verification",
             body = EmailRequest(email = email)
         )
     }

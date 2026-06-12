@@ -1,14 +1,16 @@
 package com.yolo.account.data.repository
 
 import com.yolo.account.domain.repository.UserRepository
-import com.yolo.account.data.network.NetworkUtils
-import com.yolo.account.data.remote.apiservices.ApiService
 import com.yolo.account.domain.exceptions.UnAuthorizedException
 import com.yolo.account.domain.entities.UserResponse
+import com.yolo.core.data.networking.post
 import com.yolo.core.data.util.ApplicationScope
+import com.yolo.core.domain.util.DataError
+import com.yolo.core.domain.util.fold
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.auth.auth
+import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -17,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class UserRepositoryImpl(
     private val applicationScope: ApplicationScope,
-    private val apiService: ApiService
+    private val httpClient: HttpClient
 ): UserRepository {
     private val currentUser = MutableStateFlow(getInitialCurrentUser())
     override fun getCurrentUser(): Flow<Result<UserResponse>> = currentUser
@@ -62,13 +64,16 @@ class UserRepositoryImpl(
     }
 
     override suspend fun sendAuthToken(): Result<UserResponse> {
-        return NetworkUtils.safeApiCall(
-            call = { apiService.sendAuthToken() },
-            mapSuccess = { responseData: UserResponse? ->
-                if (responseData != null) {
-                    Result.success(responseData)
-                } else {
-                    Result.failure(Exception("API Error"))
+        return httpClient.post<Unit, UserResponse>(
+            route = "api/auth/google",
+            body = Unit
+        ).fold(
+            onSuccess = { Result.success(it) },
+            onFailure = { error ->
+                when (error) {
+                    DataError.Remote.UNAUTHORIZED,
+                    DataError.Remote.FORBIDDEN -> Result.failure(UnAuthorizedException())
+                    else -> Result.failure(Exception("API Error: $error"))
                 }
             }
         )
