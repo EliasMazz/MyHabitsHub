@@ -45,6 +45,15 @@ class AuthRepositoryImpl(
         )
     }
 
+    override suspend fun forgotPassword(
+        email: String
+    ): EmptyResult<DataError.Remote> {
+        return httpClient.post(
+            route = "api/auth/forgot-password",
+            body = EmailRequest(email = email)
+        )
+    }
+
     override suspend fun login(
         email: String,
         password: String
