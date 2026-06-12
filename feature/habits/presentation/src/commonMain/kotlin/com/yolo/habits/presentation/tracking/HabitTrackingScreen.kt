@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
@@ -31,7 +32,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.yolo.core.presentation.BaseScreen
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.section
 import com.yolo.habits.domain.entities.HabitTracking
 import com.yolo.core.designsystem.components.legacy.LoadingProgress
 import com.yolo.core.designsystem.components.legacy.LoadingProgressMode
@@ -79,7 +79,7 @@ fun HabitTrackingScreenContent(
         } else {
             HabitTrackingContent(
                 modifier = Modifier.fillMaxSize()
-                    .background(AppTheme.colors.background),
+                    .background(MaterialTheme.colorScheme.section.surfaceTintWash),
                 habitTrackingList = viewState.listHabitTracking,
                 onClickToggleHabitCheck = onToggleHabitClicked,
                 onClickHabitDetails = { }
@@ -124,7 +124,9 @@ private fun HabitTrackingContent(
     Column(modifier = modifier.fillMaxSize()) {
         ScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
-            containerColor = Color.White,
+            // Blends with the section wash; the indicator picks up the section accent via
+            // the YoloSectionTheme primary overlay.
+            containerColor = MaterialTheme.colorScheme.section.surfaceTintWash,
             modifier = Modifier.height(48.dp),
             edgePadding = 200.dp,
             indicator = { tabPositions ->
@@ -149,8 +151,8 @@ private fun HabitTrackingContent(
                     text = {
                         Text(
                             text = title,
-                            style = AppTheme.typography.bodyMedium,
-                            color = if(index == selectedTabIndex) AppTheme.colors.text.primary else  AppTheme.colors.text.secondary,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = if(index == selectedTabIndex) MaterialTheme.colorScheme.onSurface else  MaterialTheme.colorScheme.onSurfaceVariant,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.onGloballyPositioned { coordinates ->

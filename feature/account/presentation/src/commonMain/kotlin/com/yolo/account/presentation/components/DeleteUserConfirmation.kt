@@ -2,6 +2,7 @@ package com.yolo.account.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,7 +22,7 @@ import com.yolo.core.designsystem.components.legacy.modals.AppDialogImage
 import com.yolo.core.designsystem.components.legacy.modals.AppModalBottomSheet
 import com.yolo.core.designsystem.components.legacy.modals.DialogType
 import com.yolo.core.designsystem.components.legacy.PreviewHelper
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import myhabitshub.core.designsystem.generated.resources.Res as R
 import myhabitshub.feature.account.presentation.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_delete
@@ -58,7 +59,7 @@ private fun DeleteUserConfirmationModal(
     //For Delete, we reverse buttons
     AppModalBottomSheet(
         title = stringResource(Res.string.title_delete_user_dialog),
-        titleColor = AppTheme.colors.status.error,
+        titleColor = MaterialTheme.colorScheme.error,
         btnDismissText = stringResource(Res.string.btn_cancel),
         btnConfirmText = stringResource(Res.string.btn_delete),
         onConfirm = onConfirm,
@@ -67,19 +68,19 @@ private fun DeleteUserConfirmationModal(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.groupedVerticalElementSpacing)
+            verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap)
         ) {
             Text(
                 text = stringResource(Res.string.subtitle_delete_user_dialog),
-                style = AppTheme.typography.h5,
-                color = AppTheme.colors.text.primary,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
 
             Text(
                 text = stringResource(Res.string.description_delete_user_dialog),
-                style = AppTheme.typography.bodyLarge,
-                color = AppTheme.colors.text.secondary,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
         }

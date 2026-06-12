@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,7 +35,8 @@ import com.yolo.core.designsystem.components.legacy.UserInput
 import com.yolo.core.designsystem.components.legacy.modals.AppDialog
 import com.yolo.account.presentation.components.DeleteUserConfirmation
 import com.yolo.core.designsystem.components.legacy.modals.DialogType
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.section
 import myhabitshub.core.designsystem.generated.resources.Res as R
 import myhabitshub.feature.account.presentation.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_delete
@@ -96,7 +98,7 @@ fun SettingsScreenContent(
             SettingsScreenContent(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(AppTheme.colors.background),
+                    .background(MaterialTheme.colorScheme.section.surfaceTintWash),
                 currentUserResponse = it,
                 onClickDeleteAccount = onDeleteAccountClicked
             )
@@ -113,10 +115,10 @@ fun SettingsScreenContent(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = AppTheme.spacing.outerSpacing)
+            .padding(horizontal = YoloTokens.spacing.screenEdge)
             .verticalScroll(rememberScrollState())
-            .padding(top = AppTheme.spacing.defaultSpacing, bottom = AppTheme.spacing.outerSpacing),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.sectionSpacing),
+            .padding(top = YoloTokens.spacing.elementGap, bottom = YoloTokens.spacing.screenEdge),
+        verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.sectionGap),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
@@ -147,14 +149,14 @@ fun SettingsScreenContent(
 
         SettingItemListContainer(
             onClick = onClickDeleteAccount,
-            itemTextStyle = AppTheme.typography.h5.copy(fontWeight = FontWeight.SemiBold),
+            itemTextStyle = MaterialTheme.typography.titleLarge,
             itemList = listOf(
                 SettingsItemViewData(
                     action = SettingsAction.DELETE_ACCOUNT,
                     textRes = Res.string.btn_delete_account,
                     startIcon = R.drawable.ic_delete,
                     showEndIcon = false,
-                    textIconColor = AppTheme.colors.status.error
+                    textIconColor = MaterialTheme.colorScheme.error
                 )
             )
         )
@@ -168,13 +170,13 @@ fun UserInputWithLabel(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.defaultSpacing)
+        verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.elementGap)
     ) {
         Text(
             text = label,
-            style = AppTheme.typography.bodyExtraLarge,
+            style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold,
-            color = AppTheme.colors.text.primary
+            color = MaterialTheme.colorScheme.onSurface
         )
         userInput()
     }

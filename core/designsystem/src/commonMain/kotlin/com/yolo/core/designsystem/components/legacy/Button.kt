@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.extended
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_crown
 import myhabitshub.core.designsystem.generated.resources.ic_delete
@@ -73,14 +75,14 @@ fun AppButton(
 
     val buttonColors = ButtonDefaults.buttonColors(
         containerColor = when (style) {
-            ButtonStyle.PRIMARY -> AppTheme.colors.primary
-            ButtonStyle.ALTERNATIVE -> AppTheme.colors.alternative
+            ButtonStyle.PRIMARY -> MaterialTheme.colorScheme.primary
+            ButtonStyle.ALTERNATIVE -> MaterialTheme.colorScheme.extended.secondaryFill
             ButtonStyle.TEXT -> Color.Transparent
         },
         contentColor = when (style) {
-            ButtonStyle.PRIMARY -> AppTheme.colors.onPrimary
-            ButtonStyle.ALTERNATIVE -> AppTheme.colors.onAlternative
-            ButtonStyle.TEXT -> AppTheme.colors.primary
+            ButtonStyle.PRIMARY -> MaterialTheme.colorScheme.onPrimary
+            ButtonStyle.ALTERNATIVE -> MaterialTheme.colorScheme.onSurface
+            ButtonStyle.TEXT -> MaterialTheme.colorScheme.primary
         },
     )
     if (isLoading) {
@@ -107,16 +109,16 @@ fun AppButton(
                         painter = painterResource(it),
                         contentDescription = null
                     )
-                    Spacer(modifier = Modifier.width(AppTheme.spacing.horizontalItemSpacing))
+                    Spacer(modifier = Modifier.width(YoloTokens.spacing.itemGap))
                 }
                 Text(
                     text = text,
                     fontWeight = FontWeight.Bold,
-                    style = AppTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 endIcon?.let {
-                    Spacer(modifier = Modifier.width(AppTheme.spacing.horizontalItemSpacing))
+                    Spacer(modifier = Modifier.width(YoloTokens.spacing.itemGap))
                     Icon(
                         modifier = Modifier.size(iconSize),
                         painter = painterResource(it),
@@ -132,7 +134,7 @@ fun AppButton(
 @Composable
 fun CircularActionButton(
     icon: DrawableResource,
-    iconTint: Color = AppTheme.colors.text.primary,
+    iconTint: Color = MaterialTheme.colorScheme.onSurface,
     text: String? = null,
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -140,7 +142,7 @@ fun CircularActionButton(
     Column(
         modifier = modifier.widthIn(max = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.defaultSpacing)
+        verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.elementGap)
     ) {
 
         Box(
@@ -148,7 +150,7 @@ fun CircularActionButton(
                 .size(60.dp)
                 .clip(CircleShape)
                 .clickable { onClick() }
-                .background(AppTheme.colors.outline),
+                .background(MaterialTheme.colorScheme.extended.secondaryFill),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -163,10 +165,10 @@ fun CircularActionButton(
         text?.let {
             Text(
                 text = text,
-                color = AppTheme.colors.text.secondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
-                style = AppTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
@@ -196,7 +198,7 @@ fun AppButtonPreview() {
         CircularActionButton(
             icon = Res.drawable.ic_delete,
             text = "Delete",
-            iconTint = AppTheme.colors.status.error
+            iconTint = MaterialTheme.colorScheme.error
         )
         CircularActionButton(icon = Res.drawable.ic_crown, text = "Action Button Long Text")
         CircularActionButton(icon = Res.drawable.ic_crown)

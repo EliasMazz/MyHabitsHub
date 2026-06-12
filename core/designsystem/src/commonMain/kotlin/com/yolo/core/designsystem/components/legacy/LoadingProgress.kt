@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,12 +22,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.extended
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -57,7 +58,7 @@ fun LoadingProgress(mode: LoadingProgressMode = LoadingProgressMode.CIRCULAR) {
 
 @Composable
 private fun CircularLoadingBar() {
-    CircularProgressIndicator(color = AppTheme.colors.primary)
+    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
 }
 
 @Composable
@@ -79,34 +80,33 @@ private fun LoadingProgressOverlay(
     ) {
         Card(
             modifier = Modifier.fillMaxWidth(0.8f), colors = CardDefaults.cardColors(
-                containerColor = AppTheme.colors.surfaceContainer,
-                contentColor = AppTheme.colors.text.primary
+                containerColor = MaterialTheme.colorScheme.extended.surfaceHigher,
+                contentColor = MaterialTheme.colorScheme.onSurface
             ),
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.spacing.dialogContentSpacing)
+                    .padding(YoloTokens.spacing.dialogPadding)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.sectionSpacing)
+                verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.sectionGap)
             ) {
 
                 CircularLoadingBar()
                 Text(
                     text = title,
-                    style = AppTheme.typography.h5,
-                    color = AppTheme.colors.text.primary,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.SemiBold
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center
                 )
 
                 if (text.isNotEmpty()) {
                     Text(
                         text = text,
-                        style = AppTheme.typography.bodyExtraLarge,
-                        color = AppTheme.colors.text.secondary,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
                     )
                 }

@@ -1,6 +1,7 @@
 package com.yolo.account.presentation.components
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +18,6 @@ import myhabitshub.feature.account.presentation.generated.resources.and
 import myhabitshub.feature.account.presentation.generated.resources.privacy_policy
 import myhabitshub.feature.account.presentation.generated.resources.terms_conditions
 import myhabitshub.feature.account.presentation.generated.resources.txt_agree_privacy_policy_and_terms
-import com.yolo.core.designsystem.theme.legacy.AppTheme
 import com.yolo.core.domain.Constants
 import org.jetbrains.compose.resources.stringResource
 
@@ -28,7 +28,7 @@ fun AgreePrivacyPolicyTermsConditionsText(modifier: Modifier) {
         val termsConditions = stringResource(Res.string.terms_conditions)
         val customStyle = SpanStyle(
             fontWeight = FontWeight.Medium,
-            color = AppTheme.colors.text.secondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             textDecoration = TextDecoration.Underline
         )
         val annotatedString = buildAnnotatedString {
@@ -49,8 +49,8 @@ fun AgreePrivacyPolicyTermsConditionsText(modifier: Modifier) {
         }
         Text(
             text = annotatedString,
-            style = AppTheme.typography.bodyMedium,
-            color = AppTheme.colors.text.secondary
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

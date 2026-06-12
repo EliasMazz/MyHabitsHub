@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastRoundToInt
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -22,10 +22,10 @@ fun HorizontalScrollableList(
     modifier: Modifier = Modifier,
     ignoreParentHorizontalPadding: Boolean = false,
     contentPadding: PaddingValues = PaddingValues(
-        horizontal = if (ignoreParentHorizontalPadding) AppTheme.spacing.outerSpacing
+        horizontal = if (ignoreParentHorizontalPadding) YoloTokens.spacing.screenEdge
         else 0.dp
     ),
-    horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(AppTheme.spacing.horizontalItemSpacing),
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(YoloTokens.spacing.itemGap),
     content: LazyListScope.() -> Unit
 ) {
 
@@ -67,7 +67,7 @@ fun HorizontalScrollableListPreview() {
     PreviewHelper {
         HorizontalScrollableList(
             ignoreParentHorizontalPadding = true,
-            contentPadding = PaddingValues(horizontal = AppTheme.spacing.outerSpacing)
+            contentPadding = PaddingValues(horizontal = YoloTokens.spacing.screenEdge)
         ) {
             items(10) {
                 Text("Item $it")

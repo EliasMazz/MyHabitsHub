@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.ripple
@@ -26,12 +27,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_back
 import org.jetbrains.compose.resources.painterResource
@@ -43,7 +45,8 @@ fun AppToolbar(
     onNavigationIconClick: () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: Painter? = painterResource(Res.drawable.ic_back),
-    contentPadding: PaddingValues = PaddingValues(horizontal = AppTheme.spacing.outerSpacing),
+    contentPadding: PaddingValues = PaddingValues(horizontal = YoloTokens.spacing.screenEdge),
+    containerColor: Color = MaterialTheme.colorScheme.background,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     val navigationIconStartPadding =
@@ -53,10 +56,10 @@ fun AppToolbar(
     CenterAlignedTopAppBar(
         modifier = modifier.defaultMinSize(minHeight = 72.dp),
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = AppTheme.colors.background,
-            titleContentColor = AppTheme.colors.text.primary,
-            navigationIconContentColor = AppTheme.colors.text.primary,
-            actionIconContentColor = AppTheme.colors.text.primary,
+            containerColor = containerColor,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+            actionIconContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         title = {
             Box(contentAlignment = Alignment.Center) {
@@ -131,8 +134,8 @@ private fun ToolbarTitle(
 ) {
     Text(
         text = text,
-        style = AppTheme.typography.h4,
-        color = AppTheme.colors.text.primary,
+        style = MaterialTheme.typography.headlineSmall,
+        color = MaterialTheme.colorScheme.onSurface,
         textAlign = textAlign,
         modifier = modifier
     )

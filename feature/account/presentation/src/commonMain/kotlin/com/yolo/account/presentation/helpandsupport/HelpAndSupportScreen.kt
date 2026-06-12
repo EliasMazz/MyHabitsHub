@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalUriHandler
 import com.yolo.core.presentation.BaseScreen
 import myhabitshub.feature.account.presentation.generated.resources.Res
@@ -16,7 +16,7 @@ import myhabitshub.feature.account.presentation.generated.resources.privacy_poli
 import myhabitshub.feature.account.presentation.generated.resources.terms_conditions
 import com.yolo.account.presentation.components.SettingItemListContainer
 import com.yolo.account.presentation.components.SettingsItemViewData
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.presentation.util.AppUtil
 import com.yolo.core.domain.Constants
 import org.koin.compose.koinInject
@@ -59,16 +59,16 @@ fun HelpAndSupportScreenContent(
 ) {
     Column(
         modifier = modifier.fillMaxSize()
-            .padding(horizontal = AppTheme.spacing.outerSpacing)
+            .padding(horizontal = YoloTokens.spacing.screenEdge)
             .verticalScroll(rememberScrollState())
             .padding(
-                top = AppTheme.spacing.defaultSpacing,
-                bottom = AppTheme.spacing.outerSpacing,
+                top = YoloTokens.spacing.elementGap,
+                bottom = YoloTokens.spacing.screenEdge,
             )
     ) {
         SettingItemListContainer(
             itemList = itemList,
-            itemTextStyle = AppTheme.typography.h5.copy(fontWeight = FontWeight.SemiBold),
+            itemTextStyle = MaterialTheme.typography.titleLarge,
             onClick = {
                 when (it.textRes) {
                     Res.string.item_contact_support -> onContactSupportClicked()

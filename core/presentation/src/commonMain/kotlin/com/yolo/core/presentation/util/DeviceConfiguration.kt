@@ -27,8 +27,9 @@ enum class DeviceConfiguration {
                 when {
                     minWidthDp < WIDTH_DP_MEDIUM_LOWER_BOUND &&
                             minHeightDp >= HEIGHT_DP_MEDIUM_LOWER_BOUND -> MOBILE_PORTRAIT
-                    minWidthDp >= WIDTH_DP_EXPANDED_LOWER_BOUND &&
-                            minHeightDp < HEIGHT_DP_MEDIUM_LOWER_BOUND -> MOBILE_LANDSCAPE
+                    // Compact height = phone landscape regardless of width bucket; without this,
+                    // a 600-839dp-wide landscape phone window fell through to DESKTOP.
+                    minHeightDp < HEIGHT_DP_MEDIUM_LOWER_BOUND -> MOBILE_LANDSCAPE
                     minWidthDp in WIDTH_DP_MEDIUM_LOWER_BOUND..WIDTH_DP_EXPANDED_LOWER_BOUND &&
                             minHeightDp >= HEIGHT_DP_EXPANDED_LOWER_BOUND -> TABLET_PORTRAIT
                     minWidthDp >= WIDTH_DP_EXPANDED_LOWER_BOUND &&

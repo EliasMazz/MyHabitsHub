@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.theme.YoloTheme
@@ -82,7 +83,7 @@ fun YoloButton(
         style == YoloButtonStyle.DESTRUCTIVE_PRIMARY && !enabled -> defaultBorderStroke
         style == YoloButtonStyle.DESTRUCTIVE_SECONDARY -> {
             val borderColor = if(enabled) {
-                MaterialTheme.colorScheme.extended.destructiveSecondaryOutline
+                MaterialTheme.colorScheme.error
             } else {
                 MaterialTheme.colorScheme.extended.disabledOutline
             }
@@ -98,7 +99,7 @@ fun YoloButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        shape = RoundedCornerShape(8.dp),
+        shape = CircleShape, // full pill — design-system-v3-spec §6.2 / M3E button convention
         colors = colors,
         border = border
     ) {
@@ -112,7 +113,7 @@ fun YoloButton(
                         alpha = if(isLoading) 1f else 0f
                     ),
                 strokeWidth = 1.5.dp,
-                color = Color.Black
+                color = LocalContentColor.current
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(

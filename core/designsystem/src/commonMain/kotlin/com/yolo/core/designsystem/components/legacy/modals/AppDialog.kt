@@ -15,6 +15,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,7 +38,8 @@ import com.yolo.core.designsystem.components.legacy.AppButton
 import com.yolo.core.designsystem.components.legacy.ButtonStyle
 import com.yolo.core.designsystem.components.legacy.DialogOrBottomSheetTitle
 import com.yolo.core.designsystem.components.legacy.PreviewHelper
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.extended
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_check
 import myhabitshub.core.designsystem.generated.resources.ic_close
@@ -61,8 +63,8 @@ fun AppDialog(
         DialogType.ERROR -> stringResource(Res.string.title_error_dialog)
     },
     titleColor: Color = when (type) {
-        DialogType.INFO -> AppTheme.colors.primary
-        DialogType.ERROR -> AppTheme.colors.status.error
+        DialogType.INFO -> MaterialTheme.colorScheme.primary
+        DialogType.ERROR -> MaterialTheme.colorScheme.error
     },
     text: String? = "",
     image: @Composable (() -> Unit)? = { AppDialogImage(dialogType = type) },
@@ -85,7 +87,7 @@ fun AppDialog(
 @Composable
 fun AppDialog(
     title: String = stringResource(Res.string.title_info),
-    titleColor: Color = AppTheme.colors.text.primary,
+    titleColor: Color = MaterialTheme.colorScheme.onSurface,
     text: String? = "",
     image: @Composable (() -> Unit)? = null,
     btnConfirmText: String = stringResource(Res.string.btn_ok),
@@ -101,25 +103,25 @@ fun AppDialog(
     ) {
         Card(
             modifier = Modifier.fillMaxWidth(0.8f), colors = CardDefaults.cardColors(
-                containerColor = AppTheme.colors.surfaceContainer,
-                contentColor = AppTheme.colors.text.primary
+                containerColor = MaterialTheme.colorScheme.extended.surfaceHigher,
+                contentColor = MaterialTheme.colorScheme.onSurface
             ),
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.spacing.dialogContentSpacing)
+                    .padding(YoloTokens.spacing.dialogPadding)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.dialogContentSpacing)
+                verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.dialogPadding)
             ) {
 
                 image?.let {
                     Box(contentAlignment = Alignment.Center) { it() }
                 }
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.groupedVerticalElementSpacing),
+                    verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     DialogOrBottomSheetTitle(
@@ -130,14 +132,14 @@ fun AppDialog(
                     if (text.isEmpty().not()) {
                         Text(
                             text = text,
-                            style = AppTheme.typography.bodyLarge,
-                            color = AppTheme.colors.text.primary,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface,
                             textAlign = TextAlign.Center
                         )
                     }
 
                 }
-                Column(verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.groupedVerticalElementSpacing)) {
+                Column(verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap)) {
                     AppButton(
                         text = btnConfirmText.ifEmpty { stringResource(Res.string.btn_ok) },
                         onClick = { onConfirm() },
@@ -170,13 +172,13 @@ fun AppDialogImage(
     }
 ) {
     val iconTint = when (dialogType) {
-        DialogType.INFO -> AppTheme.colors.primary
-        DialogType.ERROR -> AppTheme.colors.status.error
+        DialogType.INFO -> MaterialTheme.colorScheme.primary
+        DialogType.ERROR -> MaterialTheme.colorScheme.error
     }
 
     Box(
         modifier = Modifier
-            .padding(top = AppTheme.spacing.defaultSpacing)
+            .padding(top = YoloTokens.spacing.elementGap)
             .size(114.dp)
             .clip(CircleShape)
             .background(
@@ -188,8 +190,8 @@ fun AppDialogImage(
             modifier = Modifier
                 .size(44.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(AppTheme.colors.onPrimary)
-                .padding(AppTheme.spacing.defaultSpacing),
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(YoloTokens.spacing.elementGap),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -215,8 +217,8 @@ fun AppDialogPreview() {
                 dialogType = DialogType.INFO
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = AppTheme.colors.status.infoContainer,
-                contentColor = AppTheme.colors.status.info
+                containerColor = MaterialTheme.colorScheme.extended.infoContainer,
+                contentColor = MaterialTheme.colorScheme.extended.info
             )
         ) {
             Text("Show Info Dialog")
@@ -226,8 +228,8 @@ fun AppDialogPreview() {
                 dialogType = DialogType.ERROR
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = AppTheme.colors.status.errorContainer,
-                contentColor = AppTheme.colors.status.error
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.error
             )
         ) {
             Text("Show Error Dialog")

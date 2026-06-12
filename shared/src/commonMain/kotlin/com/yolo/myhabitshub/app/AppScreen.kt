@@ -23,12 +23,11 @@ import com.yolo.auth.presentation.navigation.AuthGraphRoutes
 import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.core.presentation.BaseScreen
 import com.yolo.core.presentation.util.UiText
-import com.yolo.core.designsystem.theme.legacy.AppTheme
 import com.yolo.myhabitshub.navigation.AppNavigationRoot
 import com.yolo.myhabitshub.navigation.DeepLinkListener
 import com.yolo.myhabitshub.navigation.routes.AppRoutes
 import com.yolo.onboarding.presentation.navigation.OnBoardingRoutes
-import com.yolo.myhabitshub.presentation.components.AllComponentsGallery
+import com.yolo.core.catalog.DesignSystemCatalogScreen
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -66,24 +65,23 @@ fun AppScreen(
     ) { _, _ -> }
 
     if (!state.isCheckingAuth) {
-        if (state.isLoggedIn) {
-            AppTheme {
+        YoloTheme {
+            if (state.isLoggedIn) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .windowInsetsPadding(WindowInsets.safeDrawing),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    //Set this to true for showing app, or false for ui components gallery
-                    val isPreviewComponentsMode = false
-                    if (isPreviewComponentsMode) AllComponentsGallery()
+                    // Debug-only: flip to true to browse the Design System Catalog
+                    // (core/catalog module — tokens, components, section worlds, both modes).
+                    // Compile-time false in commits => R8 strips the catalog from release builds.
+                    val showDesignSystemCatalog = false
+                    if (showDesignSystemCatalog) DesignSystemCatalogScreen()
                     else
                         AppScaffold(navController)
                 }
-            }
-
-        } else {
-            YoloTheme {
+            } else {
                 AppNavigationRoot(
                     navController = navController,
                     startDestination = AuthGraphRoutes.Graph,

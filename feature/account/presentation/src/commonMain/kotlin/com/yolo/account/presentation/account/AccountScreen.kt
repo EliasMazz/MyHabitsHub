@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,7 +38,8 @@ import com.yolo.core.designsystem.components.legacy.AppCardContainer
 import com.yolo.account.presentation.components.SettingItemListContainer
 import com.yolo.core.designsystem.components.legacy.SmallTitle
 import com.yolo.core.designsystem.components.legacy.modals.AppModalBottomSheet
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.section
 import com.yolo.account.presentation.components.SettingsItemViewData
 import myhabitshub.core.designsystem.generated.resources.Res as R
 import myhabitshub.feature.account.presentation.generated.resources.Res
@@ -98,7 +100,7 @@ fun AccountScreenContent(
 
     AccountContent(
         modifier = modifier.fillMaxSize()
-            .background(AppTheme.colors.background),
+            .background(MaterialTheme.colorScheme.section.surfaceTintWash),
         uiState = viewState,
         onClickSignIn = onSignInClicked,
         onClickProfile = onProfileClicked,
@@ -118,10 +120,10 @@ fun AccountContent(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = AppTheme.spacing.outerSpacing)
+            .padding(horizontal = YoloTokens.spacing.screenEdge)
             .verticalScroll(rememberScrollState())
-            .padding(top = AppTheme.spacing.defaultSpacing, bottom = AppTheme.spacing.outerSpacing),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.sectionSpacing)
+            .padding(top = YoloTokens.spacing.elementGap, bottom = YoloTokens.spacing.screenEdge),
+        verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.sectionGap)
     ) {
         ProfileInfoBox(userResponse = uiState.userResponse, onClick = {
             if (uiState.userResponse == null) onClickSignIn()
@@ -147,7 +149,7 @@ private fun ProfileInfoBox(userResponse: UserResponse?, onClick: () -> Unit) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.horizontalItemSpacing)
+            horizontalArrangement = Arrangement.spacedBy(YoloTokens.spacing.itemGap)
         ) {
 
             AsyncImage(
@@ -164,7 +166,7 @@ private fun ProfileInfoBox(userResponse: UserResponse?, onClick: () -> Unit) {
 
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.groupedVerticalElementSpacingSmall)
+                verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGapTight)
             ) {
                 val displayName =
                     if (userResponse == null) stringResource(Res.string.title_screen_sign_in) else userResponse.displayName
@@ -173,8 +175,8 @@ private fun ProfileInfoBox(userResponse: UserResponse?, onClick: () -> Unit) {
                 userResponse?.email?.let { email ->
                     Text(
                         email,
-                        style = AppTheme.typography.bodyMedium,
-                        color = AppTheme.colors.text.secondary,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Medium
                     )
                 }
@@ -184,7 +186,7 @@ private fun ProfileInfoBox(userResponse: UserResponse?, onClick: () -> Unit) {
                 modifier = Modifier.size(24.dp),
                 imageVector = vectorResource(R.drawable.ic_arrow_right),
                 contentDescription = null,
-                tint = AppTheme.colors.text.primary
+                tint = MaterialTheme.colorScheme.onSurface
             )
 
         }
@@ -198,7 +200,7 @@ private fun LogoutModalBottomSheet(
 ) {
     AppModalBottomSheet(
         title = stringResource(Res.string.logout),
-        titleColor = AppTheme.colors.status.error,
+        titleColor = MaterialTheme.colorScheme.error,
         btnDismissText = stringResource(Res.string.btn_cancel),
         btnConfirmText = stringResource(Res.string.btn_logout_confirm),
         onConfirm = { onConfirm() },
@@ -208,8 +210,8 @@ private fun LogoutModalBottomSheet(
         Text(
             text = stringResource(Res.string.text_logout_confirmation),
             textAlign = TextAlign.Center,
-            color = AppTheme.colors.text.primary,
-            style = AppTheme.typography.h5
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }

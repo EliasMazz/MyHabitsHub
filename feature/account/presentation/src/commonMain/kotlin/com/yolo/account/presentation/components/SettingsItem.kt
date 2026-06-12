@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.components.legacy.AppCardContainer
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_arrow_right
 import org.jetbrains.compose.resources.DrawableResource
@@ -49,13 +50,13 @@ data class SettingsItemViewData(
 fun SettingsItem(
     modifier: Modifier = Modifier,
     settingsItemViewData: SettingsItemViewData,
-    textStyle: TextStyle = AppTheme.typography.h6,
+    textStyle: TextStyle = MaterialTheme.typography.titleMedium,
 ) {
-    val textIconColor = settingsItemViewData.textIconColor ?: AppTheme.colors.text.primary
+    val textIconColor = settingsItemViewData.textIconColor ?: MaterialTheme.colorScheme.onSurface
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.horizontalItemSpacing)
+        horizontalArrangement = Arrangement.spacedBy(YoloTokens.spacing.itemGap)
     ) {
         settingsItemViewData.startIcon?.let {
             Icon(
@@ -77,10 +78,10 @@ fun SettingsItem(
             settingsItemViewData.helperTextRes?.let {
                 Text(
                     text = stringResource(it),
-                    style = AppTheme.typography.bodyLarge,
-                    color = AppTheme.colors.text.secondary
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Spacer(modifier = Modifier.width(AppTheme.spacing.inputIconTextSpacing))
+                Spacer(modifier = Modifier.width(YoloTokens.spacing.iconTextGap))
             }
 
             if (settingsItemViewData.showEndIcon) {
@@ -100,7 +101,7 @@ fun SettingsItem(
 @Composable
 fun SettingItemListContainer(
     itemList: List<SettingsItemViewData>,
-    itemTextStyle: TextStyle = AppTheme.typography.h6,
+    itemTextStyle: TextStyle = MaterialTheme.typography.titleMedium,
     onClick: (SettingsItemViewData) -> Unit = {}
 ) {
     AppCardContainer(contentPaddingValues = PaddingValues(0.dp)) {
@@ -113,7 +114,7 @@ fun SettingItemListContainer(
                         .fillMaxWidth()
                         .clickable {
                             onClick(it)
-                        }.padding(AppTheme.spacing.cardContentSpacing)
+                        }.padding(YoloTokens.spacing.cardPadding)
                 )
             }
 

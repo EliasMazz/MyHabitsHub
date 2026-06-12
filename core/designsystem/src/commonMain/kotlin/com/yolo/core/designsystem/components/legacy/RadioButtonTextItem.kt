@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
@@ -24,7 +25,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 
 @Composable
 fun AppRadioButtonWithText(
@@ -32,7 +33,7 @@ fun AppRadioButtonWithText(
     isSelected: Boolean = false,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    horizontalSpacing: Dp = AppTheme.spacing.horizontalItemSpacing,
+    horizontalSpacing: Dp = YoloTokens.spacing.itemGap,
     onClick: () -> Unit = {}
 ) {
     Row(
@@ -47,8 +48,8 @@ fun AppRadioButtonWithText(
         Text(
             text = text,
             fontWeight = FontWeight.Medium,
-            color = AppTheme.colors.text.primary,
-            style = AppTheme.typography.h5
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }
@@ -86,7 +87,7 @@ fun AppRadioButton(
         } else {
             Modifier
         }
-    val color = AppTheme.colors.primary
+    val color = MaterialTheme.colorScheme.primary
     Canvas(
         modifier
             .then(selectableModifier)

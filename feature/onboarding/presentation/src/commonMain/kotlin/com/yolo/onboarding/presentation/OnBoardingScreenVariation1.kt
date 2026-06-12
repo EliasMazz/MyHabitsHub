@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ import com.yolo.core.designsystem.components.legacy.AnimatedHorizontalPager
 import com.yolo.core.designsystem.components.legacy.AppButton
 import com.yolo.core.designsystem.components.legacy.HorizontalPagerIndicator
 import com.yolo.core.designsystem.components.legacy.ScreenTitle
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -57,7 +58,7 @@ fun OnBoardingContentVariation1(
     Column(
         modifier = modifier.fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(vertical = AppTheme.spacing.largeSpacing),
+            .padding(vertical = YoloTokens.spacing.heroGap),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -70,7 +71,7 @@ fun OnBoardingContentVariation1(
         Row(
             modifier = Modifier.fillMaxWidth()
                 .heightIn(min = 56.dp)
-                .padding(horizontal = AppTheme.spacing.outerSpacing)
+                .padding(horizontal = YoloTokens.spacing.screenEdge)
         ) {
             Spacer(modifier = Modifier.weight(1f))
             androidx.compose.animation.AnimatedVisibility(
@@ -89,18 +90,18 @@ fun OnBoardingContentVariation1(
         AnimatedHorizontalPager(
             pagerState = pagerState,
             modifier = Modifier
-                .padding(top = AppTheme.spacing.sectionSpacing)
+                .padding(top = YoloTokens.spacing.sectionGap)
                 .heightIn(min = 450.dp)
         ) { pageIndex ->
             val onBoardingScreenData = uiState.pages[pageIndex]
             OnBoardingPager(
                 item = onBoardingScreenData,
                 modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = AppTheme.spacing.outerSpacing)
+                    .padding(horizontal = YoloTokens.spacing.screenEdge)
             )
         }
         HorizontalPagerIndicator(
-            modifier = Modifier.padding(top = AppTheme.spacing.sectionSpacing),
+            modifier = Modifier.padding(top = YoloTokens.spacing.sectionGap),
             size = pagerState.pageCount,
             selectedIndex = pagerState.currentPage,
             style = com.yolo.core.designsystem.components.legacy.HorizontalPagerIndicatorStyle.STYLE1,
@@ -119,9 +120,9 @@ fun OnBoardingContentVariation1(
 
         Column(
             modifier = Modifier.padding(
-                start = AppTheme.spacing.outerSpacing,
-                end = AppTheme.spacing.outerSpacing,
-                top = AppTheme.spacing.sectionSpacing
+                start = YoloTokens.spacing.screenEdge,
+                end = YoloTokens.spacing.screenEdge,
+                top = YoloTokens.spacing.sectionGap
             ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -170,7 +171,7 @@ private fun OnBoardingPager(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
-            AppTheme.spacing.sectionSpacing,
+            YoloTokens.spacing.sectionGap,
             Alignment.CenterVertically
         )
     ) {
@@ -184,7 +185,7 @@ private fun OnBoardingPager(
         Column(
             modifier = modifier,
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.groupedVerticalElementSpacing)
+            verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap)
         ) {
             ScreenTitle(
                 text = stringResource(item.title),
@@ -193,8 +194,8 @@ private fun OnBoardingPager(
 
             Text(
                 text = stringResource(item.description),
-                style = AppTheme.typography.bodyExtraLarge,
-                color = AppTheme.colors.text.primary,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
         }
@@ -210,8 +211,8 @@ private fun SkipButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     ) {
         Text(
             text = stringResource(Res.string.btn_skip),
-            style = AppTheme.typography.bodyMedium,
-            color = AppTheme.colors.text.secondary,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

@@ -5,6 +5,7 @@ import com.yolo.myhabitshub.generated.resources.bottom_nav_label_progress
 import com.yolo.myhabitshub.generated.resources.bottom_nav_label_settings
 import com.yolo.myhabitshub.generated.resources.bottom_nav_label_tracking
 import com.yolo.account.presentation.navigation.AccountGraphRoutes
+import com.yolo.core.designsystem.theme.YoloSection
 import com.yolo.habits.presentation.navigation.HabitsGraphRoutes
 import myhabitshub.core.designsystem.generated.resources.ic_nav_bottom_habit_progress
 import myhabitshub.core.designsystem.generated.resources.ic_nav_bottom_habit_tracking
@@ -16,7 +17,8 @@ data class BottomNavItem(
     val label: StringResource,
     val icon: DrawableResource,
     val route: Any,
-    val destination: String
+    val destination: String,
+    val section: YoloSection,
 ) {
     companion object {
         fun items(): List<BottomNavItem> {
@@ -25,19 +27,22 @@ data class BottomNavItem(
                     label = Res.string.bottom_nav_label_tracking,
                     icon =  myhabitshub.core.designsystem.generated.resources.Res.drawable.ic_nav_bottom_habit_tracking,
                     route = HabitsGraphRoutes.Tracking,
-                    destination = HabitsGraphRoutes.Tracking::class.simpleName!!
+                    destination = HabitsGraphRoutes.Tracking::class.simpleName!!,
+                    section = YoloSection.Tracking,
                 ),
                 BottomNavItem(
                     label = Res.string.bottom_nav_label_progress,
                     icon =  myhabitshub.core.designsystem.generated.resources.Res.drawable.ic_nav_bottom_habit_progress,
                     route = HabitsGraphRoutes.Progress,
-                    destination = HabitsGraphRoutes.Progress::class.simpleName!!
+                    destination = HabitsGraphRoutes.Progress::class.simpleName!!,
+                    section = YoloSection.Progress,
                 ),
                 BottomNavItem(
                     label = Res.string.bottom_nav_label_settings,
                     icon =  myhabitshub.core.designsystem.generated.resources.Res.drawable.ic_nav_bottom_settings,
                     route = AccountGraphRoutes.Account,
-                    destination = AccountGraphRoutes.Account::class.simpleName!!
+                    destination = AccountGraphRoutes.Account::class.simpleName!!,
+                    section = YoloSection.Settings,
                 ),
             )
         }

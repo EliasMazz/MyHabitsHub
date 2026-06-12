@@ -7,8 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.extended
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextButton
 
 @Composable
@@ -25,7 +26,7 @@ actual fun NativeAlertDialog(
     var isPresented by remember { mutableStateOf(true) }
     if (!isPresented) return
     AlertDialog(
-        containerColor = AppTheme.colors.surfaceContainer,
+        containerColor = MaterialTheme.colorScheme.extended.surfaceHigher,
         title = { Text(text = title) },
         text = { Text(text = text) },
         onDismissRequest = {

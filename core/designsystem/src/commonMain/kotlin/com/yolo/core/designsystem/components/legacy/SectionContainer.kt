@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 
 @Composable
 fun SectionContainer(
@@ -23,20 +24,20 @@ fun SectionContainer(
     Column(modifier = modifier) {
         if (title != null) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.defaultSpacing),
+                horizontalArrangement = Arrangement.spacedBy(YoloTokens.spacing.elementGap),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 SectionTitle(text = title)
                 subtitle?.let {
                     Text(
                         text = it,
-                        color = AppTheme.colors.text.secondary,
-                        style = AppTheme.typography.bodyLarge
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(AppTheme.spacing.sectionHeaderSpacing))
+            Spacer(modifier = Modifier.height(YoloTokens.spacing.sectionHeaderGap))
         }
         content()
     }

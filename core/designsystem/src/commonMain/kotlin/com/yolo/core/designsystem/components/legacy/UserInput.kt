@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,7 +34,8 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.extended
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.ic_crown
 import org.jetbrains.compose.resources.DrawableResource
@@ -64,17 +66,17 @@ fun UserInput(
 
     val backgroundColor by animateColorAsState(
         when {
-            readOnly -> AppTheme.colors.textInput.readOnlyBackground
-            enabled && isFocused && !readOnly -> AppTheme.colors.alternative
-            !enabled -> AppTheme.colors.textInput.disabledBackground
-            else -> AppTheme.colors.textInput.background
+            readOnly -> MaterialTheme.colorScheme.surfaceContainerHigh
+            enabled && isFocused && !readOnly -> MaterialTheme.colorScheme.extended.secondaryFill
+            !enabled -> MaterialTheme.colorScheme.extended.disabledFill
+            else -> MaterialTheme.colorScheme.extended.secondaryFill
         },
         animationSpec = tween()
     )
 
     val borderColor by animateColorAsState(
         when {
-            isFocused && !readOnly -> AppTheme.colors.primary
+            isFocused && !readOnly -> MaterialTheme.colorScheme.primary
             else -> Color.Transparent
         },
         animationSpec = tween()
@@ -82,8 +84,8 @@ fun UserInput(
 
     val textIconColor by animateColorAsState(
         when (enabled) {
-            true -> AppTheme.colors.textInput.textIcon
-            false -> AppTheme.colors.textInput.disabledTextIcon
+            true -> MaterialTheme.colorScheme.onSurface
+            false -> MaterialTheme.colorScheme.extended.textDisabled
         },
         animationSpec = tween()
     )
@@ -106,7 +108,7 @@ fun UserInput(
                     painter = painterResource(it),
                     contentDescription = null
                 )
-                Spacer(modifier = Modifier.width(AppTheme.spacing.inputIconTextSpacing))
+                Spacer(modifier = Modifier.width(YoloTokens.spacing.iconTextGap))
             }
 
 
@@ -118,28 +120,28 @@ fun UserInput(
                 enabled = enabled,
                 keyboardOptions = keyboardOptions,
                 keyboardActions = keyboardActions,
-                textStyle = AppTheme.typography.bodyExtraLarge.copy(
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = textIconColor
                 ),
                 value = value,
-                cursorBrush = SolidColor(AppTheme.colors.text.primary),
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
                 interactionSource = interactionSource,
                 onValueChange = { onValueChange(it) },
                 decorationBox = { innerTextField ->
                     if (value.isEmpty()) {
                         Text(
                             text = label,
-                            style = AppTheme.typography.bodyExtraLarge,
+                            style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Normal,
-                            color = AppTheme.colors.textInput.placeholder
+                            color = MaterialTheme.colorScheme.extended.textPlaceholder
                         )
                     }
                     innerTextField()
                 }
             )
             endIcon?.let {
-                Spacer(modifier = Modifier.width(AppTheme.spacing.inputIconTextSpacing))
+                Spacer(modifier = Modifier.width(YoloTokens.spacing.iconTextGap))
                 Icon(
                     modifier = Modifier
                         .size(endIconSize)

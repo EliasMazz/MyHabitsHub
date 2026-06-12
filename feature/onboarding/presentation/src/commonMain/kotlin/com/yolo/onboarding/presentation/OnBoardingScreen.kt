@@ -2,10 +2,10 @@ package com.yolo.onboarding.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.yolo.core.presentation.BaseScreen
-import com.yolo.core.designsystem.theme.legacy.AppTheme
 import com.yolo.core.designsystem.components.legacy.LogoImage
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -49,7 +49,7 @@ fun OnBoardingScreenContent(
             OnBoardingScreenStyle.STYLE1 -> {
                 OnBoardingContentVariation1(
                     modifier = modifier.fillMaxSize()
-                        .background(AppTheme.colors.background),
+                        .background(MaterialTheme.colorScheme.background),
                     uiState = viewState,
                     onGetStartedClick = onStartClicked
                 )
@@ -58,7 +58,7 @@ fun OnBoardingScreenContent(
             OnBoardingScreenStyle.STYLE2 -> {
                 OnBoardingContentVariation2(
                     modifier = modifier.fillMaxSize()
-                        .background(AppTheme.colors.background),
+                        .background(MaterialTheme.colorScheme.background),
                     uiState = viewState,
                     onGetStartedClick = onStartClicked
                 )

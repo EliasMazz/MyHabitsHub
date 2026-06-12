@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,7 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -70,41 +71,41 @@ fun Chip(
         ChipSize.SMALL -> 14.dp
     }
     val textStyle = when (size) {
-        ChipSize.LARGE -> AppTheme.typography.bodyExtraLarge
-        ChipSize.MEDIUM -> AppTheme.typography.bodyLarge
-        ChipSize.SMALL -> AppTheme.typography.bodyMedium
+        ChipSize.LARGE -> MaterialTheme.typography.bodyLarge
+        ChipSize.MEDIUM -> MaterialTheme.typography.bodyLarge
+        ChipSize.SMALL -> MaterialTheme.typography.bodyMedium
     }.copy(fontWeight = FontWeight.SemiBold)
 
     val textColor by animateColorAsState(
         when (style) {
-            ChipStyle.FILLED -> AppTheme.colors.onPrimary
-            ChipStyle.OUTLINE -> AppTheme.colors.text.primary
-            ChipStyle.INVERSE_FILLED -> AppTheme.colors.primary
+            ChipStyle.FILLED -> MaterialTheme.colorScheme.onPrimary
+            ChipStyle.OUTLINE -> MaterialTheme.colorScheme.onSurface
+            ChipStyle.INVERSE_FILLED -> MaterialTheme.colorScheme.primary
         },
         animationSpec = tween()
     )
 
     val iconColor by animateColorAsState(
         when (style) {
-            ChipStyle.FILLED -> AppTheme.colors.onPrimary
-            ChipStyle.OUTLINE -> AppTheme.colors.primary
-            ChipStyle.INVERSE_FILLED -> AppTheme.colors.primary
+            ChipStyle.FILLED -> MaterialTheme.colorScheme.onPrimary
+            ChipStyle.OUTLINE -> MaterialTheme.colorScheme.primary
+            ChipStyle.INVERSE_FILLED -> MaterialTheme.colorScheme.primary
         },
         animationSpec = tween()
     )
 
     val containerColor by animateColorAsState(
         when (style) {
-            ChipStyle.FILLED -> AppTheme.colors.primary
+            ChipStyle.FILLED -> MaterialTheme.colorScheme.primary
             ChipStyle.OUTLINE -> Color.Transparent
-            ChipStyle.INVERSE_FILLED -> AppTheme.colors.onPrimary
+            ChipStyle.INVERSE_FILLED -> MaterialTheme.colorScheme.onPrimary
         },
         animationSpec = tween()
     )
     val borderColor by animateColorAsState(
         when (style) {
             ChipStyle.FILLED -> Color.Transparent
-            ChipStyle.OUTLINE -> AppTheme.colors.outline
+            ChipStyle.OUTLINE -> MaterialTheme.colorScheme.outline
             ChipStyle.INVERSE_FILLED -> Color.Transparent
         },
         animationSpec = tween()
@@ -128,7 +129,7 @@ fun Chip(
                 contentDescription = null,
                 tint = iconColor
             )
-            Spacer(modifier = Modifier.width(AppTheme.spacing.defaultSpacing))
+            Spacer(modifier = Modifier.width(YoloTokens.spacing.elementGap))
         }
 
         Text(
@@ -138,7 +139,7 @@ fun Chip(
         )
 
         endIconRes?.let {
-            Spacer(modifier = Modifier.width(AppTheme.spacing.defaultSpacing))
+            Spacer(modifier = Modifier.width(YoloTokens.spacing.elementGap))
             Icon(
                 modifier = Modifier.sizeIn(maxWidth = iconSize, maxHeight = iconSize),
                 painter = painterResource(it),

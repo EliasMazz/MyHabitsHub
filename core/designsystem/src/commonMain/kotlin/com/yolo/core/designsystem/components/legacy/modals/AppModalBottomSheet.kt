@@ -1,15 +1,17 @@
 package com.yolo.core.designsystem.components.legacy.modals
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,15 +33,21 @@ import com.yolo.core.designsystem.components.legacy.ButtonStyle
 import com.yolo.core.designsystem.components.legacy.DialogOrBottomSheetTitle
 import com.yolo.core.designsystem.components.legacy.Divider
 import com.yolo.core.designsystem.components.legacy.PreviewHelper
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.section
 import org.jetbrains.compose.resources.stringResource
 
 
+/**
+ * Section-tinted modal sheet (section-color-worlds spec §4): the sheet fill, content colors
+ * and drag handle come from the current tab's section world; the title defaults to
+ * onSheetSurface (destructive sheets pass colorScheme.error explicitly).
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppModalBottomSheet(
     title: String,
-    titleColor: Color = AppTheme.colors.text.primary,
+    titleColor: Color = MaterialTheme.colorScheme.section.onSheetSurface,
     btnConfirmText: String = stringResource(Res.string.btn_ok),
     btnDismissText: String = stringResource(Res.string.btn_cancel),
     hideButtons: Boolean = false,
@@ -48,27 +56,27 @@ fun AppModalBottomSheet(
     onDismiss: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
+    val section = MaterialTheme.colorScheme.section
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+        containerColor = section.sheetSurface,
+        contentColor = section.onSheetSurface,
         dragHandle = {
-            Column {
-                Spacer(modifier = Modifier.height(AppTheme.spacing.defaultSpacing))
-                Divider(
-                    thickness = 3.dp,
-                    modifier = Modifier
-                        .width(36.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                )
-            }
-
+            Box(
+                modifier = Modifier
+                    .padding(top = 12.dp, bottom = 8.dp)
+                    .size(width = 36.dp, height = 4.dp)
+                    .clip(CircleShape)
+                    .background(section.sheetDragHandle)
+            )
         }
 
     ) {
         Column(
-            modifier = Modifier.padding(AppTheme.spacing.outerSpacing),
+            modifier = Modifier.padding(YoloTokens.spacing.screenEdge),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.sectionSpacing)
+            verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.sectionGap)
         ) {
 
             DialogOrBottomSheetTitle(
@@ -83,7 +91,7 @@ fun AppModalBottomSheet(
 
             Divider(modifier = Modifier.fillMaxWidth())
             Row(
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.horizontalItemSpacing),
+                horizontalArrangement = Arrangement.spacedBy(YoloTokens.spacing.itemGap),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 AppButton(

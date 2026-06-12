@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yolo.account.domain.entities.AuthProvider
 import com.yolo.core.designsystem.components.legacy.PreviewHelper
-import com.yolo.core.designsystem.theme.legacy.AppTheme
-import com.yolo.core.designsystem.theme.legacy.LocalThemeIsDark
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.extended
 import com.mmk.kmpauth.firebase.apple.AppleButtonUiContainer
 import com.mmk.kmpauth.firebase.google.GoogleButtonUiContainerFirebase
 import com.mmk.kmpauth.uihelper.apple.AppleButtonMode
@@ -38,7 +39,7 @@ fun  AuthUIHelperButtons(
     authProviders: List<AuthProvider> = AuthProvider.entries,
     shape: Shape = CircleShape,
     height: Dp = 56.dp,
-    spaceBetweenButtons: Dp = AppTheme.spacing.groupedVerticalElementSpacing,
+    spaceBetweenButtons: Dp = YoloTokens.spacing.stackGap,
     textFontSize: TextUnit = 24.sp,
     autoClickEnabledIfOneProviderExists: Boolean = true,
     onFirebaseResult: (Result<FirebaseUser?>) -> Unit,
@@ -49,7 +50,7 @@ fun  AuthUIHelperButtons(
         verticalArrangement = Arrangement.spacedBy(spaceBetweenButtons)) {
         val isExistOnlyOneAuthProvider by remember { mutableStateOf(authProviders.size == 1) }
         val updatedOnFirebaseResult by rememberUpdatedState(onFirebaseResult)
-        val isDarkMode = LocalThemeIsDark.current
+        val isDarkMode = MaterialTheme.colorScheme.extended.isDark
         if (authProviders.contains(AuthProvider.GOOGLE)) {
             //Google Sign-In Button and authentication with Firebase
             GoogleButtonUiContainerFirebase(linkAccount = linkAccount, onResult = {

@@ -2,254 +2,182 @@ package com.yolo.core.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 import myhabitshub.core.designsystem.generated.resources.Res
-import myhabitshub.core.designsystem.generated.resources.manrope_bold
-import myhabitshub.core.designsystem.generated.resources.manrope_extralight
-import myhabitshub.core.designsystem.generated.resources.manrope_light
-import myhabitshub.core.designsystem.generated.resources.manrope_medium
-import myhabitshub.core.designsystem.generated.resources.manrope_regular
-import myhabitshub.core.designsystem.generated.resources.manrope_semi_bold
+import myhabitshub.core.designsystem.generated.resources.google_sans_flex_variable
 import org.jetbrains.compose.resources.Font
 
-private val fontFamily
+// Design System v3 typography — Google Sans Flex (SIL OFL 1.1 since Nov 2025; license at
+// docs/licenses/google-sans-flex-OFL.txt), the genuine reference typeface.
+// Scale = exact M3 tokens: display/headline/titleLarge use the M3 Expressive *Emphasized*
+// styles (weight 500, tracking 0); title/body/label slots use the M3 baseline values.
+// Spec: docs/design/design-system-v3-spec.md §5. "tnum" keeps stat digits from jiggling.
+
+private val GoogleSansFlex: FontFamily
     @Composable get() = FontFamily(
-        Font(
-            Res.font.manrope_extralight,
-            FontWeight.ExtraLight,
-            FontStyle.Normal
-        ),
-        Font(
-            Res.font.manrope_light,
-            FontWeight.Thin,
-            FontStyle.Normal
-        ),
-        Font(
-            Res.font.manrope_regular,
-            FontWeight.Normal,
-            FontStyle.Normal
-        ),
-        Font(
-            Res.font.manrope_medium,
-            FontWeight.Medium,
-            FontStyle.Normal
-        ),
-        Font(
-            Res.font.manrope_semi_bold,
-            FontWeight.SemiBold,
-            FontStyle.Normal
-        ),
-        Font(
-            Res.font.manrope_bold,
-            FontWeight.Bold,
-            FontStyle.Normal
-        )
+        listOf(400, 500, 700).map { weight ->
+            Font(
+                Res.font.google_sans_flex_variable,
+                weight = FontWeight(weight),
+                variationSettings = FontVariation.Settings(FontVariation.weight(weight)),
+            )
+        }
     )
 
-val Typography @Composable get() = Typography(
-    titleLarge = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 30.sp,
-        lineHeight = 36.sp
-    ),
-    titleMedium = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp,
-        lineHeight = 28.sp
-    ),
-    titleSmall = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
-        lineHeight = 24.sp
-    ),
-    bodyLarge = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
-        lineHeight = 26.sp
-    ),
-    bodyMedium = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp
-    ),
-    bodySmall = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 20.sp
-    ),
-    labelMedium = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 24.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        lineHeight = 20.sp
-    ),
-    headlineSmall = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        lineHeight = 18.sp
-    ),
-    displaySmall = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 11.sp,
-        lineHeight = 14.sp
-    ),
-)
+private const val TABULAR_NUMERALS = "tnum"
+
+val YoloTypography: Typography
+    @Composable get() {
+        val family = GoogleSansFlex
+        return Typography(
+            displayLarge = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 57.sp,
+                lineHeight = 64.sp,
+                letterSpacing = 0.sp,
+                fontFeatureSettings = TABULAR_NUMERALS,
+            ),
+            displayMedium = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 45.sp,
+                lineHeight = 52.sp,
+                letterSpacing = 0.sp,
+                fontFeatureSettings = TABULAR_NUMERALS,
+            ),
+            displaySmall = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 36.sp,
+                lineHeight = 44.sp,
+                letterSpacing = 0.sp,
+            ),
+            headlineLarge = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 32.sp,
+                lineHeight = 40.sp,
+                letterSpacing = 0.sp,
+            ),
+            headlineMedium = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 28.sp,
+                lineHeight = 36.sp,
+                letterSpacing = 0.sp,
+            ),
+            headlineSmall = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 24.sp,
+                lineHeight = 32.sp,
+                letterSpacing = 0.sp,
+            ),
+            titleLarge = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 22.sp,
+                lineHeight = 28.sp,
+                letterSpacing = 0.sp,
+            ),
+            titleMedium = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp,
+                lineHeight = 24.sp,
+                letterSpacing = 0.2.sp,
+            ),
+            titleSmall = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                letterSpacing = 0.1.sp,
+            ),
+            bodyLarge = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp,
+                lineHeight = 24.sp,
+                letterSpacing = 0.5.sp,
+            ),
+            bodyMedium = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                letterSpacing = 0.2.sp,
+            ),
+            bodySmall = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Normal,
+                fontSize = 12.sp,
+                lineHeight = 16.sp,
+                letterSpacing = 0.4.sp,
+            ),
+            labelLarge = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                letterSpacing = 0.1.sp,
+            ),
+            labelMedium = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 12.sp,
+                lineHeight = 16.sp,
+                letterSpacing = 0.5.sp,
+            ),
+            labelSmall = TextStyle(
+                fontFamily = family,
+                fontWeight = FontWeight.Medium,
+                fontSize = 11.sp,
+                lineHeight = 16.sp,
+                letterSpacing = 0.5.sp,
+            ),
+        )
+    }
 
 /**
- * App typography values
- * @param h2: Used for example app name in splash screen
- * @param h3: h3 can be used in screens like big title, where it is like one part of screen.
- * For example, in Forgot Password screen or OnBoarding Screen title, this big text can use h3
- *
- * @param h4: Most used title. For example toolbar title, card title, dialog title, etc.
- * @param h5: Mostly used in section titles
+ * Extension styles outside the M3 scale (design-system-v3-spec §5.3).
+ * statHero = displayLargeEmphasized class — the reference app hero numerals are display-large size,
+ * not poster-size; render single-line with auto-shrink.
+ * kicker caps are applied via text.uppercase() at the call site, on data/stat tiles only.
  */
-@Immutable
-class AppTypographyLegacy(
-    val h1: TextStyle,
-    val h2: TextStyle,
-    val h3: TextStyle,
-    val h4: TextStyle,
-    val h5: TextStyle,
-    val h6: TextStyle,
-    val medium: TextStyle,
-    val bodyExtraLarge: TextStyle,
-    val bodyLarge: TextStyle,
-    val bodyMedium: TextStyle,
-    val bodySmall: TextStyle,
-    val bodyExtraSmall: TextStyle,
-)
-
-
-// Default Material 3 typography values
-private val baseline = Typography()
-
-
-val MaterialThemAppTypography
-    @Composable
-    get() = Typography(
-        displayLarge = baseline.displayLarge.copy(fontFamily = fontFamily),
-        displayMedium = baseline.displayMedium.copy(fontFamily = fontFamily),
-        displaySmall = baseline.displaySmall.copy(fontFamily = fontFamily),
-        headlineLarge = baseline.headlineLarge.copy(fontFamily = fontFamily),
-        headlineMedium = baseline.headlineMedium.copy(fontFamily = fontFamily),
-        headlineSmall = baseline.headlineSmall.copy(fontFamily = fontFamily),
-        titleLarge = baseline.titleLarge.copy(fontFamily = fontFamily),
-        titleMedium = baseline.titleMedium.copy(fontFamily = fontFamily),
-        titleSmall = baseline.titleSmall.copy(fontFamily = fontFamily),
-        bodyLarge = baseline.bodyLarge.copy(fontFamily = fontFamily),
-        bodyMedium = baseline.bodyMedium.copy(fontFamily = fontFamily),
-        bodySmall = baseline.bodySmall.copy(fontFamily = fontFamily),
-        labelLarge = baseline.labelLarge.copy(fontFamily = fontFamily),
-        labelMedium = baseline.labelMedium.copy(fontFamily = fontFamily),
-        labelSmall = baseline.labelSmall.copy(fontFamily = fontFamily),
-    )
-
-val appTypographyLegacy
-    @Composable get() = AppTypographyLegacy(
-        h1 = TextStyle(
-            fontFamily = fontFamily,
-            letterSpacing = 0.sp,
-            fontWeight = FontWeight.Bold,
-            fontSize = 48.sp,
-            lineHeight = 67.sp
-        ),
-        h2 = TextStyle(
-            letterSpacing = 0.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 40.sp,
-            lineHeight = 56.sp
-
-        ),
-        h3 = TextStyle(
-            letterSpacing = 0.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
-            lineHeight = 45.sp
-        ),
-        h4 = TextStyle(
-            letterSpacing = 0.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
-            lineHeight = 34.sp
-        ),
-        h5 = TextStyle(
-            letterSpacing = 0.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            lineHeight = 28.sp
-        ),
-        h6 = TextStyle(
-            letterSpacing = 0.sp,
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
-            lineHeight = 25.sp
-        ),
-        bodyExtraLarge = TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            letterSpacing = 0.2.sp,
-            fontSize = 18.sp,
-            lineHeight = 29.sp
-        ),
-        bodyLarge = TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            letterSpacing = 0.2.sp,
-            fontSize = 16.sp,
-            lineHeight = 26.sp
-        ),
-        bodyMedium = TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            letterSpacing = 0.2.sp,
-            fontSize = 14.sp,
-            lineHeight = 22.sp
-        ),
-        bodySmall = TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            letterSpacing = 0.2.sp,
-            fontSize = 12.sp,
-            lineHeight = 19.sp
-        ),
-        bodyExtraSmall = TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            letterSpacing = 0.2.sp,
-            fontSize = 10.sp,
-            lineHeight = 16.sp
-        ),
-        medium = TextStyle(
-            letterSpacing = 0.sp,
-            fontFamily = fontFamily,
+object YoloTypeExtras {
+    val statHero: TextStyle
+        @Composable get() = TextStyle(
+            fontFamily = GoogleSansFlex,
             fontWeight = FontWeight.Medium,
-            fontSize = 16.sp,
-            lineHeight = 24.sp
+            fontSize = 57.sp,
+            lineHeight = 64.sp,
+            letterSpacing = 0.sp,
+            fontFeatureSettings = TABULAR_NUMERALS,
         )
-    )
+
+    val kicker: TextStyle
+        @Composable get() = TextStyle(
+            fontFamily = GoogleSansFlex,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.5.sp,
+        )
+
+    val statUnit: TextStyle
+        @Composable get() = TextStyle(
+            fontFamily = GoogleSansFlex,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            letterSpacing = 0.1.sp,
+            fontFeatureSettings = TABULAR_NUMERALS,
+        )
+}

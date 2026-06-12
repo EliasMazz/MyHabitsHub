@@ -1,11 +1,11 @@
 package com.yolo.core.designsystem.components.legacy
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import com.yolo.core.designsystem.theme.legacy.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
@@ -17,8 +17,8 @@ fun ScreenTitle(
 ) {
     Text(
         text = text,
-        style = AppTheme.typography.h3,
-        color = AppTheme.colors.text.primary,
+        style = MaterialTheme.typography.headlineLarge,
+        color = MaterialTheme.colorScheme.onSurface,
         textAlign = textAlign,
         modifier = modifier
     )
@@ -28,13 +28,13 @@ fun ScreenTitle(
 @Composable
 fun DialogOrBottomSheetTitle(
     text: String,
-    color: Color = AppTheme.colors.text.primary,
+    color: Color = MaterialTheme.colorScheme.onSurface,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start
 ) {
     Text(
         text = text,
-        style = AppTheme.typography.h4,
+        style = MaterialTheme.typography.headlineSmall,
         color = color,
         textAlign = textAlign,
         modifier = modifier
@@ -50,8 +50,8 @@ fun SectionTitle(
     Text(
         modifier = modifier,
         text = text,
-        style = AppTheme.typography.h5,
-        color = AppTheme.colors.text.primary,
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.onSurface,
         textAlign = textAlign,
     )
 }
@@ -65,8 +65,8 @@ fun SmallTitle(
     Text(
         modifier = modifier,
         text = text,
-        style = AppTheme.typography.h6,
-        color = AppTheme.colors.text.primary,
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onSurface,
         textAlign = textAlign,
     )
 }

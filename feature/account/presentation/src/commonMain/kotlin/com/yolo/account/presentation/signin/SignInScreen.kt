@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -32,7 +33,7 @@ import myhabitshub.feature.account.presentation.generated.resources.txt_main_act
 import com.yolo.account.presentation.components.AgreePrivacyPolicyTermsConditionsText
 import com.yolo.account.presentation.components.AuthUIHelperButtons
 import com.yolo.core.designsystem.components.legacy.LogoImage
-import com.yolo.core.designsystem.theme.legacy.AppTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.data.logging.AppLogger
 import com.yolo.core.presentation.BaseScreen
 import kotlinx.coroutines.launch
@@ -79,12 +80,12 @@ fun SignInScreenContent(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background)
+            .background(MaterialTheme.colorScheme.background)
             .padding(
-                start = AppTheme.spacing.outerSpacing,
-                end = AppTheme.spacing.outerSpacing,
-                top = AppTheme.spacing.defaultSpacing,
-                bottom = AppTheme.spacing.outerSpacing
+                start = YoloTokens.spacing.screenEdge,
+                end = YoloTokens.spacing.screenEdge,
+                top = YoloTokens.spacing.elementGap,
+                bottom = YoloTokens.spacing.screenEdge
             ),
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
@@ -97,16 +98,16 @@ fun SignInScreenContent(
             Spacer(modifier = Modifier.weight(1f))
             LogoImage(
                 modifier = Modifier.fillMaxWidth().heightIn(max = 300.dp).padding(
-                    AppTheme.spacing.defaultSpacing
+                    YoloTokens.spacing.elementGap
                 )
             )
             Spacer(modifier = Modifier.weight(1f))
 
-            TitleText(modifier = Modifier.padding(top = AppTheme.spacing.largeSpacing))
+            TitleText(modifier = Modifier.padding(top = YoloTokens.spacing.heroGap))
 
             AuthUIHelperButtons(
                 linkAccount = viewState.linkAccount,
-                modifier = Modifier.padding(top = AppTheme.spacing.largeSpacing).fillMaxWidth(),
+                modifier = Modifier.padding(top = YoloTokens.spacing.heroGap).fillMaxWidth(),
                 onFirebaseResult = { result ->
                     if (result.isSuccess) {
                         AppLogger.d("Successful sign in")
@@ -123,7 +124,7 @@ fun SignInScreenContent(
             )
 
             AgreePrivacyPolicyTermsConditionsText(
-                modifier = Modifier.padding(top = AppTheme.spacing.largeSpacing).fillMaxWidth(),
+                modifier = Modifier.padding(top = YoloTokens.spacing.heroGap).fillMaxWidth(),
             )
         }
     }
@@ -137,7 +138,7 @@ private fun TitleText(modifier: Modifier) {
         appendLine()
         withStyle(
             style = SpanStyle(
-                color = AppTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.SemiBold
             )
         ) {
@@ -147,9 +148,9 @@ private fun TitleText(modifier: Modifier) {
     Text(
         modifier = modifier,
         text = annotatedString,
-        color = AppTheme.colors.text.primary,
+        color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium,
-        style = AppTheme.typography.h3
+        style = MaterialTheme.typography.headlineLarge
     )
 }
