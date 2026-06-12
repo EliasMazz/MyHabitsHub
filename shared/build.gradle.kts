@@ -25,14 +25,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             api(libs.kmpnotifier)
             implementation(libs.kmpauth.google)
-            implementation(libs.kmpauth.firebase)
-            implementation(libs.kmpauth.uihelper)
-            implementation(libs.napier)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.ktor.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
@@ -40,11 +33,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel.navigation)
             api(libs.jetbrains.lifecycle.viewmodel)
             api(libs.jetbrains.lifecycle.compose)
-            implementation(libs.uuid)
-            implementation(libs.multiplatformSettings.no.arg)
             implementation(libs.android.inappreview)
-            implementation(libs.coil.compose)
-            implementation(libs.coil.ktor)
             implementation(libs.kotlinx.datetime)
 
             implementation(projects.core.data)
@@ -57,6 +46,15 @@ kotlin {
 
             implementation(projects.feature.coach.domain)
             implementation(projects.feature.coach.presentation)
+
+            implementation(projects.feature.habits.domain)
+            implementation(projects.feature.habits.presentation)
+
+            implementation(projects.feature.account.domain)
+            implementation(projects.feature.account.data)
+            implementation(projects.feature.account.presentation)
+
+            implementation(projects.feature.onboarding.presentation)
         }
 
         commonTest.dependencies {
@@ -76,12 +74,10 @@ kotlin {
             implementation(libs.firebase.crashlytics)
             implementation(libs.firebase.config)
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
         }
 
         iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
         }
     }
 }

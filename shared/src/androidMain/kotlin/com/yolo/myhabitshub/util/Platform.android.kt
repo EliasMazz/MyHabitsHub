@@ -1,5 +1,6 @@
 package com.yolo.myhabitshub.util
 
+import com.yolo.core.presentation.util.AppUtil
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig

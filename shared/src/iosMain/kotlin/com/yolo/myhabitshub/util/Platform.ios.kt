@@ -1,5 +1,6 @@
 package com.yolo.myhabitshub.util
 
+import com.yolo.core.presentation.util.AppUtil
 import com.yolo.myhabitshub.data.source.featureflag.FeatureFlagManager
 import com.yolo.myhabitshub.util.analytics.Analytics
 import com.yolo.myhabitshub.util.inappreview.InAppReviewManager

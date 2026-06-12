@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.yolo.core.presentation.BaseScreen
-import com.yolo.myhabitshub.presentation.components.AppToolbar
+import com.yolo.core.designsystem.components.legacy.AppToolbar
 import com.yolo.myhabitshub.presentation.BottomNavItem
 import com.yolo.myhabitshub.presentation.components.bottomnav.BottomNavigationBar
 import org.jetbrains.compose.resources.painterResource

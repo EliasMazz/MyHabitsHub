@@ -2,4 +2,8 @@
 <resources>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
+    <string name="title_error_dialog">Error</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="title_info">Info</string>
 </resources>

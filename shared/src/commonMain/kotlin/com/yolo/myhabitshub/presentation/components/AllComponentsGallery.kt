@@ -4,8 +4,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -14,12 +12,24 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.yolo.myhabitshub.presentation.components.modals.AppDialogPreview
-import com.yolo.myhabitshub.presentation.components.modals.AppModalBottomSheetPreview
-import com.yolo.myhabitshub.presentation.components.modals.DeleteUserConfirmationPreview
-import com.yolo.myhabitshub.presentation.components.modals.NativeDialogPreview
-import com.yolo.myhabitshub.presentation.components.modals.DialogPreview
-import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import com.yolo.core.designsystem.components.legacy.AppButtonPreview
+import com.yolo.core.designsystem.components.legacy.ChipPreview
+import com.yolo.core.designsystem.components.legacy.Divider
+import com.yolo.core.designsystem.components.legacy.DividerPreview
+import com.yolo.core.designsystem.components.legacy.HorizontalScrollableListPreview
+import com.yolo.core.designsystem.components.legacy.LoadingProgressPreview
+import com.yolo.core.designsystem.components.legacy.RadioButtonPreview
+import com.yolo.core.designsystem.components.legacy.ScreenTitle
+import com.yolo.core.designsystem.components.legacy.SectionContainer
+import com.yolo.core.designsystem.components.legacy.TitlesPreview
+import com.yolo.core.designsystem.components.legacy.UserInputPreview
+import com.yolo.core.designsystem.components.legacy.modals.AppDialogPreview
+import com.yolo.core.designsystem.components.legacy.modals.AppModalBottomSheetPreview
+import com.yolo.account.presentation.components.AuthUiHelperButtonsPreview
+import com.yolo.account.presentation.components.DeleteUserConfirmationPreview
+import com.yolo.core.designsystem.components.legacy.modals.NativeDialogPreview
+import com.yolo.core.designsystem.components.legacy.modals.DialogPreview
+import com.yolo.core.designsystem.theme.legacy.AppTheme
 
 
 @Composable
@@ -114,14 +124,4 @@ private fun ComponentsGalleryContainer(isDarkMode: Boolean) {
             ComponentsGallery()
         }
     }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun PreviewHelper(content: @Composable () -> Unit) {
-    FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.horizontalItemSpacing),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.verticalListItemSpacing),
-        content = { content() },
-    )
 }

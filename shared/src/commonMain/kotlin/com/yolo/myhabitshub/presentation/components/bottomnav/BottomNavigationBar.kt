@@ -9,7 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import com.yolo.myhabitshub.core.presentation.theme.AppTheme
+import com.yolo.core.designsystem.components.legacy.PreviewHelper
+import com.yolo.core.designsystem.theme.legacy.AppTheme
 import com.yolo.myhabitshub.presentation.BottomNavItem
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource

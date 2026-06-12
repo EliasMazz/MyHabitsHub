@@ -1,76 +1,41 @@
 package com.yolo.myhabitshub.app.di
 
-import com.russhwolf.settings.Settings
+import com.yolo.account.data.di.accountDataModule
+import com.yolo.account.domain.di.accountDomainModule
+import com.yolo.account.presentation.di.accountPresentationModule
 import com.yolo.auth.domain.di.authDomainModule
 import com.yolo.auth.presentation.di.authPresentationModule
 import com.yolo.core.data.di.coreDataModule
 import com.yolo.core.domain.validator.PasswordValidatorUseCase
-import com.yolo.myhabitshub.data.repository.UserRepository
-import com.yolo.myhabitshub.data.repository.UserRepositoryImpl
-import com.yolo.myhabitshub.data.source.preferences.UserPreferences
-import com.yolo.myhabitshub.data.source.preferences.UserPreferencesImpl
-import com.yolo.myhabitshub.data.source.remote.HttpClientFactoryLegacy
-import com.yolo.myhabitshub.data.source.remote.apiservices.ApiService
-import com.yolo.myhabitshub.domain.usecase.DeleteAccountUseCase
-import com.yolo.myhabitshub.domain.usecase.GetUserStream
-import com.yolo.myhabitshub.domain.usecase.LogOutUseCase
-import com.yolo.myhabitshub.domain.usecase.SendAuthTokenUseCase
-import com.yolo.myhabitshub.presentation.screens.account.AccountViewModel
-import com.yolo.myhabitshub.presentation.screens.helpandsupport.HelpAndSupportViewModel
-import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
-import com.yolo.myhabitshub.presentation.screens.onboarding.OnBoardingViewModel
-import com.yolo.myhabitshub.presentation.screens.progress.HabitProgressViewModel
+import com.yolo.habits.presentation.di.habitsPresentationModule
 import com.yolo.myhabitshub.app.AppViewModel
-import com.yolo.myhabitshub.presentation.screens.settings.SettingsViewModel
-import com.yolo.myhabitshub.presentation.screens.signin.SignInViewModel
-import com.yolo.myhabitshub.presentation.screens.tracking.HabitTrackingViewModel
-import com.yolo.myhabitshub.util.ApplicationScope
+import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
 import com.yolo.myhabitshub.util.platformModule
+import com.yolo.onboarding.presentation.di.onBoardingPresentationModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.coroutines.CoroutineContext
 
-private val domainModule = module {
-    factory { GetUserStream(get()) }
-    factory { DeleteAccountUseCase(get()) }
-    factory { LogOutUseCase(get()) }
-    factory { SendAuthTokenUseCase(get()) }
-    factory { PasswordValidatorUseCase() }
-}
-
-private val dataModule = module {
-    singleOf(::ApplicationScope)
+/**
+ * App-shell bindings owned by the umbrella `shared` module only.
+ * Feature bindings live in each feature's own di package.
+ */
+private val appModule = module {
     factory { Dispatchers.IO } bind CoroutineContext::class
+    factory { PasswordValidatorUseCase() }
 
-    //Preferences Source
-    single { Settings() } bind Settings::class
-    singleOf(::UserPreferencesImpl) bind UserPreferences::class
-
-    //Remote source
-    single { HttpClientFactoryLegacy.default() }
-    factoryOf(::ApiService)
-
-    //Repositories
-    single { UserRepositoryImpl(get(), get()) } bind UserRepository::class
-}
-
-private val presentationModule = module {
-    viewModelOf(::OnBoardingViewModel)
-    viewModelOf(::SettingsViewModel)
-    viewModelOf(::AccountViewModel)
-    viewModelOf(::HelpAndSupportViewModel)
-    viewModelOf(::SignInViewModel)
-    viewModelOf(::HabitTrackingViewModel)
-    viewModelOf(::HabitProgressViewModel)
     viewModelOf(::MainViewModel)
     viewModelOf(::AppViewModel)
 }
 
-val appModules: List<Module> get() = platformModule + domainModule + dataModule + presentationModule + authModule
-private val authModule: List<Module> get() = coreDataModule + authDomainModule + authPresentationModule
+val appModules: List<Module> get() = platformModule + appModule + coreModule + authModule + habitsModule + accountModule + onboardingModule
+
+private val coreModule: List<Module> get() = listOf(coreDataModule)
+private val authModule: List<Module> get() = authDomainModule + authPresentationModule
+private val habitsModule: List<Module> get() = listOf(habitsPresentationModule)
+private val accountModule: List<Module> get() = accountDomainModule + accountDataModule + accountPresentationModule
+private val onboardingModule: List<Module> get() = listOf(onBoardingPresentationModule)

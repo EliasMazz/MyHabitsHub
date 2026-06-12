@@ -1,7 +1,6 @@
 package com.yolo.myhabitshub.presentation.screens.main
 
 import com.yolo.core.presentation.viewmodel.BaseViewModel.*
-import com.yolo.myhabitshub.navigation.routes.MainGraphRoutes
 
 sealed interface MainViewEvent: ViewEvent {
     /**
@@ -15,7 +14,7 @@ sealed interface MainViewEvent: ViewEvent {
      *                        no new instance will be created. This is also common for bottom navigation.
      */
     data class NavigateTo(
-        val route: MainGraphRoutes,
+        val route: Any,
         val popUpToStartDestination: Boolean = false,
         val launchSingleTop: Boolean = true
     ) : MainViewEvent
