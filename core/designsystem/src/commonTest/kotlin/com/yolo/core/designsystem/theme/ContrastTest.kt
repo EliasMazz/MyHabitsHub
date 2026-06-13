@@ -68,19 +68,10 @@ class ContrastTest {
     private fun checkExtended(x: ExtendedColors, scheme: ColorScheme, mode: String) {
         val surface = scheme.surface
         val card = x.surfaceHigher
-        val tile = scheme.surfaceContainer
 
-        // Status pairs (text on fills, 4.5:1)
-        assertContrast(x.onSuccess, x.success, 4.5, "$mode onSuccess/success")
-        assertContrast(x.onSuccessContainer, x.successContainer, 4.5, "$mode onSuccessContainer/successContainer")
-        assertContrast(x.onWarning, x.warning, 4.5, "$mode onWarning/warning")
-        assertContrast(x.onWarningContainer, x.warningContainer, 4.5, "$mode onWarningContainer/warningContainer")
-        assertContrast(x.onInfo, x.info, 4.5, "$mode onInfo/info")
-        assertContrast(x.onInfoContainer, x.infoContainer, 4.5, "$mode onInfoContainer/infoContainer")
-        assertContrast(x.onStreak, x.streak, 4.5, "$mode onStreak/streak")
-        assertContrast(x.onStreakContainer, x.streakContainer, 4.5, "$mode onStreakContainer/streakContainer")
-        assertContrast(x.onHeroSurface, x.heroSurface, 4.5, "$mode onHeroSurface/heroSurface")
-        assertContrast(x.heroAccent, x.heroSurface, 3.0, "$mode heroAccent/heroSurface")
+        // success = validation text/icon on surface; info = dialog content on its container
+        assertContrast(x.success, surface, 4.5, "$mode success/surface")
+        assertContrast(x.info, x.infoContainer, 4.5, "$mode info/infoContainer")
 
         // Text aliases
         assertContrast(x.textPrimary, surface, 4.5, "$mode textPrimary/surface")
@@ -88,18 +79,7 @@ class ContrastTest {
         assertContrast(x.textTertiary, surface, 3.0, "$mode textTertiary/surface (large/icon only)")
         assertContrast(x.textPrimary, card, 4.5, "$mode textPrimary/card")
         assertContrast(x.textSecondary, card, 4.5, "$mode textSecondary/card")
-        // Placeholder vs actual input fills (NOT exempt per spec)
-        val inputFill = if (x.isDark) scheme.surfaceContainerHighest else scheme.surfaceContainerLow
-        assertContrast(x.textPlaceholder, inputFill, 4.5, "$mode textPlaceholder/inputFill")
-
-        // Habit states vs every placement fill (3:1 floor) — closes the audit blind spot
-        for ((fillName, fill) in listOf("surface" to surface, "card" to card, "tile" to tile)) {
-            assertContrast(x.habitMissed, fill, 3.0, "$mode habitMissed/$fillName")
-            assertContrast(x.habitSkipped, fill, 3.0, "$mode habitSkipped/$fillName")
-            assertContrast(x.habitPending, fill, 3.0, "$mode habitPending/$fillName")
-            assertContrast(x.habitComplete, fill, 3.0, "$mode habitComplete/$fillName")
-        }
-        assertContrast(x.progressIndicator, x.progressTrack, 3.0, "$mode progressIndicator/progressTrack")
+        assertContrast(x.textPlaceholder, surface, 4.5, "$mode textPlaceholder/surface")
 
         // 8 habit accent quads
         x.habitAccents.forEachIndexed { i, quad ->
@@ -128,7 +108,6 @@ class ContrastTest {
         val mode = "${section.name}-${if (isDark) "dark" else "light"}"
         val s = section.colors(isDark)
         val scheme = if (isDark) DarkColorScheme else LightColorScheme
-        val x = if (isDark) DarkExtendedColors else LightExtendedColors
 
         assertContrast(s.onAccent, s.accent, 4.5, "$mode onAccent/accent")
         assertContrast(s.onAccentContainer, s.accentContainer, 4.5, "$mode onAccentContainer/accentContainer")
@@ -148,11 +127,11 @@ class ContrastTest {
         // Cross-world: globals must survive every world's fills
         assertContrast(scheme.tertiary, s.sheetSurface, 3.0, "$mode streak/sheetSurface")
         assertContrast(scheme.error, s.surfaceTintWash, 4.5, "$mode error/surfaceTintWash")
-        assertContrast(x.habitPending, s.surfaceTintWash, 3.0, "$mode habitPending/surfaceTintWash")
 
         assertTrue(s.navIndicator == scheme.secondaryContainer, "$mode navIndicator must equal secondaryContainer")
         assertTrue(s.onNavIndicator == scheme.onSecondaryContainer, "$mode onNavIndicator must equal onSecondaryContainer")
-        assertTrue(s.navSelectedText == scheme.secondary, "$mode navSelectedText must equal secondary")
+        // Clean nav: the active item is onSurface (ink/white), not a tinted accent.
+        assertTrue(s.navSelectedText == scheme.onSurface, "$mode navSelectedText must equal onSurface")
         assertTrue(
             s.sheetDragHandle == s.onSheetSurfaceVariant.copy(alpha = 0.40f),
             "$mode sheetDragHandle must be onSheetSurfaceVariant @40% alpha"

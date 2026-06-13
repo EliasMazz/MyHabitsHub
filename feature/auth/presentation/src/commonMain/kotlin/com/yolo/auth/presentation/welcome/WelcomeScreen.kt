@@ -48,7 +48,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.components.brand.YoloBrandLogo
-import com.yolo.core.designsystem.theme.YoloBlue700
 import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.designsystem.theme.extended
@@ -351,7 +350,8 @@ private fun BrandDisc(modifier: Modifier = Modifier) {
         modifier = modifier.size(DiscSize).background(Color.White, CircleShape),
         contentAlignment = Alignment.Center,
     ) {
-        YoloBrandLogo(tint = YoloBlue700, modifier = Modifier.size(DiscSize / 2))
+        // Disc is white in both themes → mark is a fixed ink (monochrome brand).
+        YoloBrandLogo(tint = Color(0xFF121417), modifier = Modifier.size(DiscSize / 2))
     }
 }
 

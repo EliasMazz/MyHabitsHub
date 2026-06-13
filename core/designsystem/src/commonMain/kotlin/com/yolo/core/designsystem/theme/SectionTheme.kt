@@ -71,104 +71,47 @@ private fun sectionColors(
     sheetDragHandle = onSheetSurfaceVariant.copy(alpha = 0.40f),
 )
 
-// Values per design-system-v3-spec.md §4. Dark mode: all worlds share the measured neutral
-// canvas (#131314 wash / #1E1F20 sheet) — the reference app carries dark world identity via accents/chips
-// only (§4.4). Tracking is the brand-identical world (the reference app's global accent IS Today blue).
-val TrackingSectionLight = sectionColors(
-    accent = YoloCobalt700,
-    onAccent = YoloInk0,
-    accentContainer = YoloCobalt150,
-    onAccentContainer = YoloCyan800,
-    surfaceTintWash = YoloCobaltWashLight,
-    sheetSurface = YoloCobaltSheetLight,
-    onSheetSurface = YoloInk800,
-    onSheetSurfaceVariant = YoloCobaltVariantLight,
-    sheetIconChip = YoloCobalt150,
-    onSheetIconChip = YoloCyan800,
-    navIndicator = YoloCyan100,
-    onNavIndicator = YoloCyan800,
-    navSelectedText = YoloCyan700,
+// Clean redesign: the three color-worlds are RETIRED — every tab shares one neutral world that
+// equals the M3 scheme (accent = primary, container = secondaryContainer, nav = secondary family,
+// flat wash = surface). Identity now comes from icons + content, not per-tab hue.
+private val NeutralSectionLight = sectionColors(
+    accent = Color(0xFF121417),
+    onAccent = Color(0xFFFFFFFF),
+    accentContainer = Color(0xFFF2F3F5),
+    onAccentContainer = Color(0xFF121417),
+    surfaceTintWash = Color(0xFFFFFFFF),
+    sheetSurface = Color(0xFFFFFFFF),
+    onSheetSurface = Color(0xFF121417),
+    onSheetSurfaceVariant = Color(0xFF6B7582),
+    sheetIconChip = Color(0xFFF2F3F5),
+    onSheetIconChip = Color(0xFF121417),
+    navIndicator = Color(0xFFF2F3F5),
+    onNavIndicator = Color(0xFF121417),
+    navSelectedText = Color(0xFF121417),
 )
 
-val TrackingSectionDark = sectionColors(
-    accent = YoloCobalt300,
-    onAccent = YoloBlueOnDark,
-    accentContainer = YoloCobaltDarkContainer,
-    onAccentContainer = YoloCobaltContainerOn,
-    surfaceTintWash = YoloCobaltWashDark,
-    sheetSurface = YoloCobaltSheetDark,
-    onSheetSurface = YoloInkText,
-    onSheetSurfaceVariant = YoloCobaltVariantDark,
-    sheetIconChip = YoloCobaltChipDark,
-    onSheetIconChip = YoloCobaltContainerOn,
-    navIndicator = YoloCyan800,
-    onNavIndicator = YoloCyan100,
-    navSelectedText = YoloCyan300,
+private val NeutralSectionDark = sectionColors(
+    accent = Color(0xFFF4F5F6),
+    onAccent = Color(0xFF121417),
+    accentContainer = Color(0xFF1D2227),
+    onAccentContainer = Color(0xFFF4F5F6),
+    surfaceTintWash = Color(0xFF121417),
+    sheetSurface = Color(0xFF121417),
+    onSheetSurface = Color(0xFFF4F5F6),
+    onSheetSurfaceVariant = Color(0xFF8E969E),
+    sheetIconChip = Color(0xFF1D2227),
+    onSheetIconChip = Color(0xFFF4F5F6),
+    navIndicator = Color(0xFF1D2227),
+    onNavIndicator = Color(0xFFF4F5F6),
+    navSelectedText = Color(0xFFF4F5F6),
 )
 
-val ProgressSectionLight = sectionColors(
-    accent = YoloBrand800,
-    onAccent = YoloInk0,
-    accentContainer = YoloBrand500,
-    onAccentContainer = YoloBrand900,
-    surfaceTintWash = YoloBrandWashLight,
-    sheetSurface = YoloBrandSheetLight,
-    onSheetSurface = YoloInk800,
-    onSheetSurfaceVariant = YoloBrandVariantLight,
-    sheetIconChip = YoloBrandChipLight,
-    onSheetIconChip = YoloBrand800,
-    navIndicator = YoloCyan100,
-    onNavIndicator = YoloCyan800,
-    navSelectedText = YoloCyan700,
-)
-
-val ProgressSectionDark = sectionColors(
-    accent = YoloBrand300,
-    onAccent = YoloBrand1000,
-    accentContainer = YoloBrand700,
-    onAccentContainer = YoloBrand300,
-    surfaceTintWash = YoloBrandWashDark,
-    sheetSurface = YoloDeep200,
-    onSheetSurface = YoloInkText,
-    onSheetSurfaceVariant = YoloBrandVariantDark,
-    sheetIconChip = YoloBrand200,
-    onSheetIconChip = YoloBrand1000,
-    navIndicator = YoloCyan800,
-    onNavIndicator = YoloCyan100,
-    navSelectedText = YoloCyan300,
-)
-
-val SettingsSectionLight = sectionColors(
-    accent = YoloViolet700,
-    onAccent = YoloInk0,
-    accentContainer = YoloViolet100,
-    onAccentContainer = YoloViolet700,
-    surfaceTintWash = YoloVioletWashLight,
-    sheetSurface = YoloVioletSheetLight,
-    onSheetSurface = YoloInk800,
-    onSheetSurfaceVariant = YoloVioletVariantLight,
-    sheetIconChip = YoloViolet150,
-    onSheetIconChip = YoloViolet700,
-    navIndicator = YoloCyan100,
-    onNavIndicator = YoloCyan800,
-    navSelectedText = YoloCyan700,
-)
-
-val SettingsSectionDark = sectionColors(
-    accent = YoloViolet300,
-    onAccent = YoloVioletDeep,
-    accentContainer = YoloVioletDarkContainer,
-    onAccentContainer = YoloVioletContainerOn,
-    surfaceTintWash = YoloVioletWashDark,
-    sheetSurface = YoloVioletSheetDark,
-    onSheetSurface = YoloInkText,
-    onSheetSurfaceVariant = YoloVioletVariantDark,
-    sheetIconChip = YoloVioletDeep,
-    onSheetIconChip = YoloViolet100,
-    navIndicator = YoloCyan800,
-    onNavIndicator = YoloCyan100,
-    navSelectedText = YoloCyan300,
-)
+val TrackingSectionLight = NeutralSectionLight
+val ProgressSectionLight = NeutralSectionLight
+val SettingsSectionLight = NeutralSectionLight
+val TrackingSectionDark = NeutralSectionDark
+val ProgressSectionDark = NeutralSectionDark
+val SettingsSectionDark = NeutralSectionDark
 
 fun YoloSection.colors(isDark: Boolean): SectionColors = when (this) {
     YoloSection.Tracking -> if (isDark) TrackingSectionDark else TrackingSectionLight

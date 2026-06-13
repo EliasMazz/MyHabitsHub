@@ -17,9 +17,8 @@ val ColorScheme.extended: ExtendedColors
     get() = LocalExtendedColors.current
 
 /**
- * Per-habit categorical accent (8 hue families present in the reference app imagery, see
- * [ExtendedColors.habitAccents]). accent = rings/checks/chart lines/icons; container = card
- * tints/chips. Habit identity always carries color PLUS icon — never color alone.
+ * Per-habit categorical accent. In the clean (monochrome) system habit identity is carried by
+ * the ICON, not color, so all eight slots resolve to the same neutral pair.
  */
 @Immutable
 data class YoloHabitAccent(
@@ -30,304 +29,179 @@ data class YoloHabitAccent(
 )
 
 /**
- * Extended tokens — the ONE global CompositionLocal beyond MaterialTheme.
- * Values: docs/design/design-system-v3-spec.md §3 (pixel-measured / GM-token); ContrastTest locks them.
+ * Extended tokens — the one global CompositionLocal beyond MaterialTheme. Clean monochrome
+ * system (Figma team-library jXo8JKNjTc1sfBQmcxT9UJ, nodes 3311:2 light / 3311:135 dark): only
+ * `success` keeps hue; everything else is ink / slate / neutral-gray. Trimmed to the tokens
+ * actually consumed. ContrastTest locks the WCAG floors.
  */
 @Immutable
 data class ExtendedColors(
     val isDark: Boolean,
-
-    // Status (M3 has only error)
-    val success: Color,
-    val onSuccess: Color,
-    val successContainer: Color,
-    val onSuccessContainer: Color,
-    val warning: Color,
-    val onWarning: Color,
-    val warningContainer: Color,
-    val onWarningContainer: Color,
-    val info: Color,
-    val onInfo: Color,
+    val success: Color,              // positive/validation accent (checkmarks, valid fields)
+    val info: Color,                 // content on [infoContainer] (dialogs)
     val infoContainer: Color,
-    val onInfoContainer: Color,
-
-    // Habit domain
-    val streak: Color,
-    val onStreak: Color,
-    val streakContainer: Color,
-    val onStreakContainer: Color,
-    val celebration: Color,
-    val progressTrack: Color,
-    val progressIndicator: Color,
-    val habitComplete: Color,
-    val habitMissed: Color,
-    val habitSkipped: Color,
-    val habitPending: Color,
-    val heatmapLevel0: Color,
-    val heatmapLevel1: Color,
-    val heatmapLevel2: Color,
-    val heatmapLevel3: Color,
-    val heatmapLevel4: Color,
-
-    // Brand moments
-    val heroSurface: Color,
-    val onHeroSurface: Color,
-    val heroAccent: Color,
-    val auraAmber: Color,
-    val auraMint: Color,
-    val elevatedCardOutline: Color,
-
-    // Text aliases (migration bridge)
+    // Text aliases
     val textPrimary: Color,
     val textSecondary: Color,
     val textTertiary: Color,
     val textPlaceholder: Color,
     val textDisabled: Color,
-
-    // Interaction & disabled
-    val primaryHover: Color,
-    val destructiveHover: Color,
+    // Disabled / surfaces
     val disabledFill: Color,
     val disabledOutline: Color,
-    val overlay: Color,
-
-    // Surfaces (bridge)
-    val surfaceLower: Color,
     val surfaceHigher: Color,
-    val surfaceOutline: Color,
     val secondaryFill: Color,
-
-    // Per-habit categorical palette — exactly 8
+    // Per-habit categorical palette — 8 neutral quads
     val habitAccents: List<YoloHabitAccent>,
 )
 
-// 8 hue families measured in the reference app imagery: blue, teal, green, purple, pink, amber, cyan, indigo.
-val LightHabitAccents = listOf(
-    YoloHabitAccent(YoloBlue700, YoloInk0, YoloCyan100, YoloCyan800), // blue
-    YoloHabitAccent(YoloBrand800, YoloInk0, YoloBrand500, YoloBrand900), // teal
-    YoloHabitAccent(YoloGreen700, YoloInk0, YoloSuccessContainerLight, YoloOnSuccessContainerLight), // green
-    YoloHabitAccent(YoloViolet700, YoloInk0, YoloViolet200, YoloViolet700), // purple
-    YoloHabitAccent(YoloPeach900, YoloInk0, YoloPeach100, YoloPeach900), // peach
-    YoloHabitAccent(Color(0xFF96660A), YoloInk0, YoloAmber100, YoloAmber700), // amber
-    YoloHabitAccent(YoloCyan700, YoloInk0, YoloCyan150, YoloCyan850), // cyan
-    YoloHabitAccent(YoloPeriwinkle500, YoloPeriwinkleInk, YoloPeriwinkle300, YoloPeriwinkleInk), // periwinkle
-)
+// ── Clean monochrome palette (Figma 3311:2 / 3311:135) ─────────────────────────
+// Light — white surfaces, near-black ink, slightly-cool slate, neutral grays.
+private val LWhite = Color(0xFFFFFFFF)
+private val LInk = Color(0xFF121417)
+private val LSlate = Color(0xFF6B7582)
+private val LSlateDim = Color(0xFF8B9199)
+private val LGray50 = Color(0xFFF7F8F9)
+private val LGray100 = Color(0xFFF2F3F5)
+private val LGray150 = Color(0xFFECEDEF)
+private val LGray200 = Color(0xFFE7E9EB)
+private val LOutlineVar = Color(0xFFDEE0E3) // Figma divider/border/checkbox
 
-val DarkHabitAccents = listOf(
-    YoloHabitAccent(YoloBlue300, YoloBlueOnDark, YoloCyan800, YoloCyan100), // blue
-    YoloHabitAccent(YoloBrand300, YoloBrand1000, YoloBrand700, YoloBrand300), // teal
-    YoloHabitAccent(YoloGreen400, YoloGreen900, YoloGreenBandDark, YoloGreen400), // green
-    YoloHabitAccent(YoloViolet300, YoloVioletDeep, YoloVioletDarkContainer, YoloViolet100), // purple
-    YoloHabitAccent(YoloPeach400, YoloPeach900, YoloPeach900, YoloPeach100), // peach
-    YoloHabitAccent(YoloAmber300, YoloAmber800, YoloAmber800, YoloAmber300), // amber
-    YoloHabitAccent(YoloCyan300, YoloCyan900, YoloCyan850, YoloCyan150), // cyan
-    YoloHabitAccent(YoloPeriwinkle300, YoloPeriwinkleInk, YoloBlueDeep, YoloBlue100), // periwinkle
-)
+// Dark — near-black surfaces, near-white ink, cool slate, neutral dark grays.
+private val DBase = Color(0xFF121417)
+private val DInk = Color(0xFFF4F5F6)
+private val DSlate = Color(0xFF8E969E)
+private val DSlateDim = Color(0xFF6E767E)
+private val DLowest = Color(0xFF0D0F11)
+private val DGrayLow = Color(0xFF17191C)
+private val DGray = Color(0xFF1D2227)
+private val DGrayHigh = Color(0xFF2A2E33)
+private val DGrayHighest = Color(0xFF32373D)
+private val DOutline = Color(0xFF46474A)
+
+// Functional hues — the only color the clean system keeps (status + critical feedback).
+private val LError = Color(0xFFB3261E)
+private val LErrorContainer = Color(0xFFF9DEDC)
+private val LOnErrorContainer = Color(0xFF410E0B)
+private val DError = Color(0xFFF2B8B5)
+private val DOnError = Color(0xFF601410)
+private val DErrorContainer = Color(0xFF8C1D18)
+private val LSuccess = Color(0xFF1E7B34)
+private val DSuccess = Color(0xFF6FD58A)
+
+private val LightNeutralAccent = YoloHabitAccent(LInk, LWhite, LGray100, LInk)
+private val DarkNeutralAccent = YoloHabitAccent(DInk, DBase, DGray, DInk)
+val LightHabitAccents = List(8) { LightNeutralAccent }
+val DarkHabitAccents = List(8) { DarkNeutralAccent }
 
 val LightExtendedColors = ExtendedColors(
     isDark = false,
-
-    success = YoloGreen700,
-    onSuccess = YoloInk0,
-    successContainer = YoloSuccessContainerLight,
-    onSuccessContainer = YoloOnSuccessContainerLight,
-    warning = YoloWarningLight,
-    onWarning = YoloInk0,
-    warningContainer = YoloWarningContainerLight,
-    onWarningContainer = YoloOnWarningContainerLight,
-    info = YoloBlue700,
-    onInfo = YoloInk0,
-    infoContainer = YoloCyan100,
-    onInfoContainer = YoloCyan800,
-
-    streak = YoloAmber700,
-    onStreak = YoloInk0,
-    streakContainer = YoloAmber100,
-    onStreakContainer = YoloAmber700,
-    celebration = YoloAmber500,
-    progressTrack = YoloInk200,
-    progressIndicator = YoloPeriwinkle500,
-    habitComplete = YoloBrand600,
-    habitMissed = YoloInk550,
-    habitSkipped = YoloInk500,
-    habitPending = YoloInk800,
-    heatmapLevel0 = YoloInk250,
-    heatmapLevel1 = YoloBrand100,
-    heatmapLevel2 = YoloBrand500,
-    heatmapLevel3 = YoloBrand600,
-    heatmapLevel4 = YoloBrand800,
-
-    heroSurface = YoloDeep400,
-    onHeroSurface = YoloInkText,
-    heroAccent = YoloBlue300,
-    auraAmber = Color(0x2EE09F00),
-    auraMint = Color(0x3341D5CA),
-    elevatedCardOutline = Color.Transparent,
-
-    textPrimary = YoloInk800,
-    textSecondary = YoloInk600,
-    textTertiary = YoloInk550,
-    textPlaceholder = YoloInk550,
-    textDisabled = Color(0x611F1F1F), // onSurface @38%
-
-    primaryHover = YoloPrimaryHoverLight,
-    destructiveHover = YoloRedDeep800,
-    disabledFill = Color(0x1F1F1F1F), // onSurface @12%
-    disabledOutline = Color(0x1F1F1F1F),
-    overlay = Color(0xCC1F1F1F),
-
-    surfaceLower = YoloInk150,
-    surfaceHigher = YoloInk0,
-    surfaceOutline = Color(0x141F1F1F), // 8% alpha hairline
-    secondaryFill = YoloInk150,
-
+    success = LSuccess,
+    info = LInk,
+    infoContainer = LGray150,
+    textPrimary = LInk,
+    textSecondary = LSlate,
+    textTertiary = LSlateDim,
+    textPlaceholder = LSlate,
+    textDisabled = Color(0x61121417), // onSurface @38%
+    disabledFill = Color(0x1F121417), // onSurface @12%
+    disabledOutline = Color(0x1F121417),
+    surfaceHigher = LWhite,
+    secondaryFill = LGray100,
     habitAccents = LightHabitAccents,
 )
 
 val DarkExtendedColors = ExtendedColors(
     isDark = true,
-
-    success = YoloGreen400,
-    onSuccess = YoloGreen900,
-    successContainer = YoloGreenBandDark,
-    onSuccessContainer = YoloGreen400,
-    warning = YoloWarningDark,
-    onWarning = YoloOnWarningDark,
-    warningContainer = YoloWarningContainerDark,
-    onWarningContainer = YoloOnWarningContainerDark,
-    info = YoloBlue300,
-    onInfo = YoloBlueOnDark,
-    infoContainer = YoloCyan800,
-    onInfoContainer = YoloCyan100,
-
-    streak = YoloAmber300,
-    onStreak = YoloAmber800,
-    streakContainer = YoloAmberDeepContainer,
-    onStreakContainer = YoloAmberContainerOn,
-    celebration = YoloAmber300,
-    progressTrack = YoloDeep50,
-    progressIndicator = YoloPeriwinkle300,
-    habitComplete = Color(0xFF43DCD0),
-    habitMissed = YoloInk400,
-    habitSkipped = YoloInk450,
-    habitPending = YoloInkText,
-    heatmapLevel0 = YoloDeep50,
-    heatmapLevel1 = YoloBrand1000,
-    heatmapLevel2 = YoloTealHeatmapDark3,
-    heatmapLevel3 = Color(0xFF00867D),
-    heatmapLevel4 = Color(0xFF43DCD0),
-
-    heroSurface = YoloDeep400,
-    onHeroSurface = YoloInkText,
-    heroAccent = YoloBlue300,
-    auraAmber = Color(0x1FFFBA2B),
-    auraMint = Color(0x2943DCD0),
-    elevatedCardOutline = Color(0x1AFFFFFF), // 10% alpha hairline
-
-    textPrimary = YoloInkText,
-    textSecondary = YoloInk350,
-    textTertiary = YoloInk400,
-    textPlaceholder = YoloInk400,
-    textDisabled = Color(0x61E3E3E3), // onSurface @38%
-
-    primaryHover = YoloBlueHoverDark,
-    destructiveHover = YoloRed200,
-    disabledFill = Color(0x1FE3E3E3), // onSurface @12%
-    disabledOutline = Color(0x1FE3E3E3),
-    overlay = Color(0xCC0E0E0F),
-
-    surfaceLower = YoloDeep500,
-    surfaceHigher = YoloDeep200,
-    surfaceOutline = Color(0x1AFFFFFF),
-    secondaryFill = YoloDeep50,
-
+    success = DSuccess,
+    info = DInk,
+    infoContainer = DGrayHigh,
+    textPrimary = DInk,
+    textSecondary = DSlate,
+    textTertiary = DSlateDim,
+    textPlaceholder = DSlate,
+    textDisabled = Color(0x61F4F5F6),
+    disabledFill = Color(0x1FF4F5F6),
+    disabledOutline = Color(0x1FF4F5F6),
+    surfaceHigher = DGrayHigh,
+    secondaryFill = DGray,
     habitAccents = DarkHabitAccents,
 )
 
 val LightColorScheme = lightColorScheme(
-    primary = YoloBlue700,
-    onPrimary = YoloInk0,
-    primaryContainer = YoloBlue100,
-    onPrimaryContainer = YoloBlueDeep,
-    inversePrimary = YoloBlue300,
-
-    secondary = YoloCyan700,
-    onSecondary = YoloInk0,
-    secondaryContainer = YoloCyan100,
-    onSecondaryContainer = YoloCyan800,
-
-    tertiary = YoloGreen700,
-    onTertiary = YoloInk0,
-    tertiaryContainer = YoloGreen100,
-    onTertiaryContainer = YoloGreen800,
-
-    error = YoloRed700,
-    onError = YoloInk0,
-    errorContainer = YoloRed100,
-    onErrorContainer = YoloRedDeep800,
-
-    background = YoloInk50,
-    onBackground = YoloInk800,
-    surface = YoloInk50,
-    onSurface = YoloInk800,
-    surfaceVariant = YoloInk250,
-    onSurfaceVariant = YoloInk600,
-    surfaceDim = YoloInk250,
-    surfaceBright = YoloInk0,
-    surfaceContainerLowest = YoloInk0,
-    surfaceContainerLow = YoloInk100,
-    surfaceContainer = YoloInk150,
-    surfaceContainerHigh = YoloInk200,
-    surfaceContainerHighest = YoloInk250,
-
-    outline = YoloInk500,
-    outlineVariant = YoloInk350,
-    inverseSurface = YoloInk700,
-    inverseOnSurface = YoloNeutral95,
+    primary = LInk,
+    onPrimary = LWhite,
+    primaryContainer = LGray150,
+    onPrimaryContainer = LInk,
+    inversePrimary = LWhite,
+    secondary = LSlate,
+    onSecondary = LWhite,
+    secondaryContainer = LGray100,
+    onSecondaryContainer = LInk,
+    tertiary = LSlate,
+    onTertiary = LWhite,
+    tertiaryContainer = LGray100,
+    onTertiaryContainer = LInk,
+    error = LError,
+    onError = LWhite,
+    errorContainer = LErrorContainer,
+    onErrorContainer = LOnErrorContainer,
+    background = LWhite,
+    onBackground = LInk,
+    surface = LWhite,
+    onSurface = LInk,
+    surfaceVariant = LGray100,
+    onSurfaceVariant = LSlate,
+    surfaceDim = LGray150,
+    surfaceBright = LWhite,
+    surfaceContainerLowest = LWhite,
+    surfaceContainerLow = LGray50,
+    surfaceContainer = LGray100,
+    surfaceContainerHigh = LGray150,
+    surfaceContainerHighest = LGray200,
+    outline = LSlateDim,
+    outlineVariant = LOutlineVar,
+    inverseSurface = LInk,
+    inverseOnSurface = Color(0xFFF4F5F6),
     scrim = Color.Black,
-    surfaceTint = YoloBlue700,
+    surfaceTint = LInk,
 )
 
 val DarkColorScheme = darkColorScheme(
-    primary = YoloBlue300,
-    onPrimary = YoloBlueOnDark,
-    primaryContainer = YoloBlueDeep,
-    onPrimaryContainer = YoloBlue100,
-    inversePrimary = YoloBlue700,
-
-    secondary = YoloCyan300,
-    onSecondary = YoloCyan900,
-    secondaryContainer = YoloCyan800,
-    onSecondaryContainer = YoloCyan100,
-
-    tertiary = YoloGreen300,
-    onTertiary = YoloGreen900,
-    tertiaryContainer = YoloGreen800,
-    onTertiaryContainer = YoloGreen100,
-
-    error = YoloRed300,
-    onError = YoloRedDeep900,
-    errorContainer = YoloRedDeep800,
-    onErrorContainer = YoloRed100,
-
-    background = YoloDeep400,
-    onBackground = YoloInkText,
-    surface = YoloDeep400,
-    onSurface = YoloInkText,
-    surfaceVariant = YoloInk600,
-    onSurfaceVariant = YoloInk350,
-    surfaceDim = YoloDeep400,
-    surfaceBright = YoloDeep50,
-    surfaceContainerLowest = YoloDeep500,
-    surfaceContainerLow = YoloDeep300,
-    surfaceContainer = YoloDeep200,
-    surfaceContainerHigh = YoloDeep100,
-    surfaceContainerHighest = YoloDeep50,
-
-    outline = YoloInk450,
-    outlineVariant = YoloInk600,
-    inverseSurface = YoloInkText,
-    inverseOnSurface = YoloInk700,
+    primary = DInk,
+    onPrimary = DBase,
+    primaryContainer = DGrayHigh,
+    onPrimaryContainer = DInk,
+    inversePrimary = LInk,
+    secondary = DSlate,
+    onSecondary = DBase,
+    secondaryContainer = DGray,
+    onSecondaryContainer = DInk,
+    tertiary = DSlate,
+    onTertiary = DBase,
+    tertiaryContainer = DGray,
+    onTertiaryContainer = DInk,
+    error = DError,
+    onError = DOnError,
+    errorContainer = DErrorContainer,
+    onErrorContainer = LErrorContainer,
+    background = DBase,
+    onBackground = DInk,
+    surface = DBase,
+    onSurface = DInk,
+    surfaceVariant = DGray,
+    onSurfaceVariant = DSlate,
+    surfaceDim = DBase,
+    surfaceBright = DGrayHigh,
+    surfaceContainerLowest = DLowest,
+    surfaceContainerLow = DGrayLow,
+    surfaceContainer = DGray,
+    surfaceContainerHigh = DGrayHigh,
+    surfaceContainerHighest = DGrayHighest,
+    outline = DSlateDim,
+    outlineVariant = DOutline,
+    inverseSurface = DInk,
+    inverseOnSurface = DBase,
     scrim = Color.Black,
-    surfaceTint = YoloBlue300,
+    surfaceTint = DInk,
 )

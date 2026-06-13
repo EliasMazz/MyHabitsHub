@@ -95,36 +95,27 @@ private fun ColorSchemeDemo() {
 @Composable
 private fun ExtendedColorsDemo() {
     val x = MaterialTheme.colorScheme.extended
+    val surface = MaterialTheme.colorScheme.surface
     Column(verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap)) {
         Text("Status", style = MaterialTheme.typography.titleSmall)
         SwatchRow(
             listOf(
-                Triple("success", x.success, x.onSuccess),
-                Triple("successCont", x.successContainer, x.onSuccessContainer),
-                Triple("warning", x.warning, x.onWarning),
-                Triple("info", x.info, x.onInfo),
-                Triple("streak", x.streak, x.onStreak),
-                Triple("celebration", x.celebration, null),
+                Triple("success", x.success, surface),
+                Triple("info", x.infoContainer, x.info),
             )
         )
-        Text("Habit states (missed is NEVER red)", style = MaterialTheme.typography.titleSmall)
+        Text("Text", style = MaterialTheme.typography.titleSmall)
         SwatchRow(
             listOf(
-                Triple("complete", x.habitComplete, null),
-                Triple("missed", x.habitMissed, null),
-                Triple("skipped", x.habitSkipped, null),
-                Triple("pending", x.habitPending, null),
+                Triple("primary", x.textPrimary, surface),
+                Triple("secondary", x.textSecondary, surface),
+                Triple("tertiary", x.textTertiary, surface),
+                Triple("placeholder", x.textPlaceholder, surface),
             )
         )
-        Text("Heatmap ramp", style = MaterialTheme.typography.titleSmall)
+        Text("Habit accent (neutral ×8)", style = MaterialTheme.typography.titleSmall)
         SwatchRow(
-            listOf(
-                Triple("0", x.heatmapLevel0, null),
-                Triple("1", x.heatmapLevel1, null),
-                Triple("2", x.heatmapLevel2, null),
-                Triple("3", x.heatmapLevel3, null),
-                Triple("4", x.heatmapLevel4, null),
-            )
+            x.habitAccents.take(4).mapIndexed { i, q -> Triple("slot$i", q.container, q.onContainer) }
         )
     }
 }
@@ -253,9 +244,9 @@ private fun MotionDemo() {
 
 val foundationEntries: List<CatalogEntry> = listOf(
     CatalogEntry("Color scheme", "M3 roles + surface ladder — tab-aware via YoloSectionTheme") { ColorSchemeDemo() },
-    CatalogEntry("Extended colors", "Status quads, habit states, heatmap ramp") { ExtendedColorsDemo() },
-    CatalogEntry("Section worlds", "Tracking / Progress / Settings palettes, both modes") { SectionWorldsDemo() },
-    CatalogEntry("Typography", "All 15 M3 slots + YoloTypeExtras (Google Sans Flex)") { TypographyDemo() },
+    CatalogEntry("Extended colors", "success / info + text aliases + neutral habit accents") { ExtendedColorsDemo() },
+    CatalogEntry("Section worlds", "Unified neutral section palette, both modes") { SectionWorldsDemo() },
+    CatalogEntry("Typography", "All 15 M3 slots + YoloTypeExtras (Manrope)") { TypographyDemo() },
     CatalogEntry("Shapes", "M3E corner scale 4/8/12/16/28") { ShapesDemo() },
     CatalogEntry("Spacing", "Semantic spacing tokens (adaptive)") { SpacingDemo() },
     CatalogEntry("Motion", "Durations, easings, springs, reducedMotion") { MotionDemo() },

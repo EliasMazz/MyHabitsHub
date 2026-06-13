@@ -1,21 +1,42 @@
 ---
 name: design-system
-description: Enforce and auto-correct the Yolo design system (v3) in MyHabitsHub. Use whenever writing, editing, or reviewing Compose UI code in this repo (screens, components, themes, previews), when the user asks to check/fix design-system compliance, or before finishing any task that touched *.kt files under feature/*/presentation, shared/src, or core/designsystem. Detects hardcoded colors/text styles/spacing/shapes, wrong token usage, and theme-nesting violations; fixes them via the mapping tables; verifies with ContrastTest.
+description: Enforce and auto-correct the Yolo design system (v5, clean monochrome) in MyHabitsHub. Use whenever writing, editing, or reviewing Compose UI code in this repo (screens, components, themes, previews), when the user asks to check/fix design-system compliance, or before finishing any task that touched *.kt files under feature/*/presentation, shared/src, or core/designsystem. Detects hardcoded colors/text styles/spacing/shapes, wrong token usage, and theme-nesting violations; fixes them via the mapping tables; verifies with ContrastTest.
 ---
 
-# Design System Enforcement — Yolo Design System v3
+# Design System Enforcement — Yolo Design System v5 (Clean Monochrome)
 
-You are enforcing the design system documented in `docs/design/design-system-catalog.md`
-(values: `docs/design/design-system-v3-spec.md`; architecture: `docs/design/theme-spec.md` §8 +
-`docs/design/section-color-worlds.md` §3). Read the catalog if you need context beyond this file.
+The live source of truth is **code**, not prose:
+- Tokens/palette → `core/designsystem/src/commonMain/.../theme/Theme.kt` (color scheme + `ExtendedColors`),
+  `theme/SectionTheme.kt` (the now-unified neutral section), `theme/Type.kt` (Manrope typography).
+- Visual reference → the runnable **catalog** (`core/catalog`), demos under `core/catalog/.../demos/`.
+- WCAG gate → `core/designsystem/src/commonTest/.../ContrastTest.kt`.
+
+The system is a clean monochrome redesign matching the Figma team library (`jXo8JKNjTc1sfBQmcxT9UJ`,
+nodes 3311:2 light / 3311:135 dark): white/ink surfaces, cool slate text, neutral grays. The ONLY
+hues are `extended.success` (positive validation) and `colorScheme.error` (critical/destructive).
+Identity comes from the **icon and content**, never per-category color. The older `docs/design/`
+specs (v3/v4, section-color-worlds) describe the retired colorful era — treat them as history;
+when code and those docs disagree, code wins.
 
 ## When writing NEW UI code
 
 Apply these defaults without being asked:
 
-1. Screen background inside a tab → `MaterialTheme.colorScheme.section.surfaceTintWash`; outside tabs → `colorScheme.background`. Never wrap screens in `MaterialTheme`/`YoloTheme` (the shell provides it).
-2. Cards → `extended.surfaceHigher` riding on the wash; text → `typography` slots; spacing → `YoloTokens.spacing.*`; shapes → `MaterialTheme.shapes.*`; CTAs → `YoloButton`; sheets → `AppModalBottomSheet` + `YoloSheetActionRow`; inputs → `YoloTextField*`.
-3. Color precedence: section hue = chrome/surfaces (automatic), `extended.habitAccents[n]` = habit identity (explicit param), `extended.habitComplete` = done (always teal), `extended.streak`/`celebration` = streaks (always amber), `colorScheme.error` = destructive, `extended.habitMissed` = missed (muted gray — NEVER red).
+1. Screen background → `colorScheme.background` (outside tabs) or `colorScheme.section.surfaceTintWash`
+   inside a tab — both resolve to the same neutral surface now that the color-worlds are unified.
+   Never wrap screens in `MaterialTheme`/`YoloTheme` (the shell provides it).
+2. Cards → `extended.surfaceHigher`; text → `typography` slots; spacing → `YoloTokens.spacing.*`;
+   shapes → `MaterialTheme.shapes.*`; CTAs → `YoloButton`; sheets → `AppModalBottomSheet` +
+   `YoloSheetActionRow`; inputs → `YoloTextField*`.
+3. Color precedence (monochrome — pick by ROLE):
+   - Primary action / emphasis → `colorScheme.primary` (ink in light, near-white in dark) + `onPrimary`.
+   - Positive / valid / checkmarks → `extended.success` (the one kept accent hue).
+   - Destructive / error / critical → `colorScheme.error` (+ `errorContainer`/`onErrorContainer`).
+   - Dialog content → `extended.info` on `extended.infoContainer`.
+   - Per-habit slot → `extended.habitAccents[n]` — **intentionally neutral**; the habit's icon carries
+     identity, the color does not. Do not expect hue here.
+   - Text → `extended.textPrimary/textSecondary/textTertiary/textPlaceholder`, or the M3 roles
+     `colorScheme.onSurface` / `onSurfaceVariant`.
 4. Previews use `PreviewHelper { }` and `PreviewHelper(darkTheme = true) { }` — check both modes.
 5. Touch targets ≥ `YoloTokens.sizing.minTouchTarget` (48dp).
 6. Any NEW component added to `core/designsystem` must ship in the same change with a
@@ -27,8 +48,8 @@ Apply these defaults without being asked:
 ## Violation scan (run on changed files; for a full audit run on all UI source)
 
 Scope: `feature/*/presentation/src/**/*.kt`, `shared/src/commonMain/**/*.kt` (UI code). The design
-system's own files (`core/designsystem/**/theme/*`, `**/tokens/*`) are EXEMPT from color-literal
-rules but components under `core/designsystem/**/components/**` must use tokens too.
+system's own files (`core/designsystem/**/theme/*`) are EXEMPT from color-literal rules but
+components under `core/designsystem/**/components/**` must use tokens too.
 
 Run from the repo root (`cd "$(git rev-parse --show-toplevel)"` first). Paths are passed
 explicitly to each grep — do NOT collapse them into one unquoted variable (zsh does not
@@ -52,8 +73,9 @@ grep -rnE "TextStyle\(|fontSize\s*=|TextUnit\s*=\s*[0-9.]+\.sp" feature shared/s
 # V5 — raw corner shapes in feature code
 grep -rnE "RoundedCornerShape\([0-9]" feature shared/src --include="*.kt" | grep -v build/
 
-# V6 — forbidden imports (primitives layer & raw color constants) in features/shared
-grep -rnE "import com\.yolo\.core\.designsystem\.tokens\.|import com\.yolo\.core\.designsystem\.theme\.Yolo(Ink|Deep|Brand|Amber|Red|Blue|Cyan|Green|Cobalt|Violet|Warning|Success|Neutral|SurfaceVariant|OnSecondary|OnError|PrimaryHover|OnWarning|OnSuccess|TealHeatmap)" feature shared/src --include="*.kt" | grep -v build/
+# V6 — forbidden imports: the primitives layer is retired (tokens package is empty) and the
+# old palette vals (YoloInk/Brand/Amber/Cobalt/…) were deleted — re-introducing either is a violation.
+grep -rnE "import com\.yolo\.core\.designsystem\.tokens\.|import com\.yolo\.core\.designsystem\.theme\.Yolo(Ink|Deep|Brand|Amber|Red|Blue|Cyan|Green|Cobalt|Violet|Warning|Success|Neutral)" feature shared/src --include="*.kt" | grep -v build/
 
 # V7 — theme nesting / mode sniffing in screens (regex requires "(" so member reads never match)
 grep -rnE "isSystemInDarkTheme\(\)|MaterialTheme\s*\(" feature shared/src --include="*.kt" | grep -v build/
@@ -83,8 +105,9 @@ semantic role (screen edge, section gap, card padding); leave true component-int
 | `Color.Black` text | `MaterialTheme.colorScheme.onSurface` |
 | `Color.Black` loading/indicator tint | `LocalContentColor.current` |
 | `Color.Gray`/`LightGray` text | `colorScheme.onSurfaceVariant` (or `extended.textPlaceholder` for hints) |
-| `Color.Red` anything | `colorScheme.error` — unless it marks a missed habit: `extended.habitMissed` |
-| `Color(0x...)` literal | nearest semantic token by ROLE (use §2.1 decision tree in the catalog); if no token fits, STOP and tell the user a spec addition is needed — do not invent hexes |
+| `Color.Green` "done"/valid tint | `extended.success` |
+| `Color.Red` anything | `colorScheme.error` |
+| `Color(0x...)` literal | nearest semantic token by ROLE; if no token fits, STOP and tell the user a spec addition is needed — do not invent hexes |
 | `TextStyle(fontSize = X)` | nearest typography slot by size: 57→displayLarge · 45→displayMedium · 36→displaySmall · 32→headlineLarge · 28→headlineMedium · 24→headlineSmall · 22→titleLarge · 16→titleMedium/bodyLarge (Medium weight? title : body) · 14→titleSmall/bodyMedium/labelLarge · 12→bodySmall/labelMedium · 11→labelSmall |
 | `RoundedCornerShape(4-6.dp)` | `MaterialTheme.shapes.extraSmall` |
 | `RoundedCornerShape(8-10.dp)` | `MaterialTheme.shapes.small` |
@@ -95,7 +118,7 @@ semantic role (screen edge, section gap, card padding); leave true component-int
 | edge/gap dp 8/6/12/16/20/24/32/36 | `elementGap/stackGapTight/stackGap·iconTextGap/itemGap·cardPadding/listRowGap·sectionHeaderGap/sectionGap/dialogPadding/heroGap` (pick by ROLE, not just value) |
 | `isSystemInDarkTheme()` in a screen | `MaterialTheme.colorScheme.extended.isDark` |
 | nested `MaterialTheme(...)` in a screen | delete — rely on the shell's `YoloTheme`/`YoloSectionTheme` |
-| `colorScheme.background` as a tab screen's background | `colorScheme.section.surfaceTintWash` |
+| `colorScheme.background` as a tab screen's background | `colorScheme.section.surfaceTintWash` (neutral; equivalent) |
 | ad-hoc sheet `Row` with icon | `YoloSheetActionRow` |
 | new `AppButton` call in NEW code | `YoloButton` |
 
@@ -106,16 +129,19 @@ Remove imports the fix orphaned.
 ## Hard rules you must never "fix" the wrong way
 
 - NEVER add a hex/Color literal as a fix. If no token expresses the design intent, report it as
-  a spec gap (`docs/design/design-system-v3-spec.md` owns values) and leave a TODO referencing it.
-  ONE sanctioned exception: official Google/Apple SSO button chrome (auth-conversion-spec §3.1)
-  — vendor branding literals are allowed ONLY inside SSO button renderers and the catalog's
-  auth draft; flag them anywhere else.
-- NEVER recolor `habitMissed` toward red, `habitComplete` away from teal, or `streak` away from amber.
-- NEVER edit values in `theme/`, `tokens/`, or `ContrastTest.kt` to make a violation "pass" —
-  token changes go through the spec + ContrastTest, both modes, and are a user-level decision.
+  a spec gap and leave a TODO — token changes go through `theme/` + ContrastTest, both modes, and
+  are a user-level decision. ONE sanctioned exception: official Google/Apple SSO button chrome
+  (auth-conversion-spec §3.1) — vendor branding literals are allowed ONLY inside SSO button
+  renderers and the catalog's auth draft; flag them anywhere else.
+- KEEP IT MONOCHROME. The only hues are `extended.success` (positive) and `colorScheme.error`
+  (critical/destructive). Do not reintroduce per-category or per-habit hue — habit identity is the
+  ICON. `extended.habitAccents` are intentionally neutral; do not recolor them toward a palette.
+- NEVER edit values in `theme/` or `ContrastTest.kt` to make a violation "pass" — token changes go
+  through the spec + ContrastTest, both modes, and are a user-level decision.
 - `NativeAlertDialog` expect/actual is kept by explicit user decision — never delete it.
-- The font is Google Sans Flex under OFL — `docs/licenses/google-sans-flex-OFL.txt` must ship;
-  never swap or remove the font file without a user decision.
+- The font is **Manrope** (SIL OFL), `font/manrope_variable.ttf`. Its OFL license must ship in
+  `docs/licenses/`. Never swap or remove the font file without a user decision. (The unused
+  `google_sans_flex_variable.ttf` + its OFL are legacy and may be removed once the user confirms.)
 
 ## Verify after fixing
 

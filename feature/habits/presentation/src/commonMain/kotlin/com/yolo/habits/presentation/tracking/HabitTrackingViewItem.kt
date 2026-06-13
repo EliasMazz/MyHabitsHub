@@ -1,31 +1,30 @@
 package com.yolo.habits.presentation.tracking
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yolo.habits.domain.entities.HabitTracking
-import com.yolo.core.designsystem.theme.YoloTokens
-import com.yolo.core.designsystem.theme.extended
-import com.yolo.core.designsystem.theme.section
-import myhabitshub.core.designsystem.generated.resources.Res
-import myhabitshub.core.designsystem.generated.resources.ic_check_habit
-import myhabitshub.core.designsystem.generated.resources.ic_habit_icon_test
-import myhabitshub.core.designsystem.generated.resources.ic_uncheck_habit
+import myhabitshub.feature.habits.presentation.generated.resources.Res
+import myhabitshub.feature.habits.presentation.generated.resources.ic_checkmark
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 
 data class HabitTrackingItemViewState(
@@ -33,58 +32,94 @@ data class HabitTrackingItemViewState(
     val isChecked: Boolean = false
 )
 
+/**
+ * Habit row — Figma node 3311:64 (h-72, px-16 py-8): icon in a 48dp #F2F2F5 rounded-8 square,
+ * title 16 Medium + progress 14 Regular #6B7582, then either the toggle checkbox (kept exactly:
+ * ic_check/ic_uncheck tinted habitComplete/habitPending) or a trailing value (streak count).
+ */
 @Composable
 fun HabitTrackViewItem(
+    icon: DrawableResource,
+    title: String,
+    subtitle: String,
     modifier: Modifier = Modifier,
-    habitTrackingItemViewState: HabitTrackingItemViewState,
-    onClickToggleHabitCheck: () -> Unit,
-    onClickHabitDetails: () -> Unit
+    checked: Boolean? = null,
+    trailingValue: String? = null,
+    onClickToggleHabitCheck: () -> Unit = {},
+    onClickHabitDetails: () -> Unit = {},
 ) {
-    val habitTracking = habitTrackingItemViewState.habitTracking
-    val isChecked = habitTrackingItemViewState.isChecked
-
     Row(
-        modifier = modifier.fillMaxWidth().height(56.dp)
-            .background(MaterialTheme.colorScheme.extended.surfaceHigher)
-            .padding(start = 16.dp)
-            .clickable { onClickHabitDetails() },
+        modifier = modifier
+            .fillMaxWidth()
+            .height(72.dp)
+            .clickable { onClickHabitDetails() }
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(YoloTokens.spacing.itemGap)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        // Icon-on-tinted-chip (section-color-worlds spec §6.5). Falls back to the section
-        // container pair until per-habit accents are wired to data — then this becomes
-        // habitAccents[n].container / onContainer.
         Box(
             modifier = Modifier
-                .size(40.dp)
-                .clip(MaterialTheme.shapes.medium)
-                .background(MaterialTheme.colorScheme.section.accentContainer),
+                .size(48.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colorScheme.surfaceContainer),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = vectorResource(Res.drawable.ic_habit_icon_test),
+                imageVector = vectorResource(icon),
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.section.onAccentContainer,
+                tint = MaterialTheme.colorScheme.onSurface,
             )
         }
-        Text(
-            modifier = Modifier.weight(1f),
-            text = habitTracking.title,
-            style = MaterialTheme.typography.titleMedium,
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        when {
+            trailingValue != null -> Text(
+                text = trailingValue,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            checked != null -> FigmaCheckbox(checked = checked, onClick = onClickToggleHabitCheck)
+        }
+    }
+}
 
-        IconButton(onClick = onClickToggleHabitCheck) {
-            // Completion stays brand emerald in every world; pending is the ink ring —
-            // forgiveness palette, never section-colored (spec §6.6).
-            val icon =
-                if (isChecked) vectorResource(Res.drawable.ic_check_habit) else vectorResource(Res.drawable.ic_uncheck_habit)
-            val tint = if (isChecked) {
-                MaterialTheme.colorScheme.extended.habitComplete
-            } else {
-                MaterialTheme.colorScheme.extended.habitPending
+/**
+ * Figma checkbox (3311:77 / 3311:91): a 20dp rounded-4 box with a 2dp #DEE0E3 (outlineVariant)
+ * border in BOTH states; the checked state adds the ink checkmark inside. 28dp touch target.
+ */
+@Composable
+private fun FigmaCheckbox(checked: Boolean, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier.size(28.dp).clickable(onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(20.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .border(2.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(4.dp)),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (checked) {
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_checkmark),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(20.dp),
+                )
             }
-            Icon(icon, contentDescription = null, tint = tint)
         }
     }
 }

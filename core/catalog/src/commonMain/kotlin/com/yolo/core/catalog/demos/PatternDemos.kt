@@ -138,7 +138,6 @@ private fun EmailButtonDraft() {
 private fun AuthWelcomeDraftDemo() {
     var platform by remember { mutableStateOf(DraftPlatform.Android) }
     val isDark = MaterialTheme.colorScheme.extended.isDark
-    val x = MaterialTheme.colorScheme.extended
 
     Column(verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap)) {
         // DRAFT banner
@@ -176,7 +175,7 @@ private fun AuthWelcomeDraftDemo() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(x.heroSurface)
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
                     .padding(
                         horizontal = YoloTokens.spacing.screenEdge,
                         vertical = YoloTokens.spacing.sectionGap,
@@ -185,11 +184,11 @@ private fun AuthWelcomeDraftDemo() {
                 verticalArrangement = Arrangement.spacedBy(YoloTokens.spacing.stackGap),
             ) {
                 YoloBrandLogo()
-                Text("MyHabitsHub", style = MaterialTheme.typography.headlineMedium, color = x.onHeroSurface)
+                Text("MyHabitsHub", style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onSurface)
                 Text(
                     "Build habits that stick.",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = x.onHeroSurface,
+                    color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
                 )
             }

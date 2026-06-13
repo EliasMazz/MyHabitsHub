@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 import myhabitshub.core.designsystem.generated.resources.Res
-import myhabitshub.core.designsystem.generated.resources.google_sans_flex_variable
+import myhabitshub.core.designsystem.generated.resources.manrope_variable
 import org.jetbrains.compose.resources.Font
 
 // Design System v3 typography — Google Sans Flex (SIL OFL 1.1 since Nov 2025; license at
@@ -18,11 +18,13 @@ import org.jetbrains.compose.resources.Font
 // styles (weight 500, tracking 0); title/body/label slots use the M3 baseline values.
 // Spec: docs/design/design-system-v3-spec.md §5. "tnum" keeps stat digits from jiggling.
 
-private val GoogleSansFlex: FontFamily
+// Manrope (SIL OFL) — the typeface used in the Figma design (D1FpX5… / team library nodes
+// 3311:2 / 3311:135). Variable font, weight-instanced to the M3 scale.
+private val Manrope: FontFamily
     @Composable get() = FontFamily(
         listOf(400, 500, 700).map { weight ->
             Font(
-                Res.font.google_sans_flex_variable,
+                Res.font.manrope_variable,
                 weight = FontWeight(weight),
                 variationSettings = FontVariation.Settings(FontVariation.weight(weight)),
             )
@@ -33,7 +35,7 @@ private const val TABULAR_NUMERALS = "tnum"
 
 val YoloTypography: Typography
     @Composable get() {
-        val family = GoogleSansFlex
+        val family = Manrope
         return Typography(
             displayLarge = TextStyle(
                 fontFamily = family,
@@ -154,7 +156,7 @@ val YoloTypography: Typography
 object YoloTypeExtras {
     val statHero: TextStyle
         @Composable get() = TextStyle(
-            fontFamily = GoogleSansFlex,
+            fontFamily = Manrope,
             fontWeight = FontWeight.Medium,
             fontSize = 57.sp,
             lineHeight = 64.sp,
@@ -164,7 +166,7 @@ object YoloTypeExtras {
 
     val kicker: TextStyle
         @Composable get() = TextStyle(
-            fontFamily = GoogleSansFlex,
+            fontFamily = Manrope,
             fontWeight = FontWeight.Bold,
             fontSize = 12.sp,
             lineHeight = 16.sp,
@@ -173,7 +175,7 @@ object YoloTypeExtras {
 
     val statUnit: TextStyle
         @Composable get() = TextStyle(
-            fontFamily = GoogleSansFlex,
+            fontFamily = Manrope,
             fontWeight = FontWeight.Medium,
             fontSize = 14.sp,
             lineHeight = 20.sp,
