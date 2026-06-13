@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -116,8 +115,6 @@ fun LoginScreenContent(
     passwordFocusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     YoloAdaptiveFormLayout(
-        aura = MaterialTheme.colorScheme.extended.auraMint.copy(alpha = 0.34f),
-        auraCenterFraction = Offset(0.1f, 0f),
         logo = null,
         modifier = Modifier.fillMaxSize(),
         errorText = state.errorText?.value,

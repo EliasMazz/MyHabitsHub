@@ -11,19 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.yolo.core.designsystem.theme.YoloTokens
-import com.yolo.core.designsystem.theme.extended
 
 /**
  * Brand treatment for keyboard-free RESULT moments (auth-screens-improvement-spec §2.1):
- * status icon centered on a single auraMint radial wash + title + body. Result screens are
- * the funnel's emotional peaks; with no fields, the distraction-cost evidence doesn't bind.
- * Catalog rule respected: max ONE aura per screen.
+ * status icon + title + body. Result screens are the funnel's emotional peaks; with no
+ * fields, the distraction-cost evidence doesn't bind.
  */
 @Composable
 fun AuthResultHero(
@@ -32,23 +26,12 @@ fun AuthResultHero(
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val aura = MaterialTheme.colorScheme.extended.auraMint
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
-            modifier = Modifier
-                .padding(YoloTokens.spacing.sectionGap)
-                .drawBehind {
-                    drawRect(
-                        Brush.radialGradient(
-                            colors = listOf(aura, Color.Transparent),
-                            center = Offset(size.width / 2f, size.height / 2f),
-                            radius = size.maxDimension,
-                        )
-                    )
-                },
+            modifier = Modifier.padding(YoloTokens.spacing.sectionGap),
             contentAlignment = Alignment.Center,
         ) {
             icon()

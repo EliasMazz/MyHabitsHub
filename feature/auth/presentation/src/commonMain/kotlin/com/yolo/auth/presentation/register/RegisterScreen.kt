@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -108,8 +107,6 @@ fun RegisterScreenContent(
     passwordFocusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     YoloAdaptiveFormLayout(
-        aura = MaterialTheme.colorScheme.extended.auraMint.copy(alpha = 0.34f),
-        auraCenterFraction = Offset(0.9f, 0f),
         errorText = state.registrationError?.value,
         errorAction = if (state.isAccountConflict) {
             {

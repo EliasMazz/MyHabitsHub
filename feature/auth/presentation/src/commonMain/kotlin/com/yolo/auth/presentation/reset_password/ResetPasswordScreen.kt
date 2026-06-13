@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.text.input.ImeAction
 import com.yolo.auth.presentation.components.AuthCompactHeader
@@ -22,7 +21,6 @@ import com.yolo.core.designsystem.components.layout.YoloAdaptiveResultLayout
 import com.yolo.core.designsystem.components.layout.YoloSimpleResultLayout
 import com.yolo.core.designsystem.components.textfields.YoloPasswordTextField
 import com.yolo.core.designsystem.theme.YoloTheme
-import com.yolo.core.designsystem.theme.extended
 import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.presentation.BaseScreen
 import com.yolo.core.presentation.util.UiText
@@ -127,8 +125,6 @@ fun ResetPasswordScreenContent(
     }
 
     YoloAdaptiveFormLayout(
-        aura = MaterialTheme.colorScheme.extended.auraMint,
-        auraCenterFraction = Offset(0.15f, 0.3f),
         // Request-level (server) errors only — token errors render as the recovery state above.
         errorText = state.errorText?.value,
         logo = { YoloBrandLogo() },

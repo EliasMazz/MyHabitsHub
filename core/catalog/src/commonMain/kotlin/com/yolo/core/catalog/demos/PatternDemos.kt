@@ -23,9 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -175,20 +172,11 @@ private fun AuthWelcomeDraftDemo() {
                 .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // 1. Hero zone — heroSurface + ONE auraMint blob + brand + value line
+            // 1. Hero zone — heroSurface + brand + value line
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(x.heroSurface)
-                    .drawBehind {
-                        drawRect(
-                            Brush.radialGradient(
-                                colors = listOf(x.auraMint, Color.Transparent),
-                                center = Offset(size.width * 0.3f, size.height * 0.25f),
-                                radius = size.width * 0.7f,
-                            )
-                        )
-                    }
                     .padding(
                         horizontal = YoloTokens.spacing.screenEdge,
                         vertical = YoloTokens.spacing.sectionGap,

@@ -28,7 +28,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -51,8 +50,6 @@ fun YoloAdaptiveFormLayout(
     modifier: Modifier = Modifier,
     navigationIcon: (@Composable () -> Unit)? = null,
     errorAction: (@Composable () -> Unit)? = null,
-    aura: Color? = null,
-    auraCenterFraction: Offset = Offset(0.85f, 0.05f),
     formContent: @Composable ColumnScope.() -> Unit
 ) {
     val configuration = currentDeviceConfiguration()
@@ -68,8 +65,6 @@ fun YoloAdaptiveFormLayout(
                 modifier = modifier
                     .clearFocusOnTap()
                     .consumeWindowInsets(WindowInsets.navigationBars),
-                aura = aura,
-                auraCenterFraction = auraCenterFraction,
                 header = {
                     navigationIcon?.let {
                         // Status-bar inset so the back arrow never sits under the clock.

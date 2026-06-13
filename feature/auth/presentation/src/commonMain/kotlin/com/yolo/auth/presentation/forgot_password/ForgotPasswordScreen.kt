@@ -10,7 +10,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -107,8 +106,6 @@ private fun ForgotPasswordRequestContent(
     onBackClick: () -> Unit,
 ) {
     YoloAdaptiveFormLayout(
-        aura = MaterialTheme.colorScheme.extended.auraAmber,
-        auraCenterFraction = Offset(0.85f, 0.1f),
         errorText = state.errorText?.value,
         logo = {
             YoloBrandLogo()
