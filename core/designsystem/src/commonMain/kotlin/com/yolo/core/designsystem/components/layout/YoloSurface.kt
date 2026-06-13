@@ -58,7 +58,7 @@ fun YoloSurface(
                 initialValue = 0f,
                 targetValue = (2 * PI).toFloat(),
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 5_000, easing = LinearEasing),
+                    animation = tween(durationMillis = 3_200, easing = LinearEasing),
                     repeatMode = RepeatMode.Restart,
                 ),
                 label = "auraPhaseSlow",
@@ -69,7 +69,7 @@ fun YoloSurface(
                 initialValue = 0f,
                 targetValue = (2 * PI).toFloat(),
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 3_200, easing = LinearEasing),
+                    animation = tween(durationMillis = 5_000, easing = LinearEasing),
                     repeatMode = RepeatMode.Restart,
                 ),
                 label = "auraPhaseFast",

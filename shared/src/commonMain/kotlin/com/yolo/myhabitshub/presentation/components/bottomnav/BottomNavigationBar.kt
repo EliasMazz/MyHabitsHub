@@ -9,8 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.yolo.core.designsystem.theme.colors
-import com.yolo.core.designsystem.theme.extended
 import com.yolo.myhabitshub.presentation.BottomNavItem
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -26,12 +24,8 @@ fun BottomNavigationBar(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surfaceContainer
     ) {
-        val isDark = MaterialTheme.colorScheme.extended.isDark
         items.forEachIndexed { index, item ->
             val isSelected = selectedIndex == index
-            // Each item is colored by its OWN section world, so the selected pill
-            // always shows the destination's hue (section-color-worlds spec §5).
-            val section = item.section.colors(isDark)
             NavigationBarItem(
                 icon = {
                     Icon(
@@ -47,9 +41,9 @@ fun BottomNavigationBar(
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = section.onNavIndicator,
-                    selectedTextColor = section.navSelectedText,
-                    indicatorColor = section.navIndicator,
+                    selectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    selectedTextColor = MaterialTheme.colorScheme.secondary,
+                    indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
                     unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 ),

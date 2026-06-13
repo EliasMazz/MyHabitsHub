@@ -49,6 +49,9 @@ private fun sectionColors(
     onSheetSurfaceVariant: Color,
     sheetIconChip: Color,
     onSheetIconChip: Color,
+    navIndicator: Color,
+    onNavIndicator: Color,
+    navSelectedText: Color,
 ) = SectionColors(
     accent = accent,
     onAccent = onAccent,
@@ -60,10 +63,11 @@ private fun sectionColors(
     onSheetSurfaceVariant = onSheetSurfaceVariant,
     sheetIconChip = sheetIconChip,
     onSheetIconChip = onSheetIconChip,
-    // Aliases by construction (spec §3.1) — separate fields so a future world may decouple.
-    navIndicator = accentContainer,
-    onNavIndicator = onAccentContainer,
-    navSelectedText = accent,
+    // v4-D1: the nav chrome is GLOBAL (measured constant on every tab) — the trio equals
+    // the M3 secondary family and is identical across worlds per mode.
+    navIndicator = navIndicator,
+    onNavIndicator = onNavIndicator,
+    navSelectedText = navSelectedText,
     sheetDragHandle = onSheetSurfaceVariant.copy(alpha = 0.40f),
 )
 
@@ -73,20 +77,23 @@ private fun sectionColors(
 val TrackingSectionLight = sectionColors(
     accent = YoloCobalt700,
     onAccent = YoloInk0,
-    accentContainer = YoloCobalt100,
-    onAccentContainer = YoloCobaltDeep,
+    accentContainer = YoloCobalt150,
+    onAccentContainer = YoloCyan800,
     surfaceTintWash = YoloCobaltWashLight,
     sheetSurface = YoloCobaltSheetLight,
     onSheetSurface = YoloInk800,
     onSheetSurfaceVariant = YoloCobaltVariantLight,
     sheetIconChip = YoloCobalt150,
     onSheetIconChip = YoloCyan800,
+    navIndicator = YoloCyan100,
+    onNavIndicator = YoloCyan800,
+    navSelectedText = YoloCyan700,
 )
 
 val TrackingSectionDark = sectionColors(
     accent = YoloCobalt300,
     onAccent = YoloBlueOnDark,
-    accentContainer = YoloCobaltDarkContainer, // #004A77 — pixel-identical to the reference app's nav pill
+    accentContainer = YoloCobaltDarkContainer,
     onAccentContainer = YoloCobaltContainerOn,
     surfaceTintWash = YoloCobaltWashDark,
     sheetSurface = YoloCobaltSheetDark,
@@ -94,32 +101,41 @@ val TrackingSectionDark = sectionColors(
     onSheetSurfaceVariant = YoloCobaltVariantDark,
     sheetIconChip = YoloCobaltChipDark,
     onSheetIconChip = YoloCobaltContainerOn,
+    navIndicator = YoloCyan800,
+    onNavIndicator = YoloCyan100,
+    navSelectedText = YoloCyan300,
 )
 
 val ProgressSectionLight = sectionColors(
     accent = YoloBrand800,
     onAccent = YoloInk0,
-    accentContainer = YoloBrand100,
-    onAccentContainer = YoloBrand700,
+    accentContainer = YoloBrand500,
+    onAccentContainer = YoloBrand900,
     surfaceTintWash = YoloBrandWashLight,
     sheetSurface = YoloBrandSheetLight,
     onSheetSurface = YoloInk800,
     onSheetSurfaceVariant = YoloBrandVariantLight,
     sheetIconChip = YoloBrandChipLight,
-    onSheetIconChip = YoloBrandDeep,
+    onSheetIconChip = YoloBrand800,
+    navIndicator = YoloCyan100,
+    onNavIndicator = YoloCyan800,
+    navSelectedText = YoloCyan700,
 )
 
 val ProgressSectionDark = sectionColors(
     accent = YoloBrand300,
     onAccent = YoloBrand1000,
-    accentContainer = YoloBrand900,
+    accentContainer = YoloBrand700,
     onAccentContainer = YoloBrand300,
     surfaceTintWash = YoloBrandWashDark,
-    sheetSurface = YoloDeep200, // neutral dark sheet — decoupled from successContainer
+    sheetSurface = YoloDeep200,
     onSheetSurface = YoloInkText,
     onSheetSurfaceVariant = YoloBrandVariantDark,
-    sheetIconChip = YoloBrand900,
-    onSheetIconChip = YoloBrand300,
+    sheetIconChip = YoloBrand200,
+    onSheetIconChip = YoloBrand1000,
+    navIndicator = YoloCyan800,
+    onNavIndicator = YoloCyan100,
+    navSelectedText = YoloCyan300,
 )
 
 val SettingsSectionLight = sectionColors(
@@ -133,6 +149,9 @@ val SettingsSectionLight = sectionColors(
     onSheetSurfaceVariant = YoloVioletVariantLight,
     sheetIconChip = YoloViolet150,
     onSheetIconChip = YoloViolet700,
+    navIndicator = YoloCyan100,
+    onNavIndicator = YoloCyan800,
+    navSelectedText = YoloCyan700,
 )
 
 val SettingsSectionDark = sectionColors(
@@ -144,8 +163,11 @@ val SettingsSectionDark = sectionColors(
     sheetSurface = YoloVioletSheetDark,
     onSheetSurface = YoloInkText,
     onSheetSurfaceVariant = YoloVioletVariantDark,
-    sheetIconChip = YoloVioletChipDark,
-    onSheetIconChip = YoloVioletContainerOn,
+    sheetIconChip = YoloVioletDeep,
+    onSheetIconChip = YoloViolet100,
+    navIndicator = YoloCyan800,
+    onNavIndicator = YoloCyan100,
+    navSelectedText = YoloCyan300,
 )
 
 fun YoloSection.colors(isDark: Boolean): SectionColors = when (this) {

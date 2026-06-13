@@ -108,7 +108,7 @@ fun RegisterScreenContent(
     passwordFocusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     YoloAdaptiveFormLayout(
-        aura = MaterialTheme.colorScheme.extended.auraMint,
+        aura = MaterialTheme.colorScheme.extended.auraMint.copy(alpha = 0.34f),
         auraCenterFraction = Offset(0.9f, 0f),
         errorText = state.registrationError?.value,
         errorAction = if (state.isAccountConflict) {

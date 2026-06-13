@@ -10,8 +10,6 @@ import com.yolo.auth.presentation.navigation.AuthGraphRoutes
 import com.yolo.auth.presentation.navigation.authGraph
 import com.yolo.myhabitshub.navigation.routes.AppRoutes
 import com.yolo.myhabitshub.presentation.screens.main.MainScreen
-import com.yolo.onboarding.presentation.navigation.OnBoardingRoutes
-import com.yolo.onboarding.presentation.navigation.onBoardingGraph
 
 @Composable
 fun AppNavigationRoot(
@@ -27,13 +25,6 @@ fun AppNavigationRoot(
         authGraph(
             navController = navController,
             onLoginSuccess = onLoginSuccess
-        )
-        onBoardingGraph(
-            onOnBoardingComplete = {
-                navController.navigate(AppRoutes.Main) {
-                    popUpTo(OnBoardingRoutes.Graph) { inclusive = true }
-                }
-            }
         )
         composable<AppRoutes.Main> {
             // separate 'mainNavController' is used because it's the one that controls MainNavHost for bottomsheet

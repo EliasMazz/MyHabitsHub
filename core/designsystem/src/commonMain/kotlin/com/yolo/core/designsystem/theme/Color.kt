@@ -148,3 +148,19 @@ val YoloOnSecondaryContainerDark = YoloCyan100
 val YoloPrimaryHoverLight = YoloBlueDeep
 val YoloSurfaceVariantLight = Color(0xFFE1E3E1) // GM NV90
 val YoloNeutral95 = Color(0xFFF2F2F2) // GM N95 — light inverseOnSurface
+
+// v4 additions (measured)
+val YoloPeriwinkle500 = Color(YoloColorPrimitives.Periwinkle500)
+val YoloPeriwinkle300 = Color(YoloColorPrimitives.Periwinkle300)
+val YoloPeriwinkleInk = Color(YoloColorPrimitives.PeriwinkleInk)
+val YoloPeach900 = Color(YoloColorPrimitives.Peach900)
+val YoloPeach100 = Color(YoloColorPrimitives.Peach100)
+val YoloPeach400 = Color(YoloColorPrimitives.Peach400)
+val YoloPeach50 = Color(YoloColorPrimitives.Peach50)
+val YoloGreen400 = Color(YoloColorPrimitives.Green400)
+val YoloGreenBandDark = Color(YoloColorPrimitives.GreenBandDark)
+val YoloGreenChipLight = Color(YoloColorPrimitives.GreenChipLight)
+val YoloCyan150 = Color(YoloColorPrimitives.Cyan150)
+val YoloCyan850 = Color(YoloColorPrimitives.Cyan850)
+val YoloViolet200 = Color(YoloColorPrimitives.Violet200)
+val YoloAmber500 = Color(YoloColorPrimitives.Amber500)

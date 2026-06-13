@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<resources>
-    <string name="btn_get_started">Get Started</string>
-    <string name="btn_next">Next</string>
-    <string name="btn_skip">Skip</string>
-    <string name="desc_onboarding_page_1">Amazing Description Text will be here</string>
-    <string name="title_onboarding_page_1">Amazing Title</string>
-</resources>

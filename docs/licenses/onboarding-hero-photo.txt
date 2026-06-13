@@ -1,0 +1,27 @@
+Onboarding hero photo (feature/auth/presentation/src/commonMain/composeResources/drawable/onboarding_hero.jpg)
+
+Photo: "Woman doing yoga meditation on brown parquet flooring"
+Photographer: Jared Rice (https://unsplash.com/@jareddrice)
+Source: https://unsplash.com/photos/NTyBbu66_SI
+License: Unsplash License (https://unsplash.com/license)
+  - Free for commercial and noncommercial use, no permission needed.
+  - Attribution not required (credited here as a courtesy).
+Modifications: cropped to 1080x1600, re-encoded JPEG q75.
+
+---
+
+Onboarding carousel photo 2 (onboarding_gym.jpg)
+Photo: "topless man in black shorts carrying black dumbbell"
+Photographer: Anastase Maragos (https://unsplash.com/@visualsbyroyalz)
+Source: https://unsplash.com/photos/7kEpUPB8vNk
+License: Unsplash License (https://unsplash.com/license)
+Modifications: cropped to 1080x1600, re-encoded JPEG q82.
+
+---
+
+Onboarding carousel photo 3 (onboarding_water.jpg)
+Photo: "woman in black tank top drinking water"
+Photographer: engin akyurt (https://unsplash.com/@enginakyurt)
+Source: https://unsplash.com/photos/PcU17evKnew
+License: Unsplash License (https://unsplash.com/license)
+Modifications: cropped to 1080x1600, re-encoded JPEG q82.

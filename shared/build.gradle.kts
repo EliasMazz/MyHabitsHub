@@ -54,8 +54,6 @@ kotlin {
             implementation(projects.feature.account.domain)
             implementation(projects.feature.account.data)
             implementation(projects.feature.account.presentation)
-
-            implementation(projects.feature.onboarding.presentation)
         }
 
         commonTest.dependencies {

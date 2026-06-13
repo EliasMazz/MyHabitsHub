@@ -150,10 +150,9 @@ class ContrastTest {
         assertContrast(scheme.error, s.surfaceTintWash, 4.5, "$mode error/surfaceTintWash")
         assertContrast(x.habitPending, s.surfaceTintWash, 3.0, "$mode habitPending/surfaceTintWash")
 
-        // Structural alias invariants (spec §3.1)
-        assertTrue(s.navIndicator == s.accentContainer, "$mode navIndicator must alias accentContainer")
-        assertTrue(s.onNavIndicator == s.onAccentContainer, "$mode onNavIndicator must alias onAccentContainer")
-        assertTrue(s.navSelectedText == s.accent, "$mode navSelectedText must alias accent")
+        assertTrue(s.navIndicator == scheme.secondaryContainer, "$mode navIndicator must equal secondaryContainer")
+        assertTrue(s.onNavIndicator == scheme.onSecondaryContainer, "$mode onNavIndicator must equal onSecondaryContainer")
+        assertTrue(s.navSelectedText == scheme.secondary, "$mode navSelectedText must equal secondary")
         assertTrue(
             s.sheetDragHandle == s.onSheetSurfaceVariant.copy(alpha = 0.40f),
             "$mode sheetDragHandle must be onSheetSurfaceVariant @40% alpha"
@@ -174,7 +173,7 @@ class ContrastTest {
         // world's primary roles are byte-identical to the base scheme by construction.
         assertTrue(TrackingSectionLight.accent == LightColorScheme.primary, "Tracking light accent == base primary")
         assertTrue(TrackingSectionDark.accent == DarkColorScheme.primary, "Tracking dark accent == base primary")
-        assertTrue(TrackingSectionLight.accentContainer == LightColorScheme.primaryContainer, "Tracking light container == base primaryContainer")
+        assertTrue(TrackingSectionLight.accentContainer == LightColorScheme.secondaryContainer, "Tracking light container == secondaryContainer (measured pill family)")
     }
 
     @Test

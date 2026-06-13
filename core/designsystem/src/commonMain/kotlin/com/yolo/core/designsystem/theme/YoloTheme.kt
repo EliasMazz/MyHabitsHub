@@ -24,7 +24,7 @@ fun YoloTheme(
 
     CompositionLocalProvider(
         LocalExtendedColors provides if (darkTheme) DarkExtendedColors else LightExtendedColors,
-        // Non-tab screens (auth, onboarding) degrade to the brand (Progress) world.
+        // Non-tab screens (auth) degrade to the brand (Progress) world.
         LocalYoloSection provides YoloSection.Progress.colors(darkTheme),
         LocalYoloSpacing provides spacingFor(minWidthDp),
         LocalYoloSizing provides sizingFor(minWidthDp, inputProfile),

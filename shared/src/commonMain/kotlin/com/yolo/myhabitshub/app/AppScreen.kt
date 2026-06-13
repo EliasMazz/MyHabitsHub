@@ -26,7 +26,6 @@ import com.yolo.core.presentation.util.UiText
 import com.yolo.myhabitshub.navigation.AppNavigationRoot
 import com.yolo.myhabitshub.navigation.DeepLinkListener
 import com.yolo.myhabitshub.navigation.routes.AppRoutes
-import com.yolo.onboarding.presentation.navigation.OnBoardingRoutes
 import com.yolo.core.catalog.DesignSystemCatalogScreen
 import com.yolo.myhabitshub.util.extensions.ObserveFlowAsEvent
 import kotlinx.coroutines.channels.Channel
@@ -112,7 +111,7 @@ private fun AppScaffold(navController: NavHostController) {
     Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }) {
         AppNavigationRoot(
             navController = navController,
-            startDestination = OnBoardingRoutes.Graph
+            startDestination = AppRoutes.Main
         )
     }
 }

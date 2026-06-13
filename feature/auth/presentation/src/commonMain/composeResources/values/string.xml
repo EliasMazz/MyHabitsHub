@@ -45,6 +45,12 @@
     <string name="continue_with_email">Continue with email</string>
     <string name="already_have_account_log_in">Already have an account? Log in</string>
     <string name="legal_agree_continue">By continuing you agree to our Terms &amp; Privacy Policy</string>
+    <string name="onboarding_headline_1">MyHabitsHub</string>
+    <string name="onboarding_body_1">Small steps, every single day.</string>
+    <string name="onboarding_headline_2">Track every streak</string>
+    <string name="onboarding_body_2">Celebrate every win you earn.</string>
+    <string name="onboarding_headline_3">Stay on course</string>
+    <string name="onboarding_body_3">Gentle reminders keep you going.</string>
     <string name="sso_coming_soon">Social sign-in is coming soon — use email for now</string>
     <string name="reset_password">Reset password</string>
 

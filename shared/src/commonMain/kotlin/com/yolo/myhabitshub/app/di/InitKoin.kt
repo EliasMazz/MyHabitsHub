@@ -11,7 +11,6 @@ import com.yolo.habits.presentation.di.habitsPresentationModule
 import com.yolo.myhabitshub.app.AppViewModel
 import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
 import com.yolo.myhabitshub.util.platformModule
-import com.yolo.onboarding.presentation.di.onBoardingPresentationModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.module.Module
@@ -32,10 +31,9 @@ private val appModule = module {
     viewModelOf(::AppViewModel)
 }
 
-val appModules: List<Module> get() = platformModule + appModule + coreModule + authModule + habitsModule + accountModule + onboardingModule
+val appModules: List<Module> get() = platformModule + appModule + coreModule + authModule + habitsModule + accountModule
 
 private val coreModule: List<Module> get() = listOf(coreDataModule)
 private val authModule: List<Module> get() = authDomainModule + authPresentationModule
 private val habitsModule: List<Module> get() = listOf(habitsPresentationModule)
 private val accountModule: List<Module> get() = accountDomainModule + accountDataModule + accountPresentationModule
-private val onboardingModule: List<Module> get() = listOf(onBoardingPresentationModule)

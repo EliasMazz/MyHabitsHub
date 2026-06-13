@@ -116,7 +116,7 @@ fun LoginScreenContent(
     passwordFocusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     YoloAdaptiveFormLayout(
-        aura = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+        aura = MaterialTheme.colorScheme.extended.auraMint.copy(alpha = 0.34f),
         auraCenterFraction = Offset(0.1f, 0f),
         logo = null,
         modifier = Modifier.fillMaxSize(),
