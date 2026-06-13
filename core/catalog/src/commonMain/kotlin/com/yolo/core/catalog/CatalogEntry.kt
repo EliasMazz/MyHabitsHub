@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import com.yolo.core.catalog.demos.componentEntries
 import com.yolo.core.catalog.demos.foundationEntries
+import com.yolo.core.catalog.demos.patternEntries
 
 /**
  * Design System Catalog registry.
@@ -31,9 +32,11 @@ data class CatalogEntry(
 enum class CatalogCategory(val label: String) {
     Foundations("Foundations — tokens"),
     Components("Components"),
+    Patterns("Patterns — screen blueprints & drafts"),
 }
 
 val catalogSections: Map<CatalogCategory, List<CatalogEntry>> = mapOf(
     CatalogCategory.Foundations to foundationEntries,
     CatalogCategory.Components to componentEntries,
+    CatalogCategory.Patterns to patternEntries,
 )

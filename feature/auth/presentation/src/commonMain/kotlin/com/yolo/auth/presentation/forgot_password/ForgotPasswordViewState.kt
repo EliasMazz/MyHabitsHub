@@ -6,8 +6,11 @@ import com.yolo.core.presentation.viewmodel.BaseViewModel
 data class ForgotPasswordViewState(
     val email: String = "",
     val emailError: UiText? = null,
+    val isEmailValid: Boolean = false,
     val isLoading: Boolean = false,
     val errorText: UiText? = null,
-    val isEmailSentSuccessfully: Boolean = false,
-    val canSubmit: Boolean = false,
+    val isEmailSent: Boolean = false,
+    val isResending: Boolean = false,
+    val resendCooldownSeconds: Int = 0,
+    val resendError: UiText? = null,
 ) : BaseViewModel.ViewState

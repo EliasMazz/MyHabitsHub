@@ -15,8 +15,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.theme.extended
 
@@ -35,8 +40,16 @@ fun YoloTextFieldLayout(
     }
     val isFocused by interactionSource.collectIsFocusedAsState()
 
+    // Blur callbacks fire only after the field has gained focus once — otherwise
+    // on-blur validation (spec §1.1 V1) would show errors on screen entry.
+    var hasGainedFocus by remember { mutableStateOf(false) }
     LaunchedEffect(isFocused) {
-        onFocusChanged(isFocused)
+        if (isFocused) {
+            hasGainedFocus = true
+            onFocusChanged(true)
+        } else if (hasGainedFocus) {
+            onFocusChanged(false)
+        }
     }
 
     val textFieldStyleModifier = Modifier
@@ -60,7 +73,7 @@ fun YoloTextFieldLayout(
             },
             shape = RoundedCornerShape(8.dp)
         )
-        .padding(12.dp)
+        .padding(horizontal = 12.dp, vertical = 4.dp)
 
     Column(
         modifier = modifier
@@ -76,17 +89,21 @@ fun YoloTextFieldLayout(
 
         textField(textFieldStyleModifier, interactionSource)
 
-        if(supportingText != null) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = supportingText,
-                color = if(isError) {
-                    MaterialTheme.colorScheme.error
-                } else {
-                    MaterialTheme.colorScheme.extended.textTertiary
-                },
-                style = MaterialTheme.typography.bodySmall
-            )
-        }
+        // Always reserve one supporting-text line so errors appearing/clearing
+        // never shift the layout (spec §1.3 E7).
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = supportingText.orEmpty(),
+            color = if(isError) {
+                MaterialTheme.colorScheme.error
+            } else {
+                MaterialTheme.colorScheme.extended.textTertiary
+            },
+            style = MaterialTheme.typography.bodySmall,
+            minLines = 1,
+            modifier = Modifier.semantics {
+                if (isError) liveRegion = LiveRegionMode.Polite
+            }
+        )
     }
 }

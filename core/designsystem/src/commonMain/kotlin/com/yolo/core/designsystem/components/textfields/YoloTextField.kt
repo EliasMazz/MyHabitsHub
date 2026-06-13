@@ -1,19 +1,28 @@
 package com.yolo.core.designsystem.components.textfields
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.theme.YoloTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.designsystem.theme.extended
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -30,6 +39,12 @@ fun YoloTextField(
     enabled: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text,
     onFocusChanged: (Boolean) -> Unit = {},
+    imeAction: ImeAction = ImeAction.Default,
+    onImeAction: (() -> Unit)? = null,
+    capitalization: KeyboardCapitalization = KeyboardCapitalization.Unspecified,
+    autoCorrectEnabled: Boolean? = null,
+    contentType: ContentType? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
 ) {
     YoloTextFieldLayout(
         title = title,
@@ -52,25 +67,56 @@ fun YoloTextField(
                 }
             ),
             keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType
+                keyboardType = keyboardType,
+                imeAction = imeAction,
+                capitalization = capitalization,
+                autoCorrectEnabled = autoCorrectEnabled,
             ),
+            keyboardActions = if (onImeAction != null) {
+                KeyboardActions(
+                    onDone = { onImeAction() },
+                    onGo = { onImeAction() },
+                    onNext = { onImeAction() },
+                    onSearch = { onImeAction() },
+                    onSend = { onImeAction() },
+                )
+            } else {
+                KeyboardActions.Default
+            },
             cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             interactionSource = interactionSource,
-            modifier = styleModifier,
+            modifier = styleModifier.semantics {
+                contentType?.let { this.contentType = it }
+            },
             decorationBox = { innerBox ->
-                Box(
+                // Same 48dp min row as the password field so both render identically.
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.CenterStart
+                        .fillMaxWidth()
+                        .heightIn(min = YoloTokens.sizing.minTouchTarget),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if(value.isEmpty() && placeholder != null) {
-                        Text(
-                            text = placeholder,
-                            color = MaterialTheme.colorScheme.extended.textPlaceholder,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                    Box(
+                        modifier = Modifier.weight(1f),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        if(value.isEmpty() && placeholder != null) {
+                            Text(
+                                text = placeholder,
+                                color = MaterialTheme.colorScheme.extended.textPlaceholder,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                        innerBox()
                     }
-                    innerBox()
+                    if (trailingIcon != null) {
+                        Box(
+                            modifier = Modifier.width(YoloTokens.sizing.icon),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            trailingIcon()
+                        }
+                    }
                 }
             }
         )

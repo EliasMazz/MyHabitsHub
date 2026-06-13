@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -96,8 +97,8 @@ fun YoloButton(
     }
 
     Button(
-        onClick = onClick,
-        modifier = modifier,
+        onClick = { if (!isLoading) onClick() },
+        modifier = modifier.defaultMinSize(minHeight = 48.dp),
         enabled = enabled,
         shape = CircleShape, // full pill — design-system-v3-spec §6.2 / M3E button convention
         colors = colors,

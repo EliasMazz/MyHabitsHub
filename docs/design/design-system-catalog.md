@@ -9,7 +9,7 @@
 ## 1. The golden rules
 
 1. **Never hardcode a color.** No `Color(0xFF...)`, no `Color.White`/`Color.Black`/`Color.Gray` in feature or shared UI code. Every color comes from `MaterialTheme.colorScheme`, `MaterialTheme.colorScheme.extended`, or `MaterialTheme.colorScheme.section`.
-   *Only exceptions:* `Color.Transparent` (layout plumbing) and `Color.Unspecified` for genuinely multicolor image assets — always with a `// multicolor asset` comment.
+   *Only exceptions:* `Color.Transparent` (layout plumbing), `Color.Unspecified` for genuinely multicolor image assets (always with a `// multicolor asset` comment), and **official third-party SSO button chrome** (Google/Apple sign-in buttons — vendor branding rules override our tokens, see `auth-conversion-spec.md` §3.1; those literals live only inside SSO button renderers/the catalog draft).
 2. **Never construct a `TextStyle` or set `fontSize` in feature code.** Use `MaterialTheme.typography.<slot>` (15 slots) or `YoloTypeExtras` (statHero/kicker/statUnit). Weight changes via `fontWeight =` on `Text` are allowed only for state emphasis (e.g. selected nav label Bold).
 3. **Never use raw `dp` for screen-level spacing.** Use `YoloTokens.spacing.*` (semantic names). Raw dp inside a *designsystem component's internal* geometry is fine; screens use tokens.
 4. **Never use raw `RoundedCornerShape(N.dp)` in features.** Use `MaterialTheme.shapes.*` (4/8/12/16/28).

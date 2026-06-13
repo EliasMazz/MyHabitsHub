@@ -3,59 +3,92 @@ package com.yolo.auth.presentation.register
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.autofill.ContentType
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.yolo.core.designsystem.components.brand.YoloBrandLogo
+import com.yolo.auth.presentation.components.AuthCompactHeader
+import com.yolo.auth.presentation.components.PasswordRuleChecklist
 import com.yolo.core.designsystem.components.buttons.YoloButton
 import com.yolo.core.designsystem.components.buttons.YoloButtonStyle
+import com.yolo.core.designsystem.components.buttons.YoloIconButton
 import com.yolo.core.designsystem.components.layout.YoloAdaptiveFormLayout
-import com.yolo.core.designsystem.components.layout.YoloSnackbarScaffold
 import com.yolo.core.designsystem.components.textfields.YoloPasswordTextField
 import com.yolo.core.designsystem.components.textfields.YoloTextField
 import com.yolo.core.designsystem.theme.YoloTheme
+import com.yolo.core.designsystem.theme.YoloTokens
+import com.yolo.core.designsystem.theme.extended
 import com.yolo.core.presentation.BaseScreen
+import com.yolo.core.presentation.util.UiText
+import myhabitshub.core.designsystem.generated.resources.ic_back
 import myhabitshub.feature.auth.presentation.generated.resources.Res
+import myhabitshub.feature.auth.presentation.generated.resources.navigate_back
 import myhabitshub.feature.auth.presentation.generated.resources.email
 import myhabitshub.feature.auth.presentation.generated.resources.email_placeholder
+import myhabitshub.feature.auth.presentation.generated.resources.error_account_exists
+import myhabitshub.feature.auth.presentation.generated.resources.error_email_required
+import myhabitshub.feature.auth.presentation.generated.resources.error_password_required
 import myhabitshub.feature.auth.presentation.generated.resources.login
+import myhabitshub.feature.auth.presentation.generated.resources.login_instead
 import myhabitshub.feature.auth.presentation.generated.resources.password
-import myhabitshub.feature.auth.presentation.generated.resources.password_hint
 import myhabitshub.feature.auth.presentation.generated.resources.register
-import myhabitshub.feature.auth.presentation.generated.resources.welcome
+import myhabitshub.feature.auth.presentation.generated.resources.register_title
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
+import myhabitshub.core.designsystem.generated.resources.Res as DesignSystemRes
 
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = koinViewModel(),
     navigateToRegisterSuccessEvent: (String) -> Unit,
-    navigateToLoginEvent: () -> Unit,
+    navigateToLoginEvent: (String) -> Unit,
+    onBack: () -> Unit,
 ) {
+    val emailFocusRequester = remember { FocusRequester() }
+    val passwordFocusRequester = remember { FocusRequester() }
+
     BaseScreen(
         viewModel = viewModel,
         handleEvent = { event ->
             when (event) {
-                is RegisterViewEvent.NavigateToRegisterSuccessEvent -> {
+                is RegisterViewEvent.NavigateToRegisterSuccessEvent ->
                     navigateToRegisterSuccessEvent(event.email)
-                }
 
-                RegisterViewEvent.NavigateToLoginEvent -> navigateToLoginEvent()
+                is RegisterViewEvent.NavigateToLoginEvent -> navigateToLoginEvent(event.email)
+
+                RegisterViewEvent.NavigateBackEvent -> onBack()
+
+                is RegisterViewEvent.FocusFirstInvalidFieldEvent -> when (event.field) {
+                    RegisterFormField.EMAIL -> emailFocusRequester.requestFocus()
+                    RegisterFormField.PASSWORD -> passwordFocusRequester.requestFocus()
+                }
             }
         }
     ) { state, onIntent ->
         RegisterScreenContent(
             state = state,
+            emailFocusRequester = emailFocusRequester,
+            passwordFocusRequester = passwordFocusRequester,
+            onEmailChange = { onIntent(RegisterViewIntent.OnEmailChange(it)) },
+            onEmailFocusChanged = { onIntent(RegisterViewIntent.OnEmailFocusChanged(it)) },
+            onPasswordChange = { onIntent(RegisterViewIntent.OnPasswordChange(it)) },
+            onTogglePasswordVisibility = { onIntent(RegisterViewIntent.OnTogglePasswordVisibility) },
             onRegisterClick = { onIntent(RegisterViewIntent.OnRegisterClick) },
             onLoginClick = { onIntent(RegisterViewIntent.OnLoginClick) },
-            onEmailChange = { onIntent(RegisterViewIntent.OnEmailChange(it)) },
-            onPasswordChange = { onIntent(RegisterViewIntent.OnPasswordChange(it)) },
-            onInputTextFocusGain = { onIntent(RegisterViewIntent.OnInputTextFocusGain) },
-            onTogglePasswordVisibility = { onIntent(RegisterViewIntent.OnTogglePasswordVisibility) }
+            onLoginInsteadClick = { onIntent(RegisterViewIntent.OnLoginInsteadClick) },
+            onBackClick = { onIntent(RegisterViewIntent.OnBackClick) },
         )
     }
 }
@@ -63,22 +96,49 @@ fun RegisterScreen(
 @Composable
 fun RegisterScreenContent(
     state: RegisterViewState,
-    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-    onRegisterClick: () -> Unit,
     onEmailChange: (String) -> Unit,
+    onEmailFocusChanged: (Boolean) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onInputTextFocusGain: () -> Unit,
     onTogglePasswordVisibility: () -> Unit,
+    onRegisterClick: () -> Unit,
     onLoginClick: () -> Unit,
+    onLoginInsteadClick: () -> Unit,
+    onBackClick: () -> Unit,
+    emailFocusRequester: FocusRequester = remember { FocusRequester() },
+    passwordFocusRequester: FocusRequester = remember { FocusRequester() },
 ) {
-    YoloSnackbarScaffold(
-        snackbarHostState = snackbarHostState
-    ) {
-        YoloAdaptiveFormLayout(
-            headerText = stringResource(Res.string.welcome),
-            errorText = state.registrationError?.value,
-            logo = { YoloBrandLogo() },
-        ) {
+    YoloAdaptiveFormLayout(
+        aura = MaterialTheme.colorScheme.extended.auraMint,
+        auraCenterFraction = Offset(0.9f, 0f),
+        errorText = state.registrationError?.value,
+        errorAction = if (state.isAccountConflict) {
+            {
+                YoloButton(
+                    text = stringResource(Res.string.login_instead),
+                    onClick = onLoginInsteadClick,
+                    style = YoloButtonStyle.TEXT,
+                    enabled = !state.isLoading,
+                )
+            }
+        } else {
+            null
+        },
+        logo = null,
+        navigationIcon = {
+            YoloIconButton(onClick = onBackClick) {
+                Icon(
+                    painter = painterResource(DesignSystemRes.drawable.ic_back),
+                    contentDescription = stringResource(Res.string.navigate_back),
+                )
+            }
+        },
+        formContent = {
+            AuthCompactHeader(
+                title = stringResource(Res.string.register_title),
+            )
+
+            Spacer(modifier = Modifier.height(YoloTokens.spacing.sectionGap))
+
             YoloTextField(
                 value = state.email,
                 onValueChange = onEmailChange,
@@ -87,63 +147,180 @@ fun RegisterScreenContent(
                 title = stringResource(Res.string.email),
                 supportingText = state.emailError?.value,
                 isError = state.emailError != null,
-                onFocusChanged = { isFocused ->
-                    onInputTextFocusGain.invoke()
+                onFocusChanged = onEmailFocusChanged,
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next,
+                onImeAction = { passwordFocusRequester.requestFocus() },
+                capitalization = KeyboardCapitalization.None,
+                autoCorrectEnabled = false,
+                contentType = ContentType.EmailAddress,
+                trailingIcon = if (state.isEmailValid) {
+                    {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.extended.success,
+                        )
+                    }
+                } else {
+                    null
                 },
-                keyboardType = KeyboardType.Email
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(emailFocusRequester),
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(YoloTokens.spacing.itemGap))
 
             YoloPasswordTextField(
                 value = state.password,
                 onValueChange = onPasswordChange,
                 placeholder = stringResource(Res.string.password),
                 title = stringResource(Res.string.password),
-                supportingText = state.passwordError?.value
-                    ?: stringResource(Res.string.password_hint),
-                isError = state.emailError != null,
-                onFocusChanged = { isFocused ->
-                    onInputTextFocusGain.invoke()
-                },
+                supportingText = state.passwordError?.value,
+                isError = state.passwordError != null,
                 onToggleVisibilityClick = onTogglePasswordVisibility,
-                isPasswordVisible = state.isPasswordVisible
+                isPasswordVisible = state.isPasswordVisible,
+                imeAction = ImeAction.Done,
+                onImeAction = onRegisterClick,
+                contentType = ContentType.NewPassword,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(passwordFocusRequester),
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            PasswordRuleChecklist(password = state.password)
+
+            Spacer(modifier = Modifier.height(YoloTokens.spacing.itemGap))
+
             YoloButton(
                 text = stringResource(Res.string.register),
-                enabled = state.canRegister,
+                onClick = onRegisterClick,
+                // Never gated on form validity — validation happens on submit.
+                enabled = !state.isLoading,
                 isLoading = state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onRegisterClick
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(YoloTokens.spacing.elementGap))
+
             YoloButton(
                 text = stringResource(Res.string.login),
-                isLoading = state.isLoading,
+                onClick = onLoginClick,
                 style = YoloButtonStyle.SECONDARY,
+                enabled = !state.isLoading,
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onLoginClick
             )
-            Spacer(modifier = Modifier.height(24.dp))
+
+            Spacer(modifier = Modifier.height(YoloTokens.spacing.sectionGap))
         }
-    }
+    )
 }
 
-@Composable
 @Preview
-fun RegisterScreenPreview() {
+@Composable
+private fun RegisterScreenContentPreview() {
     YoloTheme {
         RegisterScreenContent(
             state = RegisterViewState(),
-            onRegisterClick = { },
-            onEmailChange = { },
-            onPasswordChange = { },
-            onInputTextFocusGain = { },
-            onTogglePasswordVisibility = { },
-            onLoginClick = {}
+            onEmailChange = {},
+            onEmailFocusChanged = {},
+            onPasswordChange = {},
+            onTogglePasswordVisibility = {},
+            onRegisterClick = {},
+            onLoginClick = {},
+            onLoginInsteadClick = {},
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun RegisterScreenContentValidEmailPreview() {
+    YoloTheme {
+        RegisterScreenContent(
+            state = RegisterViewState(
+                email = "test@yolo.com",
+                isEmailValid = true,
+                password = "Yolo1",
+            ),
+            onEmailChange = {},
+            onEmailFocusChanged = {},
+            onPasswordChange = {},
+            onTogglePasswordVisibility = {},
+            onRegisterClick = {},
+            onLoginClick = {},
+            onLoginInsteadClick = {},
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun RegisterScreenContentEmptySubmitPreview() {
+    YoloTheme {
+        RegisterScreenContent(
+            state = RegisterViewState(
+                emailError = UiText.Resource(Res.string.error_email_required),
+                passwordError = UiText.Resource(Res.string.error_password_required),
+            ),
+            onEmailChange = {},
+            onEmailFocusChanged = {},
+            onPasswordChange = {},
+            onTogglePasswordVisibility = {},
+            onRegisterClick = {},
+            onLoginClick = {},
+            onLoginInsteadClick = {},
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun RegisterScreenContentAccountExistsPreview() {
+    YoloTheme {
+        RegisterScreenContent(
+            state = RegisterViewState(
+                email = "test@yolo.com",
+                isEmailValid = true,
+                password = "YoloPassword1",
+                registrationError = UiText.Resource(Res.string.error_account_exists),
+                isAccountConflict = true,
+            ),
+            onEmailChange = {},
+            onEmailFocusChanged = {},
+            onPasswordChange = {},
+            onTogglePasswordVisibility = {},
+            onRegisterClick = {},
+            onLoginClick = {},
+            onLoginInsteadClick = {},
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun RegisterScreenContentLoadingPreview() {
+    YoloTheme {
+        RegisterScreenContent(
+            state = RegisterViewState(
+                email = "test@yolo.com",
+                isEmailValid = true,
+                password = "YoloPassword1",
+                isLoading = true,
+            ),
+            onEmailChange = {},
+            onEmailFocusChanged = {},
+            onPasswordChange = {},
+            onTogglePasswordVisibility = {},
+            onRegisterClick = {},
+            onLoginClick = {},
+            onLoginInsteadClick = {},
+            onBackClick = {},
         )
     }
 }

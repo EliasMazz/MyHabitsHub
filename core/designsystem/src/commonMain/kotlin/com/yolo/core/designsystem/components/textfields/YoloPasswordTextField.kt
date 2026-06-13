@@ -5,24 +5,32 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.contentType
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.yolo.core.designsystem.theme.YoloTheme
+import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.designsystem.theme.extended
 import myhabitshub.core.designsystem.generated.resources.Res
 import myhabitshub.core.designsystem.generated.resources.eye_icon
@@ -46,6 +54,9 @@ fun YoloPasswordTextField(
     isError: Boolean = false,
     enabled: Boolean = true,
     onFocusChanged: (Boolean) -> Unit = {},
+    imeAction: ImeAction = ImeAction.Default,
+    onImeAction: (() -> Unit)? = null,
+    contentType: ContentType? = null,
 ) {
     YoloTextFieldLayout(
         title = title,
@@ -58,14 +69,28 @@ fun YoloPasswordTextField(
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = styleModifier,
+            modifier = styleModifier.semantics {
+                contentType?.let { this.contentType = it }
+            },
             enabled = enabled,
+            singleLine = true,
             visualTransformation = if(isPasswordVisible) {
                 VisualTransformation.None
             } else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                imeAction = imeAction,
             ),
+            keyboardActions = if (onImeAction != null) {
+                KeyboardActions(
+                    onDone = { onImeAction() },
+                    onGo = { onImeAction() },
+                    onNext = { onImeAction() },
+                    onSend = { onImeAction() },
+                )
+            } else {
+                KeyboardActions.Default
+            },
             textStyle = MaterialTheme.typography.bodyMedium.copy(
                 color = if(enabled) {
                     MaterialTheme.colorScheme.onSurface
@@ -78,7 +103,8 @@ fun YoloPasswordTextField(
             decorationBox = { innerBox ->
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .heightIn(min = YoloTokens.sizing.minTouchTarget),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -96,20 +122,9 @@ fun YoloPasswordTextField(
                         innerBox()
                     }
 
-                    Icon(
-                        imageVector = if(isPasswordVisible) {
-                            vectorResource(Res.drawable.eye_off_icon)
-                        } else {
-                            vectorResource(Res.drawable.eye_icon)
-                        },
-                        contentDescription = if(isPasswordVisible) {
-                            stringResource(Res.string.hide_password)
-                        } else {
-                            stringResource(Res.string.show_password)
-                        },
-                        tint = MaterialTheme.colorScheme.extended.textDisabled,
+                    Box(
                         modifier = Modifier
-                            .size(24.dp)
+                            .minimumInteractiveComponentSize()
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = ripple(
@@ -117,8 +132,25 @@ fun YoloPasswordTextField(
                                     radius = 24.dp
                                 ),
                                 onClick = onToggleVisibilityClick
-                            )
-                    )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            // State convention: open eye while visible, slashed while hidden.
+                            imageVector = if(isPasswordVisible) {
+                                vectorResource(Res.drawable.eye_icon)
+                            } else {
+                                vectorResource(Res.drawable.eye_off_icon)
+                            },
+                            contentDescription = if(isPasswordVisible) {
+                                stringResource(Res.string.hide_password)
+                            } else {
+                                stringResource(Res.string.show_password)
+                            },
+                            tint = MaterialTheme.colorScheme.extended.textDisabled,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
                 }
             }
         )

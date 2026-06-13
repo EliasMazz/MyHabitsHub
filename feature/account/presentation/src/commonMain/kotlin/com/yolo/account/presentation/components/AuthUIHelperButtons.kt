@@ -38,9 +38,11 @@ fun  AuthUIHelperButtons(
     modifier: Modifier = Modifier,
     authProviders: List<AuthProvider> = AuthProvider.entries,
     shape: Shape = CircleShape,
-    height: Dp = 56.dp,
+    height: Dp = YoloTokens.sizing.inputHeight,
     spaceBetweenButtons: Dp = YoloTokens.spacing.stackGap,
-    textFontSize: TextUnit = 24.sp,
+    // TextUnit forwarded to kmpauth's third-party API (skill V4 interop carve-out);
+    // default sourced from the type scale instead of a raw literal.
+    textFontSize: TextUnit = MaterialTheme.typography.headlineSmall.fontSize,
     autoClickEnabledIfOneProviderExists: Boolean = true,
     onFirebaseResult: (Result<FirebaseUser?>) -> Unit,
     linkAccount: Boolean = false,

@@ -107,6 +107,9 @@ Remove imports the fix orphaned.
 
 - NEVER add a hex/Color literal as a fix. If no token expresses the design intent, report it as
   a spec gap (`docs/design/design-system-v3-spec.md` owns values) and leave a TODO referencing it.
+  ONE sanctioned exception: official Google/Apple SSO button chrome (auth-conversion-spec §3.1)
+  — vendor branding literals are allowed ONLY inside SSO button renderers and the catalog's
+  auth draft; flag them anywhere else.
 - NEVER recolor `habitMissed` toward red, `habitComplete` away from teal, or `streak` away from amber.
 - NEVER edit values in `theme/`, `tokens/`, or `ContrastTest.kt` to make a violation "pass" —
   token changes go through the spec + ContrastTest, both modes, and are a user-level decision.

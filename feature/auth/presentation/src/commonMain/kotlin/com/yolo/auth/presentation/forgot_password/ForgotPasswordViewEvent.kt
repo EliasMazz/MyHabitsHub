@@ -4,4 +4,5 @@ import com.yolo.core.presentation.viewmodel.BaseViewModel.*
 
 sealed interface ForgotPasswordViewEvent : ViewEvent {
     data object NavigateBack : ForgotPasswordViewEvent
+    data class NavigateToLogin(val email: String) : ForgotPasswordViewEvent
 }

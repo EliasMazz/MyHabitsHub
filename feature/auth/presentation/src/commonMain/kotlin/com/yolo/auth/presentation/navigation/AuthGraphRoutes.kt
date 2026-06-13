@@ -7,19 +7,22 @@ sealed interface AuthGraphRoutes {
     data object Graph: AuthGraphRoutes
 
     @Serializable
-    data object Login: AuthGraphRoutes
+    data object Welcome: AuthGraphRoutes
 
     @Serializable
-    data object Register: AuthGraphRoutes
+    data class Login(val email: String = ""): AuthGraphRoutes
+
+    @Serializable
+    data class Register(val email: String = ""): AuthGraphRoutes
 
     @Serializable
     data class RegisterSuccess(val email: String): AuthGraphRoutes
 
     @Serializable
-    data object ForgotPassword: AuthGraphRoutes
+    data class ForgotPassword(val email: String = ""): AuthGraphRoutes
 
     @Serializable
-    data object ResetPassword: AuthGraphRoutes
+    data class ResetPassword(val token: String = ""): AuthGraphRoutes
 
     @Serializable
     data class EmailVerification(val token: String = ""): AuthGraphRoutes

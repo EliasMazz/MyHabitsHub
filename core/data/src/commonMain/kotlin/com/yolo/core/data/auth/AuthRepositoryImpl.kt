@@ -3,6 +3,7 @@ package com.yolo.core.data.auth
 import com.yolo.core.data.auth.dto.request.EmailRequest
 import com.yolo.core.data.auth.dto.request.LoginRequest
 import com.yolo.core.data.auth.dto.request.RegisterRequest
+import com.yolo.core.data.auth.dto.request.ResetPasswordRequest
 import com.yolo.core.data.auth.dto.response.AuthInfoResponse
 import com.yolo.core.data.mapper.toDomain
 import com.yolo.core.data.networking.get
@@ -51,6 +52,19 @@ class AuthRepositoryImpl(
         return httpClient.post(
             route = "api/auth/forgot-password",
             body = EmailRequest(email = email)
+        )
+    }
+
+    override suspend fun resetPassword(
+        newPassword: String,
+        token: String
+    ): EmptyResult<DataError.Remote> {
+        return httpClient.post(
+            route = "/auth/reset-password",
+            body = ResetPasswordRequest(
+                newPassword = newPassword,
+                token = token
+            )
         )
     }
 

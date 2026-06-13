@@ -23,6 +23,11 @@ interface AuthRepository {
         email: String
     ): EmptyResult<DataError.Remote>
 
+    suspend fun resetPassword(
+        newPassword: String,
+        token: String
+    ): EmptyResult<DataError.Remote>
+
     suspend fun login(
         email: String,
         password: String

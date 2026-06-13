@@ -1,0 +1,40 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <!-- Brand loop-h (docs/design/brand/v3_loop_h.svg), gradient baked into the asset -->
+    <path
+        android:pathData="M 360,230 L 360,770"
+        android:strokeWidth="120"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="330" android:startY="220"
+                android:endX="700" android:endY="800">
+                <item android:offset="0.0" android:color="#FF4285F4"/>
+                <item android:offset="0.45" android:color="#FF41DDD0"/>
+                <item android:offset="0.8" android:color="#FF93F4EA"/>
+                <item android:offset="1.0" android:color="#FFFDDEA4"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M 360,560 C 360,430 660,430 660,560 L 660,770"
+        android:strokeWidth="120"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="330" android:startY="220"
+                android:endX="700" android:endY="800">
+                <item android:offset="0.0" android:color="#FF4285F4"/>
+                <item android:offset="0.45" android:color="#FF41DDD0"/>
+                <item android:offset="0.8" android:color="#FF93F4EA"/>
+                <item android:offset="1.0" android:color="#FFFDDEA4"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

@@ -6,7 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import myhabitshub.core.designsystem.generated.resources.Res
-import myhabitshub.core.designsystem.generated.resources.logo_chirp
+import myhabitshub.core.designsystem.generated.resources.logo_h
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
@@ -14,7 +14,7 @@ fun YoloBrandLogo(
     modifier: Modifier = Modifier
 ) {
     Icon(
-        imageVector = vectorResource(Res.drawable.logo_chirp),
+        imageVector = vectorResource(Res.drawable.logo_h),
         contentDescription = null,
         tint = MaterialTheme.colorScheme.primary,
         modifier = modifier
