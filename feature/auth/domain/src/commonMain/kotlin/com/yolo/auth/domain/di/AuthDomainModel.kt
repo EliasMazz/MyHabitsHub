@@ -9,6 +9,7 @@ import com.yolo.auth.domain.ResetPasswordUseCase
 import com.yolo.auth.domain.LoginAuthUseCase
 import com.yolo.auth.domain.RegisterAuthUseCase
 import com.yolo.auth.domain.ResendVerificationEmailUseCase
+import com.yolo.auth.domain.SsoLoginUseCase
 import org.koin.dsl.module
 
 val authDomainModule = module{
@@ -21,4 +22,5 @@ val authDomainModule = module{
     factory { ResetPasswordUseCase(authRepository = get()) }
     factory { ResendCooldownStreamUseCase() }
     factory { LoginAuthUseCase(authRepository = get()) }
+    factory { SsoLoginUseCase(authRepository = get()) }
 }

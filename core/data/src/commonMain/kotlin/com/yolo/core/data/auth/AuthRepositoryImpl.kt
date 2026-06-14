@@ -1,6 +1,8 @@
 package com.yolo.core.data.auth
 
+import com.yolo.core.data.auth.dto.request.AppleLoginRequest
 import com.yolo.core.data.auth.dto.request.EmailRequest
+import com.yolo.core.data.auth.dto.request.GoogleLoginRequest
 import com.yolo.core.data.auth.dto.request.LoginRequest
 import com.yolo.core.data.auth.dto.request.RegisterRequest
 import com.yolo.core.data.auth.dto.request.ResetPasswordRequest
@@ -77,6 +79,34 @@ class AuthRepositoryImpl(
             body = LoginRequest(
                 email = email,
                 password = password
+            )
+        ).map {
+            it.toDomain()
+        }
+    }
+
+    override suspend fun loginWithGoogle(
+        idToken: String
+    ): ResultData<AuthInfo, DataError.Remote> {
+        return httpClient.post<GoogleLoginRequest, AuthInfoResponse>(
+            route = "api/auth/google",
+            body = GoogleLoginRequest(idToken = idToken)
+        ).map {
+            it.toDomain()
+        }
+    }
+
+    override suspend fun loginWithApple(
+        identityToken: String,
+        authorizationCode: String,
+        nonce: String,
+    ): ResultData<AuthInfo, DataError.Remote> {
+        return httpClient.post<AppleLoginRequest, AuthInfoResponse>(
+            route = "api/auth/apple",
+            body = AppleLoginRequest(
+                identityToken = identityToken,
+                authorizationCode = authorizationCode,
+                nonce = nonce,
             )
         ).map {
             it.toDomain()

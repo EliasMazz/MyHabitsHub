@@ -34,7 +34,9 @@ fun NavGraphBuilder.authGraph(
                     navController.navigate(AuthGraphRoutes.Login()) {
                         launchSingleTop = true
                     }
-                }
+                },
+                // SSO success persists a session, then enters the app (same path as email login).
+                navigateToMainEvent = onLoginSuccess,
             )
         }
         composable<AuthGraphRoutes.Login> {

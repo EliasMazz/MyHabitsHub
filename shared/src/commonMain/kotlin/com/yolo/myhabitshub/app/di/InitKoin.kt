@@ -6,8 +6,10 @@ import com.yolo.account.presentation.di.accountPresentationModule
 import com.yolo.auth.domain.di.authDomainModule
 import com.yolo.auth.presentation.di.authPresentationModule
 import com.yolo.core.data.di.coreDataModule
+import com.yolo.core.domain.auth.SsoConfig
 import com.yolo.core.domain.validator.PasswordValidatorUseCase
 import com.yolo.habits.presentation.di.habitsPresentationModule
+import com.yolo.myhabitshub.BuildConfig
 import com.yolo.myhabitshub.app.AppViewModel
 import com.yolo.myhabitshub.presentation.screens.main.MainViewModel
 import com.yolo.myhabitshub.util.platformModule
@@ -26,6 +28,10 @@ import kotlin.coroutines.CoroutineContext
 private val appModule = module {
     factory { Dispatchers.IO } bind CoroutineContext::class
     factory { PasswordValidatorUseCase() }
+
+    // OAuth Web client ID for native Google Sign-In (Credential Manager). Same value the
+    // existing kmpauth GoogleAuthProvider is created with in AppInitializer.
+    single { SsoConfig(googleWebServerClientId = BuildConfig.GOOGLE_WEB_CLIENT_ID) }
 
     viewModelOf(::MainViewModel)
     viewModelOf(::AppViewModel)

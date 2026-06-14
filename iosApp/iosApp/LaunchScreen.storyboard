@@ -20,7 +20,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="0.07843017578" green="0.1765136719" blue="0.1765136719" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="1bO-yT-U1f" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5ti-J6-5Ng"/>
                             <constraint firstItem="1bO-yT-U1f" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Wt6-Vv-Yna"/>
@@ -33,6 +33,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo-nobg" width="92" height="100"/>
+        <image name="logo-nobg" width="100" height="100"/>
     </resources>
 </document>

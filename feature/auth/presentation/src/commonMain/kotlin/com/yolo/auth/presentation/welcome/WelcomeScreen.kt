@@ -29,6 +29,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -47,15 +48,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yolo.auth.presentation.components.AppleAuthButton
+import com.yolo.auth.presentation.components.GoogleAuthButton
+import com.yolo.auth.presentation.sso.SocialSignInResult
+import com.yolo.auth.presentation.sso.rememberAppleSignIn
+import com.yolo.auth.presentation.sso.rememberGoogleSignIn
 import com.yolo.core.designsystem.components.brand.YoloBrandLogo
 import com.yolo.core.designsystem.theme.YoloTheme
 import com.yolo.core.designsystem.theme.YoloTokens
 import com.yolo.core.designsystem.theme.extended
 import com.yolo.core.presentation.BaseScreen
 import myhabitshub.feature.auth.presentation.generated.resources.Res
-import myhabitshub.feature.auth.presentation.generated.resources.continue_with_apple
 import myhabitshub.feature.auth.presentation.generated.resources.continue_with_email
-import myhabitshub.feature.auth.presentation.generated.resources.continue_with_google
 import myhabitshub.feature.auth.presentation.generated.resources.onboarding_body_1
 import myhabitshub.feature.auth.presentation.generated.resources.onboarding_body_2
 import myhabitshub.feature.auth.presentation.generated.resources.onboarding_body_3
@@ -65,11 +69,9 @@ import myhabitshub.feature.auth.presentation.generated.resources.onboarding_head
 import myhabitshub.feature.auth.presentation.generated.resources.onboarding_hero
 import myhabitshub.feature.auth.presentation.generated.resources.onboarding_gym
 import myhabitshub.feature.auth.presentation.generated.resources.onboarding_water
-import myhabitshub.feature.auth.presentation.generated.resources.sso_coming_soon
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -80,6 +82,7 @@ fun WelcomeScreen(
     viewModel: WelcomeViewModel = koinViewModel(),
     navigateToRegisterEvent: () -> Unit,
     navigateToLoginEvent: () -> Unit,
+    navigateToMainEvent: () -> Unit,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     BaseScreen(
@@ -88,17 +91,16 @@ fun WelcomeScreen(
             when (event) {
                 WelcomeViewEvent.NavigateToRegister -> navigateToRegisterEvent()
                 WelcomeViewEvent.NavigateToLogin -> navigateToLoginEvent()
-                WelcomeViewEvent.ShowSsoComingSoon -> {
-                    snackbarHostState.showSnackbar(message = getString(Res.string.sso_coming_soon))
-                }
+                WelcomeViewEvent.NavigateToMain -> navigateToMainEvent()
+                is WelcomeViewEvent.ShowError ->
+                    snackbarHostState.showSnackbar(message = event.message)
             }
         }
     ) { state, onIntent ->
         WelcomeScreenContent(
             state = state,
             snackbarHostState = snackbarHostState,
-            onGoogleClick = { onIntent(WelcomeViewIntent.OnGoogleClick) },
-            onAppleClick = { onIntent(WelcomeViewIntent.OnAppleClick) },
+            onSsoResult = { onIntent(WelcomeViewIntent.OnSsoResult(it)) },
             onContinueWithEmailClick = { onIntent(WelcomeViewIntent.OnContinueWithEmailClick) },
             onLogInClick = { onIntent(WelcomeViewIntent.OnLogInClick) },
         )
@@ -134,18 +136,12 @@ private val DiscSize = 88.dp
 fun WelcomeScreenContent(
     state: WelcomeViewState,
     snackbarHostState: SnackbarHostState,
-    onGoogleClick: () -> Unit,
-    onAppleClick: () -> Unit,
+    onSsoResult: (SocialSignInResult) -> Unit,
     onContinueWithEmailClick: () -> Unit,
     onLogInClick: () -> Unit,
 ) {
     val pagerState = rememberPagerState(pageCount = { ValueProps.size })
 
-    // Auto-advance the carousel every 2s. Key on settledPage (NOT currentPage): currentPage flips
-    // at the animation's halfway point, which would re-launch this effect and cancel the in-flight
-    // animateScrollToPage — freezing the pager mid-slide. settledPage only updates once a page has
-    // fully settled, so the slide always completes. Resets per settle, skips mid-drag, off under
-    // reduced-motion.
     val reducedMotion = YoloTokens.motion.reducedMotion
     LaunchedEffect(pagerState.settledPage, reducedMotion) {
         if (reducedMotion) return@LaunchedEffect
@@ -155,17 +151,31 @@ fun WelcomeScreenContent(
         }
     }
 
-    val ctaText: String?
-    val onCtaClick: () -> Unit
-    when {
-        state.showGoogleButton -> {
-            ctaText = stringResource(Res.string.continue_with_google); onCtaClick = onGoogleClick
-        }
-        state.showAppleButton -> {
-            ctaText = stringResource(Res.string.continue_with_apple); onCtaClick = onAppleClick
-        }
-        else -> {
-            ctaText = null; onCtaClick = {}
+    // Native SSO launchers — only the platform's own button is shown, so only its launcher runs.
+    val onGoogle = rememberGoogleSignIn(state.googleServerClientId, onSsoResult)
+    val onApple = rememberAppleSignIn(onSsoResult)
+    val ssoButton: @Composable (Modifier) -> Unit = { mod ->
+        Box(modifier = mod, contentAlignment = Alignment.Center) {
+            when {
+                state.showGoogleButton -> GoogleAuthButton(
+                    onClick = onGoogle,
+                    enabled = !state.isAuthenticating,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+
+                state.showAppleButton -> AppleAuthButton(
+                    onClick = onApple,
+                    enabled = !state.isAuthenticating,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            if (state.isAuthenticating) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    strokeWidth = 2.dp,
+                )
+            }
         }
     }
 
@@ -173,9 +183,9 @@ fun WelcomeScreenContent(
         BoxWithConstraints(Modifier.fillMaxSize()) {
             val twoPane = maxWidth > maxHeight || maxHeight < 560.dp
             if (twoPane) {
-                WideHero(pagerState, ctaText, onCtaClick, onContinueWithEmailClick)
+                WideHero(pagerState, ssoButton, onContinueWithEmailClick)
             } else {
-                PortraitHero(maxHeight, pagerState, ctaText, onCtaClick, onContinueWithEmailClick)
+                PortraitHero(maxHeight, pagerState, ssoButton, onContinueWithEmailClick)
             }
         }
 
@@ -193,8 +203,7 @@ fun WelcomeScreenContent(
 private fun PortraitHero(
     screenHeight: Dp,
     pagerState: PagerState,
-    ctaText: String?,
-    onCtaClick: () -> Unit,
+    ssoButton: @Composable (Modifier) -> Unit,
     onContinueWithEmailClick: () -> Unit,
 ) {
     val contentWidth = Modifier.widthIn(max = YoloTokens.sizing.maxFormWidth)
@@ -228,13 +237,7 @@ private fun PortraitHero(
 
         Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(Modifier.height(h * PillTopFrac))
-            if (ctaText != null) {
-                OnboardingPillButton(
-                    text = ctaText,
-                    onClick = onCtaClick,
-                    modifier = contentWidth.fillMaxWidth().padding(horizontal = 16.dp),
-                )
-            }
+            ssoButton(contentWidth.fillMaxWidth().padding(horizontal = 16.dp))
             Spacer(Modifier.height(h * (LinkCenterFrac - PillTopFrac) - 56.dp - 24.dp))
             EmailLink(onContinueWithEmailClick)
         }
@@ -248,8 +251,7 @@ private fun PortraitHero(
 @Composable
 private fun WideHero(
     pagerState: PagerState,
-    ctaText: String?,
-    onCtaClick: () -> Unit,
+    ssoButton: @Composable (Modifier) -> Unit,
     onContinueWithEmailClick: () -> Unit,
 ) {
     Row(Modifier.fillMaxSize()) {
@@ -287,14 +289,8 @@ private fun WideHero(
             Spacer(Modifier.height(16.dp))
             PagerDots(ValueProps.size, pagerState.currentPage)
             Spacer(Modifier.height(32.dp))
-            if (ctaText != null) {
-                OnboardingPillButton(
-                    text = ctaText,
-                    onClick = onCtaClick,
-                    modifier = Modifier.widthIn(max = YoloTokens.sizing.maxFormWidth).fillMaxWidth(),
-                )
-                Spacer(Modifier.height(20.dp))
-            }
+            ssoButton(Modifier.widthIn(max = YoloTokens.sizing.maxFormWidth).fillMaxWidth())
+            Spacer(Modifier.height(20.dp))
             EmailLink(onContinueWithEmailClick)
         }
     }
@@ -346,12 +342,15 @@ private fun HeroPhoto(image: DrawableResource, height: Dp, modifier: Modifier = 
 
 @Composable
 private fun BrandDisc(modifier: Modifier = Modifier) {
+    val isDark = MaterialTheme.colorScheme.extended.isDark
     Box(
-        modifier = modifier.size(DiscSize).background(Color.White, CircleShape),
+        modifier = modifier
+            .size(DiscSize)
+            .background(if (isDark) Color(0xFF16181B) else Color.White, CircleShape),
         contentAlignment = Alignment.Center,
     ) {
-        // Disc is white in both themes → mark is a fixed ink (monochrome brand).
-        YoloBrandLogo(tint = Color(0xFF121417), modifier = Modifier.size(DiscSize / 2))
+        // Disc + mark follow the theme so they match the app icon's light/dark variant.
+        YoloBrandLogo(modifier = Modifier.size(DiscSize / 2))
     }
 }
 
@@ -368,29 +367,6 @@ private fun EmailLink(onClick: () -> Unit, modifier: Modifier = Modifier) {
             .padding(horizontal = 24.dp, vertical = 12.dp)
             .wrapContentSize(Alignment.Center),
     )
-}
-
-@Composable
-private fun OnboardingPillButton(
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    // 56dp full pill, scheme primary fill — the SSO draft's skin.
-    Box(
-        modifier = modifier
-            .height(56.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onPrimary,
-        )
-    }
 }
 
 @Composable
@@ -426,8 +402,7 @@ private fun WelcomeScreenAndroidPreview() {
         WelcomeScreenContent(
             state = WelcomeViewState(showGoogleButton = true),
             snackbarHostState = SnackbarHostState(),
-            onGoogleClick = {},
-            onAppleClick = {},
+            onSsoResult = {},
             onContinueWithEmailClick = {},
             onLogInClick = {},
         )
@@ -441,8 +416,7 @@ private fun WelcomeScreenIosDarkPreview() {
         WelcomeScreenContent(
             state = WelcomeViewState(showAppleButton = true),
             snackbarHostState = SnackbarHostState(),
-            onGoogleClick = {},
-            onAppleClick = {},
+            onSsoResult = {},
             onContinueWithEmailClick = {},
             onLogInClick = {},
         )

@@ -51,7 +51,7 @@
     <string name="onboarding_body_2">Celebrate every win you earn.</string>
     <string name="onboarding_headline_3">Stay on course</string>
     <string name="onboarding_body_3">Gentle reminders keep you going.</string>
-    <string name="sso_coming_soon">Social sign-in is coming soon — use email for now</string>
+    <string name="error_sso_failed">We could not sign you in. Please try again.</string>
     <string name="reset_password">Reset password</string>
 
     <string name="login_support_line">Pick up where you left off.</string>

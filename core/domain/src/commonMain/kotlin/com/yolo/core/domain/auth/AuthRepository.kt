@@ -32,4 +32,23 @@ interface AuthRepository {
         email: String,
         password: String
     ) : ResultData<AuthInfo, DataError.Remote>
+
+    /**
+     * Exchanges a Google ID token (obtained on Android via Credential Manager) for an app session.
+     * The backend verifies the token against Google's public keys and returns its own JWT pair.
+     */
+    suspend fun loginWithGoogle(
+        idToken: String
+    ): ResultData<AuthInfo, DataError.Remote>
+
+    /**
+     * Exchanges an Apple identity token + authorization code (obtained on iOS via ASAuthorization)
+     * for an app session. [nonce] is the RAW nonce; the backend hashes it (SHA-256) and compares it
+     * with the `nonce` claim inside the identity token to defend against replay.
+     */
+    suspend fun loginWithApple(
+        identityToken: String,
+        authorizationCode: String,
+        nonce: String,
+    ): ResultData<AuthInfo, DataError.Remote>
 }

@@ -20,13 +20,17 @@ kotlin {
 
         androidMain {
             dependencies {
-
+                // Native Google Sign-In via AndroidX Credential Manager (no Firebase).
+                implementation(libs.androidx.credentials)
+                implementation(libs.androidx.credentials.play.services.auth)
+                implementation(libs.google.identity.googleid)
             }
         }
 
         iosMain {
             dependencies {
-
+                // Apple Sign-In uses the native AuthenticationServices framework via Kotlin/Native
+                // interop (no extra dependency required).
             }
         }
     }

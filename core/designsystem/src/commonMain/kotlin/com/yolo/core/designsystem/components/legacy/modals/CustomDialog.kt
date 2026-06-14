@@ -1,16 +1,13 @@
 package com.yolo.core.designsystem.components.legacy.modals
 
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.yolo.core.designsystem.components.brand.YoloBrandLogo
 import com.yolo.core.designsystem.components.legacy.AppButton
 import com.yolo.core.designsystem.components.legacy.PreviewHelper
-import myhabitshub.core.designsystem.generated.resources.Res
-import myhabitshub.core.designsystem.generated.resources.ic_logo
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -22,12 +19,7 @@ fun CustomDialog(
     AppDialog(
         title = "Title",
         text = "Description",
-        image = {
-            Image(
-                painter = painterResource(Res.drawable.ic_logo),
-                contentDescription = null,
-            )
-        },
+        image = { YoloBrandLogo() },
         btnConfirmText = "Confirm",
         btnDismissText = "Dismiss",
         onConfirm = onConfirm,

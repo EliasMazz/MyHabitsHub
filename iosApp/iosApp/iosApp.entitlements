@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Sign in with Apple. This file is the entitlement Xcode generates when you add the
+	  "Sign in with Apple" capability to the iOS target. If Xcode hasn't wired it yet, add it via
+	  Signing & Capabilities → + Capability → Sign in with Apple (that also enables the capability
+	  on your App ID in the Apple Developer portal and sets CODE_SIGN_ENTITLEMENTS to this file).
+	  See docs/auth/sso-setup.md.
+	-->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+</dict>
+</plist>
